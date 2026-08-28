@@ -1,0 +1,17 @@
+[Unit]
+Description=FinnSpark Backend — Accelerator & Investment Platform (FastAPI/uvicorn)
+After=network.target
+
+[Service]
+User=administrator
+WorkingDirectory=/home/administrator/finncubate/backend
+ExecStart=/usr/bin/python3 run.py
+Environment=PORT=8002
+Environment=PUBLIC_BASE_URL=https://accelerate.finnpact.com
+DATABASE_URL=sqlite:////home/administrator/finncubate/backend/finnspark.db
+Environment=JWT_SECRET=CHANGE-ME-to-a-long-random-string
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
