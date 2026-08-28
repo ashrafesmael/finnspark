@@ -25,7 +25,13 @@ class Config:
     DEFAULT_LANGUAGE = os.getenv("DEFAULT_LANGUAGE", "en")
     SUPPORTED_LANGUAGES = ["en", "ar", "ru", "fr", "pt"]
 
-    # SMTP (optional) — when SMTP_HOST is set, invites are emailed directly
+    # Microsoft Graph API (preferred when configured — matches finnverify mechanism)
+    MS_GRAPH_TENANT_ID = os.getenv("MS_GRAPH_TENANT_ID", "").strip()
+    MS_GRAPH_CLIENT_ID = os.getenv("MS_GRAPH_CLIENT_ID", "").strip()
+    MS_GRAPH_CLIENT_SECRET = os.getenv("MS_GRAPH_CLIENT_SECRET", "").strip()
+    MS_GRAPH_SENDER = os.getenv("MS_GRAPH_SENDER", "noreply@finnpact.com").strip()
+
+    # SMTP (fallback when Graph is not configured)
     SMTP_HOST = os.getenv("SMTP_HOST", "")
     SMTP_PORT = int(os.getenv("SMTP_PORT", "587"))
     SMTP_USER = os.getenv("SMTP_USER", "")
@@ -34,8 +40,21 @@ class Config:
     SMTP_TLS = os.getenv("SMTP_TLS", "1") == "1"
 
     @property
+    def use_graph(self) -> bool:
+        return bool(
+            self.MS_GRAPH_TENANT_ID
+            and self.MS_GRAPH_CLIENT_ID
+            and self.MS_GRAPH_CLIENT_SECRET
+            and self.MS_GRAPH_SENDER
+        )
+
+    @property
     def smtp_enabled(self) -> bool:
         return bool(self.SMTP_HOST and self.SMTP_FROM)
+
+    @property
+    def email_enabled(self) -> bool:
+        return self.use_graph or self.smtp_enabled
 
 
 config = Config()
