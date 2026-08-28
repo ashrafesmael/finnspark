@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Start the FinnSpark backend (dev helper).
+# Start the finnspark backend (dev helper).
 set -e
 cd "$(dirname "$0")/../backend"
 mkdir -p logs media/uploads

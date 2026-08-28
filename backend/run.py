@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""FinnSpark — accelerator & investment platform. FastAPI entrypoint (mirrors FinnPayments run.py)."""
+"""finnspark — accelerator & investment platform. FastAPI entrypoint (mirrors FinnPayments run.py)."""
 import logging
 import os
 import sys
@@ -19,14 +19,14 @@ logging.basicConfig(
         logging.FileHandler(LOGS_DIR / "finnspark.log", mode="a"),
     ],
 )
-logger = logging.getLogger("FinnSpark")
+logger = logging.getLogger("finnspark")
 
 
 def main():
     host = os.getenv("HOST", "0.0.0.0")
     port = int(os.getenv("PORT", "8002"))
     logger.info("=" * 50)
-    logger.info("FinnSpark — accelerator & investment platform")
+    logger.info("finnspark — accelerator & investment platform")
     logger.info("Starting server on %s:%s", host, port)
     logger.info("=" * 50)
     uvicorn.run(

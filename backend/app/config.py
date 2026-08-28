@@ -8,7 +8,7 @@ if env_file.exists():
 
 
 class Config:
-    APP_NAME = "FinnSpark"
+    APP_NAME = "finnspark"
     DATABASE_URL = os.getenv(
         "DATABASE_URL",
         f"sqlite:///{os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'finnspark.db')}",

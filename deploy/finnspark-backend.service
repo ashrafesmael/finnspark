@@ -1,5 +1,5 @@
 [Unit]
-Description=FinnSpark Backend — Accelerator & Investment Platform (FastAPI/uvicorn)
+Description=finnspark Backend — Accelerator & Investment Platform (FastAPI/uvicorn)
 After=network.target
 
 [Service]

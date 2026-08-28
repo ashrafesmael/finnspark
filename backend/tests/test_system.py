@@ -1,4 +1,4 @@
-"""Comprehensive system test suite for FinnSpark (Finncubate) platform."""
+"""Comprehensive system test suite for finnspark (Finncubate) platform."""
 import os
 import sys
 import time
@@ -27,7 +27,7 @@ class TestSystem:
         res = client.get("/api/health/")
         assert res.status_code == 200
         assert res.json()["status"] == "ok"
-        assert res.json()["app"] == "FinnSpark"
+        assert res.json()["app"] == "finnspark"
 
         # Public config
         res = client.get("/api/config/")

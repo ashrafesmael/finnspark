@@ -1,4 +1,4 @@
-export default function Logo({ size = 22, title = 'FinnSpark' }) {
+export default function Logo({ size = 22, title = 'finnspark' }) {
   return (
     <svg width={size} height={size} viewBox="0 0 64 64" role="img" aria-label={title}>
       <rect width="64" height="64" rx="8" fill="#174950" />

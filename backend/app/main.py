@@ -21,9 +21,9 @@ logging.basicConfig(
     handlers=[logging.StreamHandler(sys.stdout),
               logging.FileHandler(Path(__file__).resolve().parents[1] / "logs" / "backend.log", mode="a")],
 )
-logger = logging.getLogger("FinnSpark")
+logger = logging.getLogger("finnspark")
 
-app = FastAPI(title="FinnSpark — Accelerator & Investment Platform", version="1.0.0")
+app = FastAPI(title="finnspark — Accelerator & Investment Platform", version="1.0.0")
 
 app.add_middleware(
     CORSMiddleware,

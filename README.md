@@ -1,6 +1,6 @@
-# FinnSpark — Accelerator & Investment Platform
+# finnspark — Accelerator & Investment Platform
 
-FinnSpark is a modern, full-featured accelerator and investment management platform for the Finnpact brand,
+finnspark is a modern, full-featured accelerator and investment management platform for the Finnpact brand,
 on the FinnPayments stack: **FastAPI + SQLAlchemy + SQLite (DATABASE_URL-driven) backend ·
 React 18 + Vite frontend · systemd + nginx deployment.**
 

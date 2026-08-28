@@ -1,4 +1,4 @@
-"""Seed FinnSpark with OCIF-style demo data (spec §2/§15.3)."""
+"""Seed finnspark with OCIF-style demo data (spec §2/§15.3)."""
 import random
 from datetime import datetime, timedelta
 

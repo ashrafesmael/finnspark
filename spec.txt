@@ -6,7 +6,7 @@
 Replica Platform
 Build Specification
 A full technical specification for building a functional replica of the
-FinnSpark accelerator-management platform on the FinnPayments /
+finnspark accelerator-management platform on the FinnPayments /
 FinnVerify VPS.
 
 
@@ -18,7 +18,7 @@ FinnVerify VPS.
       Document version     1.0 — 25 August 2026
       Status               Draft for development
 1. Purpose & how to read this document
-This is a build specification for a functional replica of the FinnSpark platform (the SaaS currently used at
+This is a build specification for a functional replica of the finnspark platform (the SaaS currently used at
 app.finnspark.com , where Finnpact operates a branch called "Finnpact LTD"). It was produced by
 studying the running platform directly: navigating every module, inspecting the network/API layer, and reading the
 live JSON data model through the platform's own API.
@@ -40,8 +40,8 @@ It is written so that a developer can build the replica from scratch. It covers:
 
 
 
-2. Executive summary — what FinnSpark is
-FinnSpark is a multi-tenant accelerator / incubator management platform. It runs the complete lifecycle
+2. Executive summary — what finnspark is
+finnspark is a multi-tenant accelerator / incubator management platform. It runs the complete lifecycle
 of an entrepreneurship support programme (an "accelerator" or grant/investment programme), from the moment an
 entrepreneur applies through to selection, training, mentoring, graduation, and finally investment and portfolio
 management.
@@ -66,7 +66,7 @@ to a branch ( organization_branch / branch_id ). Users switch the active branch 
 
 
 
-                                          FinnSpark — Replica Build Specification                        Page 2 of 18
+                                          finnspark — Replica Build Specification                        Page 2 of 18
 3. Personas & roles
 The platform ships five roles (some are "constant"/system roles that always exist per branch; others are custom and
 can be created):
@@ -120,7 +120,7 @@ Sidebar (grouped):
 
 
 
-                                        FinnSpark — Replica Build Specification                                 Page 3 of 18
+                                        finnspark — Replica Build Specification                                 Page 3 of 18
   • Reports — /reports
   • Calendar — /apps/calendar
   • Directories — /directories
@@ -180,7 +180,7 @@ Step by step:
 
 
 
-                                        FinnSpark — Replica Build Specification                      Page 4 of 18
+                                        finnspark — Replica Build Specification                      Page 4 of 18
    status is one of Invited, In Selection, Rejected, Archived. A registered flag tracks whether the founder has
    created their login.
  3. Enrol. Selected applicants become Businesses/Projects inside a Program (a cohort). The program bundles
@@ -232,7 +232,7 @@ lightweight social acknowledgement, count shown).
 
 
 
-                                         FinnSpark — Replica Build Specification                         Page 5 of 18
+                                         finnspark — Replica Build Specification                         Page 5 of 18
 API: GET/POST /announcements/{branch}/ , GET /announcement-statuses/ , GET /programs/{branch}/ .
 
 6.3 Selection Board / Applicants ( /selections/investment-board )
@@ -291,7 +291,7 @@ Purpose: Define cohorts/programmes and manage everything inside them.
 
 
 
-                                         FinnSpark — Replica Build Specification                       Page 6 of 18
+                                         finnspark — Replica Build Specification                       Page 6 of 18
 UI: Program types cards (e.g. Track I Support – 6/8 Months, Track II Support – 12 Months) with counts + Manage
 types; a programmes table: Program · Program type · Businesses/Projects (count) · Courses (count) · Creation
 date · Scoring required (Yes/No) · Actions (edit/delete); Add program; search.
@@ -344,7 +344,7 @@ Purpose: Investment pipeline (CRM of investment cases).
 
 
 
-                                        FinnSpark — Replica Build Specification                    Page 7 of 18
+                                        finnspark — Replica Build Specification                    Page 7 of 18
 UI: stage sub-tabs (All deals + Application, Evaluation, Pitching, Selection, Approved) + Manage stages; filters:
 Tier, Stage, Type, Round, Industry; Add investment case; table of investment cases.
 Investment case carries at minimum: business/company, type (business type), industry, tier (1–3), round (Pre-
@@ -397,7 +397,7 @@ Purpose: People directory across the branch (entrepreneurs, mentors, staff). Tab
 Role; search; filter by role. 107 people in the studied branch.
 
 
-                                         FinnSpark — Replica Build Specification                     Page 8 of 18
+                                         finnspark — Replica Build Specification                     Page 8 of 18
 API: GET /v2/users/{branch}/?ordering=first_name (paginated), GET /roles/{branch}/ .
 
 6.15 Chat ( /apps/chat )
@@ -451,7 +451,7 @@ organization_branch (the tenant key on almost every table).
 
 
 
-                                          FinnSpark — Replica Build Specification                      Page 9 of 18
+                                          finnspark — Replica Build Specification                      Page 9 of 18
  • Stage / SelectionStage (id, OB, name, order, description)
  • Applicant (id, OB, program_id, selection_stage_id, status, email, first_name, last_name,
   business_name, business_logo, country_id, average_score, registered, evaluated_by_me,
@@ -500,7 +500,7 @@ organization_branch (the tenant key on almost every table).
 
 
 
-                                       FinnSpark — Replica Build Specification                     Page 10 of 18
+                                       finnspark — Replica Build Specification                     Page 10 of 18
 7.6 Collaboration & misc
   • Announcement (id, OB, title, body, program_id?, status, date, reactions_count) +
    AnnouncementReaction (announcement_id, user_id, type) .
@@ -551,7 +551,7 @@ The full observed endpoint catalogue is in Appendix 15.1.
 
 
 
-                                       FinnSpark — Replica Build Specification                    Page 11 of 18
+                                       finnspark — Replica Build Specification                    Page 11 of 18
   ⚠️   Security defect in the original — do NOT replicate. The original's JWT payload contains the user's
   password (alongside user_id and an expiry). That is a serious flaw: JWT payloads are only base64-encoded (not
   encrypted), so anyone who reads the token reads the password. In the replica: never put the password (or any
@@ -603,7 +603,7 @@ The full observed endpoint catalogue is in Appendix 15.1.
 
 
 
-                                        FinnSpark — Replica Build Specification                     Page 12 of 18
+                                        finnspark — Replica Build Specification                     Page 12 of 18
 12. Recommended technology stack (matches FinnPayments)
 Chosen to slot in beside FinnPayments/FinnVerify on the same VPS with the same operational model.
 Backend - Python 3 + FastAPI + uvicorn (single run.py entrypoint, same as FinnPayments), pydantic v2 for
@@ -654,9 +654,9 @@ risk 8080; n8n 5678; esign 8088/3003). Suggested here: backend 127.0.0.1:8002 , 
 
 
 
-                                        FinnSpark — Replica Build Specification                   Page 13 of 18
+                                        finnspark — Replica Build Specification                   Page 13 of 18
   [Unit]
-  Description=FinnSpark Backend (FastAPI/uvicorn)
+  Description=finnspark Backend (FastAPI/uvicorn)
   After=network.target
 
   [Service]
@@ -690,7 +690,7 @@ current FinnPayments approach.
 
 
 
-                                         FinnSpark — Replica Build Specification                  Page 14 of 18
+                                         finnspark — Replica Build Specification                  Page 14 of 18
   server {
       server_name accelerate.finnverify.com;
 
@@ -751,7 +751,7 @@ them out of the DB and out of the git repo.
 
 
 
-                                           FinnSpark — Replica Build Specification                          Page 15 of 18
+                                           finnspark — Replica Build Specification                          Page 15 of 18
 14. Suggested build roadmap (phased)
 Build in the order the funnel flows so each phase is demoable.
 Phase 0 — Foundations. Repo scaffold (FastAPI run.py , React/Vite), SQLAlchemy + Alembic, JWT auth
@@ -804,7 +804,7 @@ GET v2/programs/{b}/{program}/businesses/?page=&page_size=&business_name= - GET 
 
 
 
-                                         FinnSpark — Replica Build Specification                   Page 16 of 18
+                                         finnspark — Replica Build Specification                   Page 16 of 18
 {program}/courses/ - GET v2/programs/{program}/business-review/questions/ - GET v2/programs/
 {program}/mentor-conclusion/questions/
 
@@ -859,7 +859,7 @@ permission-denied messages, {id,name,code_name} enum serialisation). Frontend is
 
 
 
-                                         FinnSpark — Replica Build Specification                 Page 17 of 18
+                                         finnspark — Replica Build Specification                 Page 17 of 18
 tracking. IDs are large snowflake-style integers. The replica intentionally re-implements this on FastAPI + React/
 Vite + SQLite/Postgres to match your FinnPayments environment; API shape is preserved so the client port is
 straightforward.
@@ -876,5 +876,5 @@ End of specification.
 
 
 
-                                        FinnSpark — Replica Build Specification                   Page 18 of 18
+                                        finnspark — Replica Build Specification                   Page 18 of 18
 

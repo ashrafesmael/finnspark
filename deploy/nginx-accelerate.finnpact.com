@@ -2,7 +2,7 @@ server {
     listen 80;
     server_name accelerate.finnpact.com;
 
-    # --- API, auth, media -> FinnSpark FastAPI (127.0.0.1:8002) ---
+    # --- API, auth, media -> finnspark FastAPI (127.0.0.1:8002) ---
     location ~ ^/(api|auth|ws|media)/ {
         proxy_pass http://127.0.0.1:8002;
         proxy_set_header Host $host;
