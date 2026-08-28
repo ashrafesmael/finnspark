@@ -1,4 +1,4 @@
-"""Comprehensive system test suite for finnspark (Finncubate) platform."""
+"""Comprehensive system test suite for finnspark (finncubate) platform."""
 import os
 import sys
 import time

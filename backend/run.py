@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""finnspark — accelerator & investment platform. FastAPI entrypoint (mirrors FinnPayments run.py)."""
+"""finnspark — accelerator & investment platform. FastAPI entrypoint (mirrors finnpayments run.py)."""
 import logging
 import os
 import sys

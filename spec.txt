@@ -6,20 +6,20 @@
 Replica Platform
 Build Specification
 A full technical specification for building a functional replica of the
-finnspark accelerator-management platform on the FinnPayments /
-FinnVerify VPS.
+finnspark accelerator-management platform on the finnpayments /
+finnverify VPS.
 
 
 
 
-      Prepared for         Ashraf Esmael, Mont Choisy Group / Finnpact
-      Target deployment    Same VPS as FinnPayments / FinnVerify (Ubuntu 24.04, nginx,
+      Prepared for         Ashraf Esmael, Mont Choisy Group / finnpact
+      Target deployment    Same VPS as finnpayments / finnverify (Ubuntu 24.04, nginx,
                            FastAPI, React/Vite, SQLite, systemd)
       Document version     1.0 — 25 August 2026
       Status               Draft for development
 1. Purpose & how to read this document
 This is a build specification for a functional replica of the finnspark platform (the SaaS currently used at
-app.finnspark.com , where Finnpact operates a branch called "Finnpact LTD"). It was produced by
+app.finnspark.com , where finnpact operates a branch called "finnpact LTD"). It was produced by
 studying the running platform directly: navigating every module, inspecting the network/API layer, and reading the
 live JSON data model through the platform's own API.
 It is written so that a developer can build the replica from scratch. It covers:
@@ -28,14 +28,14 @@ It is written so that a developer can build the replica from scratch. It covers:
   • The data model and entity relationships (Section 7)
   • The API surface and conventions observed on the original (Section 8)
   • Authentication, roles and permissions (Section 9), i18n (Section 10), non-functional needs (Section 11)
-  • The target technology stack and VPS deployment, chosen to match FinnPayments (Sections 12–13)
+  • The target technology stack and VPS deployment, chosen to match finnpayments (Sections 12–13)
   • A phased delivery roadmap (Section 14) and appendices with the raw observed API catalogue, enumerations
     and field types (Section 15)
 
    Note on fidelity. Everything in Sections 2–9 is derived from the observed original system, so it is an accurate
    description of how the real product behaves and is structured. Sections 12–14 are the recommended implementation
    for your environment, not a copy of the original's internals (the original appears to be a Django/DRF backend; we are
-   deliberately re-implementing on the FastAPI/React stack you already run, so it slots in beside FinnPayments).
+   deliberately re-implementing on the FastAPI/React stack you already run, so it slots in beside finnpayments).
 
 
 
@@ -328,7 +328,7 @@ modules→lessons→content with per-user progress), GET /course-statuses/ .
 
 6.7 Library ( /library )
 Purpose: Document repository. Two sub-tabs: Branch files and By program. Upload File. Files are stored per
-branch and optionally per program (e.g. "Finnpact Business Planning Guide").
+branch and optionally per program (e.g. "finnpact Business Planning Guide").
 API: GET/POST /branch/{branch}/documents/ .
 
 6.8 Investment Forms ( /investment-forms )
@@ -384,7 +384,7 @@ summary, financial-indicators, sustainability, equity-overview, requested-techni
 each also supporting ?page=1&page_size=N for export. Plus endpoints for portfolio-snapshot, payments-schedule,
 aging-analysis and forex.
 Replica requirement: every report needs a paginated JSON endpoint plus an Excel export (server-side openpyxl /
-pandas — you already run pandas in FinnPayments).
+pandas — you already run pandas in finnpayments).
 
 
 6.13 Calendar ( /apps/calendar )
@@ -604,40 +604,40 @@ The full observed endpoint catalogue is in Appendix 15.1.
 
 
                                         finnspark — Replica Build Specification                     Page 12 of 18
-12. Recommended technology stack (matches FinnPayments)
-Chosen to slot in beside FinnPayments/FinnVerify on the same VPS with the same operational model.
-Backend - Python 3 + FastAPI + uvicorn (single run.py entrypoint, same as FinnPayments), pydantic v2 for
+12. Recommended technology stack (matches finnpayments)
+Chosen to slot in beside finnpayments/finnverify on the same VPS with the same operational model.
+Backend - Python 3 + FastAPI + uvicorn (single run.py entrypoint, same as finnpayments), pydantic v2 for
 schemas/validation. - SQLAlchemy 2.x ORM + Alembic migrations. pandas/openpyxl for the Excel exports and
-any analytics crunching (you already ship pandas/scikit-learn in FinnPayments). - Auth: python-jose / pyjwt for
+any analytics crunching (you already ship pandas/scikit-learn in finnpayments). - Auth: python-jose / pyjwt for
 JWT, passlib[argon2] for password hashing, fastapi dependencies for RBAC + tenant guards. Refresh token
 in httpOnly cookie (see §9.1). - Real-time: FastAPI WebSocket endpoints for chat/notifications (no extra infra
 needed initially). - Background jobs (optional): start with FastAPI BackgroundTasks ; add a worker later if
 needed. Note: Redis already exists on the box (used by other apps) if you later want a queue — keep it
 namespaced.
-Database - SQLite to match FinnPayments' default ( DATABASE_URL → a file in the project dir, e.g.
+Database - SQLite to match finnpayments' default ( DATABASE_URL → a file in the project dir, e.g.
 finnspark.db ). This is fine to start. -   ⚠️   Recommendation: this app is more relational and concurrent
 (chat, many writers, aggregations, investment financials) than a single-user tool. Design against DATABASE_URL so
 you can move to PostgreSQL 16 (already installed on the box for n8n) with no code change. If you expect
 concurrent writers or heavy reporting, start on Postgres. Either way, keep everything behind SQLAlchemy so the
 swap is a connection-string change.
-Frontend - React 18 + Vite 5 (same as FinnPayments; the original is also React, so components/UX port closely). -
+Frontend - React 18 + Vite 5 (same as finnpayments; the original is also React, so components/UX port closely). -
 Router with SPA history-fallback; an i18n library with RTL; a component/chart library for the dashboards (e.g. MUI +
 Recharts/ECharts). State/data layer: React Query (TanStack) against the REST API. - Auth: access token in
 memory, refresh via cookie; Authorization: Bearer on API calls; currentBranchId kept in app state (not
 trusted by the server — server re-authorises).
 Edge - nginx reverse proxy + Certbot/Let's Encrypt TLS, subdomain-per-app model (see §13).
-This mirrors FinnPayments exactly: systemd-managed FastAPI on a private port, Vite/React on another private port
+This mirrors finnpayments exactly: systemd-managed FastAPI on a private port, Vite/React on another private port
 (dev) or a built static bundle (recommended for prod — see §13.3), nginx terminating TLS and proxying.
 
 
 
-13. Deployment on the VPS (Ubuntu 24.04, alongside FinnPayments/
-FinnVerify)
+13. Deployment on the VPS (Ubuntu 24.04, alongside finnpayments/
+finnverify)
 
 13.1 Topology
 Add a new subdomain for the app, following the sibling pattern ( payments.finnverify.com ,
 screen.finnverify.com , …). Suggested: accelerate.finnverify.com (or a domain of your choice). Everything
-runs as systemd services under the administrator user, no containers, consistent with FinnPayments.
+runs as systemd services under the administrator user, no containers, consistent with finnpayments.
 
   accelerate.finnverify.com ──nginx(:443, Certbot)──┬─▶ 127.0.0.1:3002 (frontend: static build or
   Vite)
@@ -645,7 +645,7 @@ runs as systemd services under the administrator user, no containers, consistent
                                                          proxied ▶ 127.0.0.1:8002 (FastAPI/uvicorn)
 
 
-Pick free local ports so as not to collide with existing apps (FinnPayments uses 3001/8001; screen/aml use 8000;
+Pick free local ports so as not to collide with existing apps (finnpayments uses 3001/8001; screen/aml use 8000;
 risk 8080; n8n 5678; esign 8088/3003). Suggested here: backend 127.0.0.1:8002 , frontend 127.0.0.1:3002 .
 
 13.2 Backend service (systemd) — mirrors finnpayments-backend.service
@@ -679,10 +679,10 @@ config so Postgres is a drop-in later.
 Two options — recommend (A) for production:
 (A) Built static bundle (recommended). npm run build → serve the dist/ via nginx directly (fastest, no Node
 process). No frontend systemd service needed; nginx serves static files with SPA fallback.
-(B) Vite dev server as a service (mirrors FinnPayments' current setup). /etc/systemd/system/
+(B) Vite dev server as a service (mirrors finnpayments' current setup). /etc/systemd/system/
 finnspark-frontend.service running npm run dev -- --port 3002 --host 127.0.0.1 . Matches how
-FinnPayments runs today, but a dev server in prod is not ideal — use (A) unless you specifically want parity with the
-current FinnPayments approach.
+finnpayments runs today, but a dev server in prod is not ideal — use (A) unless you specifically want parity with the
+current finnpayments approach.
 
 13.4 nginx site
 /etc/nginx/sites-available/accelerate.finnverify.com (enable via symlink, then certbot --nginx ):
@@ -831,7 +831,7 @@ scoring_form field type ("Scoring Question") with a weightage (%). Add for the r
 date , number , textarea/long_text .
 
 
-15.3 Enumeration values (as seen in the Finnpact branch)
+15.3 Enumeration values (as seen in the finnpact branch)
   • Selection stages: Track I Onboarding · Track I Support · Pitch Stage · Track II Onboarding · Track II Support
    (configurable per branch)
   • Applicant statuses: Invited · In Selection · Rejected · Archived
@@ -861,7 +861,7 @@ permission-denied messages, {id,name,code_name} enum serialisation). Frontend is
 
                                          finnspark — Replica Build Specification                 Page 17 of 18
 tracking. IDs are large snowflake-style integers. The replica intentionally re-implements this on FastAPI + React/
-Vite + SQLite/Postgres to match your FinnPayments environment; API shape is preserved so the client port is
+Vite + SQLite/Postgres to match your finnpayments environment; API shape is preserved so the client port is
 straightforward.
 
 15.5 Security note (must-fix vs original)

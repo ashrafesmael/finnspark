@@ -122,14 +122,14 @@ def main():
     db.flush()
 
     # ------------------------------------------------------------ tenancy
-    org = Organization(name="Finnpact LTD", registration_date=datetime(2024, 3, 1).date(),
+    org = Organization(name="finnpact LTD", registration_date=datetime(2024, 3, 1).date(),
                        status_id=org_status.id)
     org2 = Organization(name="Mont Choisy Group", registration_date=datetime(2023, 1, 15).date(),
                         status_id=org_status.id)
     db.add_all([org, org2])
     db.flush()
     from app.models import Branch
-    branch_jo = Branch(organization_id=org.id, name="Finnpact — Jordan")
+    branch_jo = Branch(organization_id=org.id, name="finnpact — Jordan")
     branch_mu = Branch(organization_id=org2.id, name="Mont Choisy — Mauritius")
     db.add_all([branch_jo, branch_mu])
     db.flush()
