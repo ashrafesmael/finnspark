@@ -1,8 +1,6 @@
 # FinnSpark — Accelerator & Investment Platform
 
-FinnSpark (formerly "VirtualAccelerate replica") is a functional replica of the
-VirtualAccelerate accelerator-management platform, built to the
-`VirtualAccelerate-Replica-Build-Spec.pdf` (v1.0, 25 Aug 2026) for the Finnpact brand,
+FinnSpark is a modern, full-featured accelerator and investment management platform for the Finnpact brand,
 on the FinnPayments stack: **FastAPI + SQLAlchemy + SQLite (DATABASE_URL-driven) backend ·
 React 18 + Vite frontend · systemd + nginx deployment.**
 
@@ -45,7 +43,7 @@ finnspark/
 │   │                           # programs, courses, library, investment,
 │   │                           # collaboration, dashboards, reports
 │   ├── media/uploads/          # uploaded files (never in the DB)
-│   └── virtualaccelerate.db    # SQLite (DATABASE_URL-driven → Postgres drop-in)
+│   └── finnspark.db    # SQLite (DATABASE_URL-driven → Postgres drop-in)
 ├── frontend/
 │   ├── src/pages/              # one page per §4 route (same client routes as original)
 │   ├── dist/                   # production build (served by nginx)
@@ -91,10 +89,9 @@ sudo certbot --nginx -d accelerate.finnverify.com      # after DNS A record exis
 
 Set a strong `JWT_SECRET` in the systemd unit before going live.
 
-## Security notes vs the original (spec §9.1)
+## Security features (spec §9.1)
 
-- The original embedded the user **password inside the JWT** — deliberately not replicated.
-  Tokens carry only `user_id`, `branch_id`, roles, type, expiry.
+- Secure JWT Authentication: Tokens carry only `user_id`, `branch_id`, roles, type, expiry.
 - Passwords stored as **scrypt hashes**, never plaintext.
 - Refresh token delivered as an **httpOnly Secure SameSite cookie** scoped to `/api/auth`.
 - Every list endpoint re-authorises the caller against the target branch server-side.
