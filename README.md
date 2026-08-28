@@ -32,7 +32,7 @@ The brand mark (rounded blue tile + amber spark bolt with ignition dots) lives i
 ## Layout
 
 ```
-finncubate/
+finnspark/
 ├── backend/
 │   ├── run.py                  # entrypoint (PORT=8002, binds 127.0.0.1)
 │   ├── app/

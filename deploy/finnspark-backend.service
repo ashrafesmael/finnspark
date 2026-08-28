@@ -4,11 +4,11 @@ After=network.target
 
 [Service]
 User=administrator
-WorkingDirectory=/home/administrator/finncubate/backend
+WorkingDirectory=/home/administrator/finnspark/backend
 ExecStart=/usr/bin/python3 run.py
 Environment=PORT=8002
 Environment=PUBLIC_BASE_URL=https://accelerate.finnpact.com
-DATABASE_URL=sqlite:////home/administrator/finncubate/backend/finnspark.db
+DATABASE_URL=sqlite:////home/administrator/finnspark/backend/finnspark.db
 Environment=JWT_SECRET=CHANGE-ME-to-a-long-random-string
 Restart=on-failure
 RestartSec=3

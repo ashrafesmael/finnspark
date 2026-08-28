@@ -16,7 +16,7 @@ server {
     }
 
     # --- Frontend: built static bundle with SPA history-fallback ---
-    root /home/administrator/finncubate/frontend/dist;
+    root /home/administrator/finnspark/frontend/dist;
     index index.html;
     location / { try_files $uri $uri/ /index.html; }
 
