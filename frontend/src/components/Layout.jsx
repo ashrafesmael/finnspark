@@ -2,7 +2,8 @@ import { Link, NavLink, useNavigate } from 'react-router-dom'
 import {
   LayoutDashboard, Megaphone, KanbanSquare, FileInput, FolderKanban, GraduationCap,
   BookOpen, FileSignature, Workflow, Stamp, Briefcase, BarChart3, CalendarDays, Users,
-  MessageSquare, UserCog, Building2, LifeBuoy, Bell, ChevronDown, LogOut,
+  MessageSquare, UserCog, Building2, LifeBuoy, Bell, ChevronDown, LogOut, Banknote,
+  RotateCcw,
 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import Logo from './Logo'
@@ -16,6 +17,7 @@ const NAV = [
   { to: '/selections/investment-board', icon: KanbanSquare, key: 'selections' },
   { to: '/forms', icon: FileInput, key: 'forms' },
   { to: '/programs', icon: FolderKanban, key: 'programs' },
+  { to: '/disbursements', icon: Banknote, key: 'disbursements' },
   { to: '/courses', icon: GraduationCap, key: 'courses' },
   { to: '/library', icon: BookOpen, key: 'library' },
   { to: '/investment-forms', icon: FileSignature, key: 'investmentForms' },
@@ -28,6 +30,7 @@ const NAV = [
   { to: '/apps/chat', icon: MessageSquare, key: 'chat' },
   { to: '/administration/roles-permissions/', icon: UserCog, key: 'users' },
   { to: '/administration/organizations', icon: Building2, key: 'organizations' },
+  { to: '/administration/system-maintenance', icon: RotateCcw, key: 'systemReset' },
   { to: '/help-center/', icon: LifeBuoy, key: 'help' },
 ]
 

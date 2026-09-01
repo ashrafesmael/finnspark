@@ -47,12 +47,23 @@ export function StatTile({ label, value, sub }) {
   )
 }
 
-export function BarList({ items, color = 'var(--accent)' }) {
+export function BarList({ items, color = 'var(--accent)', onItemClick }) {
   const max = Math.max(1, ...items.map((i) => i.value))
   return (
     <div className="bar-list">
       {items.map((it) => (
-        <div key={it.name} className="bar-row">
+        <div
+          key={it.name}
+          className={`bar-row ${onItemClick ? 'interactive-bar' : ''}`}
+          onClick={() => onItemClick && onItemClick(it)}
+          title={onItemClick ? `Click to view ${it.name} details` : it.name}
+          style={{
+            cursor: onItemClick ? 'pointer' : 'default',
+            padding: '4px 6px',
+            borderRadius: '6px',
+            transition: 'background 0.15s ease',
+          }}
+        >
           <span className="bar-name" title={it.name}>{it.name}</span>
           <div className="bar-track">
             <div className="bar-fill" style={{ width: `${(100 * it.value) / max}%`, background: color }} />

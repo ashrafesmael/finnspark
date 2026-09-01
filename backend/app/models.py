@@ -568,6 +568,48 @@ class CommitteeDecision(Base):
     decided_at = Column(DateTime, default=datetime.utcnow)
 
 
+# ---------------------------------------------------------------- Disbursements
+
+class DisbursementBatch(Base):
+    __tablename__ = "disbursement_batches"
+    id = Column(Integer, primary_key=True)
+    branch_id = Column(Integer, ForeignKey("branches.id"), nullable=False)
+    program_id = Column(Integer, ForeignKey("programs.id"), nullable=False)
+    title = Column(String(250), nullable=False)
+    payment_date = Column(Date, nullable=False)
+    currency = Column(String(10), default="USD")  # USD, EUR, JOD
+    base_amount = Column(Float, default=0.0)
+    total_amount = Column(Float, default=0.0)
+    status = Column(String(30), default="draft")  # draft | processed
+    notes = Column(Text, default="")
+    created_by_id = Column(Integer, ForeignKey("users.id"), nullable=True)
+    confirmed_by_id = Column(Integer, ForeignKey("users.id"), nullable=True)
+    confirmed_at = Column(DateTime, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    branch = relationship("Branch")
+    program = relationship("Program")
+    created_by = relationship("User", foreign_keys=[created_by_id])
+    confirmed_by = relationship("User", foreign_keys=[confirmed_by_id])
+    items = relationship("DisbursementItem", back_populates="batch", cascade="all, delete-orphan", order_by="DisbursementItem.id")
+
+
+class DisbursementItem(Base):
+    __tablename__ = "disbursement_items"
+    id = Column(Integer, primary_key=True)
+    batch_id = Column(Integer, ForeignKey("disbursement_batches.id"), nullable=False)
+    business_id = Column(Integer, ForeignKey("businesses.id"), nullable=False)
+    percentage = Column(Float, default=100.0)  # 100%, 50%, 0%, or custom
+    amount = Column(Float, default=0.0)
+    is_included = Column(Boolean, default=True)
+    notes = Column(String(500), default="")
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    batch = relationship("DisbursementBatch", back_populates="items")
+    business = relationship("Business")
+
+
 # ---------------------------------------------------------------- Collaboration (7.6)
 
 class Announcement(Base):

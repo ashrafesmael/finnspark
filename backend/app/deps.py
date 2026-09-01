@@ -64,6 +64,7 @@ ROLE_PERMISSIONS = {
         "portfolio.view", "portfolio.edit", "reports.view", "reports.export",
         "programs.view", "selections.view", "forms.view", "courses.view", "library.view",
         "announcements.view", "calendar.view", "directories.view", "chat.use", "programs.edit",
+        "disbursements.view", "disbursements.create", "disbursements.edit", "disbursements.confirm",
     },
     "mentor": {
         "dashboard.view", "programs.view", "courses.view", "library.view", "announcements.view",
@@ -82,6 +83,23 @@ def has_perm(user_roles: list[str], perm: str) -> bool:
     for role in user_roles:
         perms = ROLE_PERMISSIONS.get(role, set())
         if "*" in perms or perm in perms:
+            return True
+    return False
+
+
+def check_user_perm_in_branch(user: User, branch_id: int, roles: list[str], perm: str, db: Session) -> bool:
+    if has_perm(roles, perm):
+        return True
+    # Check custom role permissions from DB
+    db_roles = (
+        db.query(Role)
+        .join(UserRole, UserRole.role_id == Role.id)
+        .filter(UserRole.user_id == user.id, UserRole.branch_id == branch_id)
+        .all()
+    )
+    for r in db_roles:
+        role_perms = r.permissions or []
+        if "*" in role_perms or perm in role_perms:
             return True
     return False
 
@@ -111,7 +129,7 @@ def require_branch_access(branch_id_param: str = "branch_id"):
 
 def require_perm(perm: str):
     def dependency(ctx=Depends(require_branch_access())):
-        if not has_perm(ctx["roles"], perm):
+        if not check_user_perm_in_branch(ctx["user"], ctx["branch_id"], ctx["roles"], perm, ctx["db"]):
             raise HTTPException(status_code=403, detail="You do not have permission to perform this action.")
         return ctx
 

@@ -8,6 +8,7 @@ import SelectionBoard from './pages/SelectionBoard'
 import Forms from './pages/Forms'
 import Programs from './pages/Programs'
 import ProgramDetail from './pages/ProgramDetail'
+import Disbursements from './pages/Disbursements'
 import Courses, { CourseDetail } from './pages/Courses'
 import Announcements from './pages/Announcements'
 import Dealflow from './pages/Dealflow'
@@ -16,7 +17,7 @@ import Reports from './pages/Reports'
 import CalendarPage from './pages/CalendarPage'
 import ChatPage from './pages/ChatPage'
 import { Directories } from './pages/Directories'
-import { UsersAdmin, OrganizationsAdmin, HelpCenter, PublicApply } from './pages/Admin'
+import { UsersAdmin, OrganizationsAdmin, HelpCenter, PublicApply, SystemResetAdmin } from './pages/Admin'
 
 function Shell() {
   const { user, loading } = useAuth()
@@ -40,6 +41,7 @@ function Shell() {
         <Route path="/forms" element={<Forms />} />
         <Route path="/programs" element={<Programs />} />
         <Route path="/programs-courses/:id" element={<ProgramDetail />} />
+        <Route path="/disbursements" element={<Disbursements />} />
         <Route path="/courses" element={<Courses />} />
         <Route path="/courses/view/:id" element={<CourseDetail />} />
         <Route path="/library" element={<Library />} />
@@ -53,6 +55,7 @@ function Shell() {
         <Route path="/apps/chat" element={<ChatPage />} />
         <Route path="/administration/roles-permissions/" element={<UsersAdmin />} />
         <Route path="/administration/organizations" element={<OrganizationsAdmin />} />
+        <Route path="/administration/system-maintenance" element={<SystemResetAdmin />} />
         <Route path="/help-center/" element={<HelpCenter />} />
         <Route path="*" element={<p className="muted pad">404 — page not found</p>} />
       </Routes>
