@@ -88,22 +88,24 @@ function Snapshot({ branchId }) {
   const snap = useFetch(branchId ? `/branch/${branchId}/reports/portfolio-snapshot/` : null)
   if (!snap.data) return null
   const s = snap.data
+  const eur = (v) => `€${Number(v || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
   return (
     <div>
       <div className="grid-3">
         <div className="card stat-tile"><div className="stat-value">{s.companies}</div>
           <div className="stat-label">Portfolio companies</div></div>
         <div className="card stat-tile"><div className="stat-value">
-          ${s.total_invested.toLocaleString()}</div>
+          {eur(s.total_invested)}</div>
           <div className="stat-label">Total invested</div></div>
         <div className="card stat-tile"><div className="stat-value">
-          ${s.avg_ticket.toLocaleString()}</div>
+          {eur(s.avg_ticket)}</div>
           <div className="stat-label">Average ticket</div></div>
       </div>
       <div className="card chart-card pad">
         <h3>Invested by industry</h3>
         <BarList items={s.by_industry.map((x) => ({ name: x.name,
                                                       value: Math.round(x.invested / 1000) }))} />
+        <p className="muted sm">Values in €K</p>
       </div>
     </div>
   )
@@ -118,7 +120,8 @@ function Payments({ branchId }) {
       columns={[
         { header: 'Company', key: 'company' },
         { header: 'Due date', key: 'due_date' },
-        { header: 'Amount', render: (r) => Number(r.amount).toLocaleString() },
+        { header: 'Amount', align: 'right', render: (r) =>
+          `€${Number(r.amount || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` },
         { header: 'Status', render: (r) => <span className={cls(r.status)}>{r.status}</span> },
       ]}
       rows={rep.data.results}
@@ -134,7 +137,7 @@ function Aging({ branchId }) {
       <h3>Outstanding by aging bucket</h3>
       <BarList items={rep.data.map((x) => ({ name: x.bucket,
                                              value: Math.round(x.outstanding / 1000) }))} color="#d92d20" />
-      <p className="muted sm">Values in $K</p>
+      <p className="muted sm">Values in €K</p>
     </div>
   )
 }
