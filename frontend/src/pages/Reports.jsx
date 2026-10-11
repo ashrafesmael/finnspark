@@ -66,7 +66,16 @@ function DetailedInfo({ branchId }) {
       </div>
       {d && (
         <DataTable
-          columns={d.headers.map((h) => ({ header: h, key: h }))}
+          columns={d.headers.map((h) => {
+            const isMoney = /amount|invested|financing/i.test(h) && !/%/.test(h)
+            if (!isMoney) return { header: h, key: h }
+            const eur = !/\(local\)/i.test(h)  // local-currency columns keep their own unit
+            return {
+              header: h, key: h, align: 'right',
+              render: (r) => (eur ? '€' : '') + Number(r[h] || 0).toLocaleString(
+                'en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+            }
+          })}
           rows={d.results}
           footer={<Pager page={page} pageSize={15} count={d.count} onPage={setPage} />}
         />

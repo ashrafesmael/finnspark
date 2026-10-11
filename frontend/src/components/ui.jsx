@@ -3,7 +3,8 @@ export function DataTable({ columns, rows, empty = 'No records', footer }) {
     <div className="table-wrap card">
       <table>
         <thead>
-          <tr>{columns.map((c) => <th key={c.key || c.header}>{c.header}</th>)}</tr>
+          <tr>{columns.map((c) => <th key={c.key || c.header}
+                                    style={c.align ? { textAlign: c.align } : undefined}>{c.header}</th>)}</tr>
         </thead>
         <tbody>
           {rows.length === 0 && (
@@ -12,7 +13,7 @@ export function DataTable({ columns, rows, empty = 'No records', footer }) {
           {rows.map((row, i) => (
             <tr key={row.id ?? i}>
               {columns.map((c) => (
-                <td key={c.key || c.header}>
+                <td key={c.key || c.header} style={c.align ? { textAlign: c.align } : undefined}>
                   {c.render ? c.render(row, i) : row[c.key]}
                 </td>
               ))}

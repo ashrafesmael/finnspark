@@ -62,9 +62,9 @@ def section_rows(section: str, db: Session, branch_id: int) -> tuple[list[str], 
         for c in _approved_cases(db, branch_id):
             for e in c.timeline_entries:
                 entries.append({"Case": c.company_name, "Date": str(e.entry_date), "Label": e.label,
-                                "Direction": e.direction, "Amount (USD)": round(
+                                "Direction": e.direction, "Amount (EUR)": round(
                                     e.amount * (c.forex_rate or 1.0), 2)})
-        headers = ["Case", "Date", "Label", "Direction", "Amount (USD)"]
+        headers = ["Case", "Date", "Label", "Direction", "Amount (EUR)"]
         return headers, entries
     if section == "investment-metrics":
         return build(
