@@ -166,6 +166,46 @@ class DisbursementBatchCreateIn(BaseModel):
     items: list[DisbursementItemIn] | None = None
 
 
+def _batch_narrative(db: Session, batch: DisbursementBatch) -> str:
+    """Auto-generate the narrative shown under the batch title, matching the
+    style of the imported historical batches. Only used when notes are empty —
+    never overwrites text written by a user."""
+    items = db.query(DisbursementItem).filter(
+        DisbursementItem.batch_id == batch.id).all()
+    if not items:
+        return ""
+    received = [i for i in items if i.is_included]
+    pending = [i for i in items if not i.is_included]
+    prg = db.get(Program, batch.program_id)
+    prog_name = prg.name if prg else ""
+    t = (batch.title or "").lower()
+    kind = ("prototype grant" if "prototype" in t
+            else "monthly stipend" if "monthly" in t or "stipend" in t
+            else "loan tranche" if "tranche" in t or "track ii" in t
+            else "disbursement")
+    d = batch.payment_date
+    date_str = f"{d.strftime('%b')} {d.day}, {d.year}" if d else ""
+    line = f"{prog_name} {kind} (paid {date_str}). {len(received)} received payment"
+    if pending:
+        # exclusion reason comes from each item's notes; blank notes means the
+        # startup did not meet the requirements (not merely pending paperwork)
+        groups = {}
+        for i in pending:
+            reason = (i.notes or "").strip()
+            if not reason:
+                reason = "did not meet the requirements"
+            biz = db.get(Business, i.business_id)
+            groups.setdefault(reason, []).append(biz.name if biz else "unknown")
+        segs = []
+        for reason, names in groups.items():
+            shown = ", ".join(names[:3])
+            if len(names) > 3:
+                shown += f" and {len(names) - 3} more"
+            segs.append(f"{len(names)} {reason.lower()} ({shown})")
+        line += "; " + "; ".join(segs)
+    return line + "."
+
+
 @router.post("/disbursements/{branch_id}/")
 def create_disbursement_batch(
     branch_id: int,
@@ -264,6 +304,8 @@ def create_disbursement_batch(
 
     batch.total_amount = round(total_amount, 2)
     batch.total_amount_jod = round(total_amount_jod, 3)
+    if not (batch.notes or "").strip():
+        batch.notes = _batch_narrative(db, batch)
     db.commit()
     db.refresh(batch)
 
@@ -558,6 +600,8 @@ def update_disbursement_batch(
         batch.total_amount_jod = round(total_amount_jod, 3)
 
     batch.updated_at = datetime.utcnow()
+    if not (batch.notes or "").strip():
+        batch.notes = _batch_narrative(db, batch)
     db.commit()
     db.refresh(batch)
 
@@ -585,6 +629,8 @@ def confirm_disbursement_batch(
     batch.confirmed_by_id = user.id
     batch.confirmed_at = datetime.utcnow()
     batch.updated_at = datetime.utcnow()
+    if not (batch.notes or "").strip():
+        batch.notes = _batch_narrative(db, batch)
 
     db.commit()
     db.refresh(batch)
