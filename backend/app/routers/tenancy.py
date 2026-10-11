@@ -116,10 +116,11 @@ def _delete_branch_cascade(db: Session, branch_id: int):
         ApplicationFormFieldOption, Business, BusinessFounder, CalendarEvent, Channel,
         Chat, ChatMessage, ChatParticipant, CommitteeDecision, CommitteeLevel, ContentBlock,
         Course, Document, Enrollment, Evaluation, FinanceTimelineEntry, InvestmentCase,
-        InvestmentStage, Lesson, MentorConclusionQuestion, MentorReviewQuestion, Mentorship,
+        InvestmentStage, Lesson, LoanRepayment, MentorConclusionQuestion, MentorReviewQuestion, Mentorship,
         Module, PaymentScheduleEntry, Program, ProgramType, ProgressRecord, QuestionAnswer,
         ScoringForm, ScoringQuestion, SelectionStage, Subindustry,
     )
+    db.query(LoanRepayment).filter_by(branch_id=branch_id).delete(synchronize_session=False)
     case_ids = [c[0] for c in db.query(InvestmentCase.id).filter_by(branch_id=branch_id)]
     if case_ids:
         for model in (FinanceTimelineEntry, PaymentScheduleEntry, CommitteeDecision):
@@ -273,7 +274,7 @@ def create_branch(data: BranchIn, db: Session = Depends(get_db), user=Depends(ge
     db.add(branch)
     db.flush()
     stages = ["Track I Onboarding", "Track I Support", "Pitch Stage",
-              "Track II Onboarding", "Track II Support"]
+              "Track II Onboarding", "Track II Support", "Programme Completed"]
     for i, s in enumerate(stages):
         db.add(SelectionStage(branch_id=branch.id, name=s, order=i))
     for i, s in enumerate(["Application", "Evaluation", "Pitching", "Selection", "Approved"]):
@@ -599,12 +600,13 @@ def get_entrepreneur_data_stats(branch_id: int, ctx=Depends(require_branch_acces
     _require_admin_role(ctx["user"], db, branch_id)
 
     from ..models import (
-        Applicant, Business, DisbursementBatch, InvestmentCase, Role, UserRole,
+        Applicant, Business, DisbursementBatch, InvestmentCase, LoanRepayment, Role, UserRole,
     )
     biz_count = db.query(Business).filter(Business.branch_id == branch_id).count()
     app_count = db.query(Applicant).filter(Applicant.branch_id == branch_id).count()
     batch_count = db.query(DisbursementBatch).filter(DisbursementBatch.branch_id == branch_id).count()
     case_count = db.query(InvestmentCase).filter(InvestmentCase.branch_id == branch_id).count()
+    repay_count = db.query(LoanRepayment).filter(LoanRepayment.branch_id == branch_id).count()
 
     role_e = db.query(Role).filter((Role.branch_id == branch_id) | (Role.branch_id.is_(None))).filter(Role.code_name == "entrepreneur").all()
     role_e_ids = [r.id for r in role_e]
@@ -616,6 +618,7 @@ def get_entrepreneur_data_stats(branch_id: int, ctx=Depends(require_branch_acces
         "businesses_count": biz_count,
         "disbursements_count": batch_count,
         "investment_cases_count": case_count,
+        "repayments_count": repay_count,
         "entrepreneurs_count": entrepreneurs_count,
     }
 
@@ -631,11 +634,12 @@ def reset_entrepreneur_data_endpoint(branch_id: int, data: ResetDataIn, ctx=Depe
     from ..models import (
         Applicant, Business, BusinessFounder, CommitteeDecision,
         DisbursementBatch, DisbursementItem, Document, Enrollment, Evaluation,
-        FinanceTimelineEntry, InvestmentCase, Mentorship, PaymentScheduleEntry,
+        FinanceTimelineEntry, InvestmentCase, LoanRepayment, Mentorship, PaymentScheduleEntry,
         ProgressRecord, QuestionAnswer, Role, User, UserRole,
     )
 
-    # 1. Disbursements
+    # 1. Loan Repayments & Disbursements
+    db.query(LoanRepayment).filter(LoanRepayment.branch_id == branch_id).delete(synchronize_session=False)
     batch_ids = [b[0] for b in db.query(DisbursementBatch.id).filter(DisbursementBatch.branch_id == branch_id).all()]
     if batch_ids:
         db.query(DisbursementItem).filter(DisbursementItem.batch_id.in_(batch_ids)).delete(synchronize_session=False)
@@ -753,96 +757,81 @@ COHORT3_RECONCILED = [
 
 
 def _reseed_entrepreneur_data_for_branch(db: Session, branch_id: int):
-    """Populates realistic applicant, business, and disbursement demo records for a branch."""
-    import random
-    from datetime import date, datetime, timedelta
+    """Populates official 121 applicant/business records across Cohorts 1-4 and 10 reconciled disbursement batches for Cohort 3."""
+    from datetime import date, datetime
+    from ..scripts.import_startups_dataset import run_import
     from ..models import (
-        Applicant, ApplicantStatus, Business, BusinessFounder, BusinessIndustry,
-        BusinessType, Channel, Country, DisbursementBatch, DisbursementItem,
-        District, Gender, InvestmentCase, InvestmentRound, InvestmentStage,
-        InvestmentStatus, Mentorship, Program, Province, SelectionStage, User,
+        Business, DisbursementBatch, DisbursementItem, Program, User,
     )
 
-    programs = db.query(Program).filter(Program.branch_id == branch_id).all()
-    if not programs:
+    # 1. Run the official 121-startup dataset import
+    run_import(db, branch_id)
+
+    # 2. Retrieve Cohort 3 program and businesses
+    c3_program = db.query(Program).filter(
+        Program.branch_id == branch_id,
+        Program.name.like("%Cohort 3%"),
+        ~Program.name.like("%Track II%")
+    ).first()
+    if not c3_program:
         return
 
-    p1 = programs[0]
-
-    stages = db.query(SelectionStage).filter(SelectionStage.branch_id == branch_id).all()
-    channel = db.query(Channel).filter(Channel.branch_id == branch_id).first()
-    genders = db.query(Gender).all()
-    countries = db.query(Country).all()
-    provinces = db.query(Province).all()
-    districts = db.query(District).all()
-    industries = db.query(BusinessIndustry).all()
-    types = db.query(BusinessType).all()
-    statuses = db.query(ApplicantStatus).all()
     admin_user = db.query(User).filter(User.email.like("%admin%")).first()
+    cohort3_businesses = db.query(Business).filter(Business.program_id == c3_program.id).all()
 
-    # 1. Create 40 exact Cohort 3 Track I applicants & businesses
-    applicants = []
-    cohort3_businesses = []
+    ALIAS_MAP = {
+        'wujood games': 'wujood',
+        'greener': 'greener - gws 360',
+        'aman': 'aman',
+        'learnfy.ai': 'learnfy.ai',
+        'noa | نواة': 'noa | نواة',
+        'azrar.ai': 'azrar.ai',
+        'efotara': 'تطبيق اي فوترة',
+        'iplant': 'iplant',
+        'serveu': 'ngoot',
+        'house of shorouq': 'house of shorouq',
+        'shortliston': 'shortliston',
+        'probreeder': 'probreeder',
+        'migraine cap': 'headache cap',
+        'trendpin': 'trendpin',
+        'ma3': 'ma3',
+        'dragon ferti': 'dragon organic solutions',
+        'marines': 'marines',
+        'mazraity - مزرعتي': 'مزرعتي mazrite',
+        'the act cast': 'the act cast',
+        'banofi pack': 'banofi pack',
+        'basket of life': 'basket of life',
+        'avenzoar': 'avenzoar',
+        'optimal aquatic systems for treatment & automation (oasta)': 'oasta',
+        'trevx': 'trevx',
+        'laserlink': 'laserlink',
+        'spinevision diagnostics': 'spinevision diagnostics',
+        'toursplit': 'toursplit',
+        'canve': 'كانف - canve',
+        'حواس': 'حواس',
+        'hangar': 'hangar',
+        'barqboxes': 'barqboxes',
+        'weightron': 'weighttron',
+        'mohammed bassam / tikrar': 'tikrar',
+        'green clean solar energy': 'green clean solar energy',
+        'v2x venture': 'v2x ventures',
+        'erp system "exp"': 'erp system "exp"',
+        'manzel': 'manzel',
+        'audiomatic': 'audiomatic.io',
+        'بنات العيله للحياكه': 'بنات العيله للحياكه',
+        'ggez1': 'ggez1',
+    }
 
-    for idx, sname, fname, _, _ in COHORT3_RECONCILED:
-        parts = fname.split(' ', 1)
-        fn = parts[0]
-        ln = parts[1] if len(parts) > 1 else ''
-        gender = random.choice(genders) if genders else None
-        country = random.choice(countries) if countries else None
-        province = random.choice(provinces) if provinces else None
-        district = random.choice(districts) if districts else None
-        industry = random.choice(industries) if industries else None
-        stage = stages[1] if len(stages) > 1 else (stages[0] if stages else None)
-        status = statuses[0] if statuses else None
+    reconciled_by_name = {sname.lower().strip(): (m, p) for _, sname, fname, m, p in COHORT3_RECONCILED}
 
-        ap = Applicant(
-            branch_id=branch_id,
-            program_id=p1.id,
-            selection_stage_id=stage.id if stage else None,
-            status_id=status.id if status else None,
-            email=f"{fn.lower()}.{ln.lower().replace(' ', '_')}@startup.jo",
-            first_name=fn,
-            last_name=ln,
-            business_name=sname,
-            country_id=country.id if country else None,
-            province_id=province.id if province else None,
-            district_id=district.id if district else None,
-            industry_id=industry.id if industry else None,
-            gender_id=gender.id if gender else None,
-            channel_id=channel.id if channel else None,
-            age=random.randint(22, 50),
-            average_score=round(random.uniform(70, 95), 1),
-            registered=True,
-            application_date=datetime(2025, 8, 1),
-        )
-        applicants.append(ap)
-        db.add(ap)
-        db.flush()
+    biz_payments = {}
+    for b in cohort3_businesses:
+        bname = b.name.strip().lower()
+        rec_key = ALIAS_MAP.get(bname, bname)
+        if rec_key in reconciled_by_name:
+            biz_payments[b.id] = reconciled_by_name[rec_key]
 
-        b = Business(
-            branch_id=branch_id,
-            program_id=p1.id,
-            applicant_id=ap.id,
-            name=sname,
-            type_id=random.choice(types).id if types else None,
-            industry_id=industry.id if industry else None,
-            graduation_status="Not graduated",
-            course_progress=round(random.uniform(40, 100), 1),
-            course_score=round(random.uniform(60, 98), 1),
-            average_evaluator_score=ap.average_score,
-            created_at=datetime(2025, 8, 1),
-        )
-        b.founders.append(BusinessFounder(
-            first_name=fn, last_name=ln, email=ap.email,
-            gender_id=ap.gender_id, age=ap.age, position="Founder & CEO"
-        ))
-        db.add(b)
-        cohort3_businesses.append(b)
-
-    db.commit()
-
-    # 2. Create 7 Monthly Allowance Batches (Reconciled)
+    # 3. Create 7 Monthly Allowance Batches (Reconciled)
     MONTH_DATES = [
         ('Aug-25', date(2025, 8, 31), 'Monthly Stipend — August 2025'),
         ('Sep-25', date(2025, 9, 30), 'Monthly Stipend — September 2025'),
@@ -856,10 +845,12 @@ def _reseed_entrepreneur_data_for_branch(db: Session, branch_id: int):
     for m_idx, (m_label, m_date, m_title) in enumerate(MONTH_DATES):
         batch = DisbursementBatch(
             branch_id=branch_id,
-            program_id=p1.id,
+            program_id=c3_program.id,
             title=f'Cohort 3 Track I: {m_title}',
             payment_date=m_date,
             currency='EUR',
+            disbursement_currency='JOD',
+            exchange_rate=0.76,
             base_amount=250.0,
             notes=f'Official monthly allowance payment for {m_label} (Reconciled).',
             status='processed',
@@ -870,13 +861,27 @@ def _reseed_entrepreneur_data_for_branch(db: Session, branch_id: int):
         db.flush()
 
         b_total = 0.0
-        for r_idx, b in enumerate(cohort3_businesses):
-            amt = float(COHORT3_RECONCILED[r_idx][3][m_idx])
+        b_total_jod = 0.0
+        for b in cohort3_businesses:
+            m_list, _ = biz_payments.get(b.id, ([250]*7, [1000]*3))
+            amt = float(m_list[m_idx])
             pct = int(amt / 250.0 * 100)
             note = 'Includes deferred previous month payment' if amt == 500 else 'Includes 3-month catch-up payment' if amt == 750 else 'Deferred' if amt == 0 else ''
-            db.add(DisbursementItem(batch_id=batch.id, business_id=b.id, percentage=pct, amount=amt, notes=note))
+            amt_jod = round(amt * 0.76, 3)
+            db.add(DisbursementItem(
+                batch_id=batch.id,
+                business_id=b.id,
+                percentage=pct,
+                amount=amt,
+                amount_jod=amt_jod,
+                disbursement_date=m_date,
+                exchange_rate=0.76,
+                notes=note,
+            ))
             b_total += amt
+            b_total_jod += amt_jod
         batch.total_amount = b_total
+        batch.total_amount_jod = round(b_total_jod, 3)
         db.commit()
 
     # 4. Create 3 Prototype Voucher Batches (Reconciled)
@@ -889,10 +894,12 @@ def _reseed_entrepreneur_data_for_branch(db: Session, branch_id: int):
     for p_idx, p_label, p_date, p_title in PROTO_MONTHS:
         batch = DisbursementBatch(
             branch_id=branch_id,
-            program_id=p1.id,
+            program_id=c3_program.id,
             title=f'Cohort 3 Track I: {p_title}',
             payment_date=p_date,
             currency='EUR',
+            disbursement_currency='JOD',
+            exchange_rate=0.76,
             base_amount=1000.0,
             notes=f'One-off prototype voucher milestone disbursement for {p_label} (Reconciled).',
             status='processed',
@@ -903,14 +910,41 @@ def _reseed_entrepreneur_data_for_branch(db: Session, branch_id: int):
         db.flush()
 
         p_total = 0.0
-        for r_idx, b in enumerate(cohort3_businesses):
-            amt = float(COHORT3_RECONCILED[r_idx][4][p_idx])
+        p_total_jod = 0.0
+        for b in cohort3_businesses:
+            _, p_list = biz_payments.get(b.id, ([250]*7, [1000]*3))
+            amt = float(p_list[p_idx])
             pct = 100 if amt == 1000 else 0
             note = 'Prototype milestone approved' if amt == 1000 else 'Prototype milestone not in this batch'
-            db.add(DisbursementItem(batch_id=batch.id, business_id=b.id, percentage=pct, amount=amt, notes=note))
+            amt_jod = round(amt * 0.76, 3)
+            db.add(DisbursementItem(
+                batch_id=batch.id,
+                business_id=b.id,
+                percentage=pct,
+                amount=amt,
+                amount_jod=amt_jod,
+                disbursement_date=p_date,
+                exchange_rate=0.76,
+                notes=note,
+            ))
             p_total += amt
+            p_total_jod += amt_jod
         batch.total_amount = p_total
+        batch.total_amount_jod = round(p_total_jod, 3)
         db.commit()
 
+    # 5. Create 8 Cohort 2 Batches (Reconciled)
+    from ..scripts.import_cohort2_disbursements import import_cohort2_disbursements
+    import_cohort2_disbursements(db, branch_id)
+
+    # 6. Create Cohort 4 Batch (Reconciled)
+    from ..scripts.import_cohort4_disbursements import import_cohort4_disbursements
+    import_cohort4_disbursements(db, branch_id)
+
+    # 7. Create Track II Batches & InvestmentCases (Reconciled)
+    from ..scripts.import_track2_disbursements import import_track2_disbursements
+    import_track2_disbursements(db, branch_id)
+
     db.commit()
+
 

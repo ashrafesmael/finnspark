@@ -98,18 +98,35 @@ def dashboard_program(request: Request, ctx=Depends(require_branch_access())):
                 "name": pname,
                 "short_name": pname.replace("OCIF ", ""),
                 "total_amount": 0.0,
+                "total_amount_eur": 0.0,
+                "total_amount_jod": 0.0,
                 "processed_amount": 0.0,
+                "processed_amount_eur": 0.0,
+                "processed_amount_jod": 0.0,
                 "draft_amount": 0.0,
+                "draft_amount_eur": 0.0,
+                "draft_amount_jod": 0.0,
                 "batches_count": 0,
-                "currency": b.currency or "USD",
+                "currency": b.currency or "EUR",
+                "disbursement_currency": getattr(b, "disbursement_currency", None) or "JOD",
+                "exchange_rate": float(getattr(b, "exchange_rate", None) if getattr(b, "exchange_rate", None) is not None else 0.76),
             }
-        amt = float(b.total_amount or 0.0)
+        amt_eur = float(b.total_amount or 0.0)
+        rate = float(getattr(b, "exchange_rate", None) if getattr(b, "exchange_rate", None) is not None else 0.76)
+        amt_jod = float(getattr(b, "total_amount_jod", None) if getattr(b, "total_amount_jod", None) is not None else round(amt_eur * rate, 3))
+
         disb_by_program[pid]["batches_count"] += 1
-        disb_by_program[pid]["total_amount"] += amt
+        disb_by_program[pid]["total_amount"] += amt_eur
+        disb_by_program[pid]["total_amount_eur"] += amt_eur
+        disb_by_program[pid]["total_amount_jod"] += amt_jod
         if b.status == "processed":
-            disb_by_program[pid]["processed_amount"] += amt
+            disb_by_program[pid]["processed_amount"] += amt_eur
+            disb_by_program[pid]["processed_amount_eur"] += amt_eur
+            disb_by_program[pid]["processed_amount_jod"] += amt_jod
         else:
-            disb_by_program[pid]["draft_amount"] += amt
+            disb_by_program[pid]["draft_amount"] += amt_eur
+            disb_by_program[pid]["draft_amount_eur"] += amt_eur
+            disb_by_program[pid]["draft_amount_jod"] += amt_jod
 
     if not params.get("program"):
         for pid, pname in programs_map.items():
@@ -119,14 +136,23 @@ def dashboard_program(request: Request, ctx=Depends(require_branch_access())):
                     "name": pname,
                     "short_name": pname.replace("OCIF ", ""),
                     "total_amount": 0.0,
+                    "total_amount_eur": 0.0,
+                    "total_amount_jod": 0.0,
                     "processed_amount": 0.0,
+                    "processed_amount_eur": 0.0,
+                    "processed_amount_jod": 0.0,
                     "draft_amount": 0.0,
+                    "draft_amount_eur": 0.0,
+                    "draft_amount_jod": 0.0,
                     "batches_count": 0,
-                    "currency": "USD",
+                    "currency": "EUR",
+                    "disbursement_currency": "JOD",
+                    "exchange_rate": 0.76,
                 }
 
-    disbursements_list = sorted(disb_by_program.values(), key=lambda x: -x["total_amount"])
-    total_cohort_disbursements = sum(x["total_amount"] for x in disbursements_list)
+    disbursements_list = sorted(disb_by_program.values(), key=lambda x: -x["total_amount_eur"])
+    total_cohort_disbursements_eur = sum(x["total_amount_eur"] for x in disbursements_list)
+    total_cohort_disbursements_jod = sum(x["total_amount_jod"] for x in disbursements_list)
 
     return {
         "funnel": {"applied": applied, "selected": selected, "graduated": graduated},
@@ -135,7 +161,11 @@ def dashboard_program(request: Request, ctx=Depends(require_branch_access())):
             "selected_businesses": selected,
             "graduated_businesses": graduated,
             "selection_rate": round(100.0 * selected / applied, 1) if applied else 0.0,
-            "total_disbursed": round(total_cohort_disbursements, 2),
+            "total_disbursed": round(total_cohort_disbursements_eur, 2),
+            "total_disbursed_eur": round(total_cohort_disbursements_eur, 2),
+            "total_disbursed_jod": round(total_cohort_disbursements_jod, 3),
+            "currency": "EUR",
+            "disbursement_currency": "JOD",
         },
         "disbursements": disbursements_list,
         "distributions": {

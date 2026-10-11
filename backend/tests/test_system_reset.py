@@ -72,6 +72,7 @@ class TestSystemReset:
         res = client.get(f"/api/system/entrepreneur-data-stats/{TestSystemReset.branch_id}/", headers=headers)
         assert res.status_code == 200
         stats = res.json()
-        assert stats["applicants_count"] == 40
-        assert stats["businesses_count"] == 40
-        assert stats["disbursements_count"] == 10
+        assert stats["applicants_count"] == 121
+        assert stats["businesses_count"] == 121
+        assert stats["disbursements_count"] == 24
+        assert stats["investment_cases_count"] == 14

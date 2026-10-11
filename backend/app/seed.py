@@ -41,6 +41,7 @@ def main():
     st_in_selection = ApplicantStatus(name="In Selection", code_name="in_selection")
     st_rejected = ApplicantStatus(name="Rejected", code_name="rejected")
     st_archived = ApplicantStatus(name="Archived", code_name="archived")
+    st_completed = ApplicantStatus(name="Programme Completed", code_name="programme_completed")
 
     inv_in_approval = InvestmentStatus(name="In Approval", code_name="in_approval")
     inv_revision = InvestmentStatus(name="Revision", code_name="revision")
@@ -187,7 +188,7 @@ def main():
 
     # ------------------------------------------------------------ selection stages
     stage_names = ["Track I Onboarding", "Track I Support", "Pitch Stage",
-                   "Track II Onboarding", "Track II Support"]
+                   "Track II Onboarding", "Track II Support", "Programme Completed"]
     stages = [SelectionStage(branch_id=branch_jo.id, name=n, order=i,
                              description=f"{n} selection stage")
               for i, n in enumerate(stage_names)]
@@ -210,10 +211,10 @@ def main():
     db.add_all([pt_track1, pt_track2])
     db.flush()
     prog1 = Program(branch_id=branch_jo.id, program_type_id=pt_track1.id,
-                    name="OCIF Cohort 3 – Track I (2026)", status_id=program_status.id,
+                    name="OCIF Cohort 3", status_id=program_status.id,
                     scoring_required=True, creation_date=datetime(2026, 1, 15))
     prog2 = Program(branch_id=branch_jo.id, program_type_id=pt_track2.id,
-                    name="OCIF Cohort 2 – Track II (2026)", status_id=program_status.id,
+                    name="OCIF Cohort 2", status_id=program_status.id,
                     scoring_required=True, creation_date=datetime(2025, 6, 1))
     db.add_all([prog1, prog2])
     db.flush()

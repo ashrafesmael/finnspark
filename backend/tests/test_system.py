@@ -1,4 +1,4 @@
-"""Comprehensive system test suite for finnspark (finncubate) platform."""
+"""Comprehensive system test suite for the finnspark platform."""
 import os
 import sys
 import time
@@ -273,3 +273,17 @@ class TestSystem:
         # Dashboard programs
         res = client.get(f"/api/dashboard-program/?branch_id={TestSystem.branch_id}", headers=headers)
         assert res.status_code == 200
+
+    def test_11_applicant_disbursements(self):
+        headers = {"Authorization": f"Bearer {TestSystem.access_token}"}
+        res = client.get(f"/api/applicants/{TestSystem.branch_id}/{TestSystem.applicant_id}/", headers=headers)
+        assert res.status_code == 200
+        data = res.json()
+        assert "disbursements" in data
+        assert "total_disbursed" in data
+
+        res = client.get(f"/api/applicants/{TestSystem.branch_id}/{TestSystem.applicant_id}/disbursements/", headers=headers)
+        assert res.status_code == 200
+        disb_data = res.json()
+        assert "total_disbursed" in disb_data
+        assert "items" in disb_data

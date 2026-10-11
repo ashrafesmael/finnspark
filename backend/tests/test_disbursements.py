@@ -35,6 +35,16 @@ class TestDisbursements:
         if res.status_code == 200:
             cls.regular_token = res.json()["access_token"]
 
+    @classmethod
+    def teardown_class(cls):
+        if cls.batch_id:
+            headers = {"Authorization": f"Bearer {cls.admin_token}"}
+            try:
+                client.post(f"/api/disbursements/{cls.branch_id}/{cls.batch_id}/reopen/", headers=headers)
+                client.delete(f"/api/disbursements/{cls.branch_id}/{cls.batch_id}/", headers=headers)
+            except Exception:
+                pass
+
     def test_01_get_cohort_and_summary(self):
         headers = {"Authorization": f"Bearer {TestDisbursements.admin_token}"}
         
@@ -199,3 +209,59 @@ class TestDisbursements:
         assert res.status_code == 200
         assert "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" in res.headers["content-type"]
         assert len(res.content) > 1000  # Valid Excel file bytes
+
+    def test_09_export_csv_and_fx_reporting(self):
+        headers = {"Authorization": f"Bearer {TestDisbursements.admin_token}"}
+        # Test batch CSV export
+        res = client.get(
+            f"/api/disbursements/{TestDisbursements.branch_id}/{TestDisbursements.batch_id}/export/?format=csv",
+            headers=headers,
+        )
+        assert res.status_code == 200
+        assert "text/csv" in res.headers["content-type"]
+        csv_text = res.content.decode("utf-8-sig")
+        assert "Exact Disbursement Date" in csv_text
+        assert "Exchange Rate" in csv_text
+        assert "Disbursement Amount (JOD)" in csv_text
+
+        # Test branch-wide export
+        res_all = client.get(
+            f"/api/disbursements/{TestDisbursements.branch_id}/export/?format=csv",
+            headers=headers,
+        )
+        assert res_all.status_code == 200
+        assert "text/csv" in res_all.headers["content-type"]
+        all_csv = res_all.content.decode("utf-8-sig")
+        assert "Cohort / Programme" in all_csv
+        assert "Exchange Rate (EUR/JOD)" in all_csv
+
+    def test_10_multi_currency_and_exact_dates_create(self):
+        headers = {"Authorization": f"Bearer {TestDisbursements.admin_token}"}
+        payload = {
+            "program_id": TestDisbursements.program_id,
+            "title": "Dual Currency FX Test Batch",
+            "payment_date": "2026-09-15",
+            "currency": "EUR",
+            "disbursement_currency": "JOD",
+            "exchange_rate": 0.76,
+            "base_amount": 1000.0,
+            "notes": "Testing exact dates and EUR/JOD conversions",
+        }
+        res = client.post(f"/api/disbursements/{TestDisbursements.branch_id}/", json=payload, headers=headers)
+        assert res.status_code == 200
+        data = res.json()
+        assert data["currency"] == "EUR"
+        assert data["disbursement_currency"] == "JOD"
+        assert data["exchange_rate"] == 0.76
+        assert data["total_amount_eur"] > 0
+        assert data["total_amount_jod"] == round(data["total_amount_eur"] * 0.76, 3)
+
+        first_item = data["items"][0]
+        assert first_item["amount_eur"] == 1000.0
+        assert first_item["amount_jod"] == 760.0
+        assert first_item["exchange_rate"] == 0.76
+        assert first_item["disbursement_date"] == "2026-09-15"
+
+        # Clean up test batch
+        del_res = client.delete(f"/api/disbursements/{TestDisbursements.branch_id}/{data['id']}/", headers=headers)
+        assert del_res.status_code == 200

@@ -5,10 +5,20 @@ from sqlalchemy.orm import Session
 from ..database import get_db
 from ..deps import require_branch_access, require_perm
 from ..models import (
-    Applicant, ApplicantStatus, Country, District, Evaluation, Province, ScoringForm,
-    ScoringQuestion, SelectionStage,
+    Applicant, ApplicantStatus, Business, Country, DisbursementBatch, DisbursementItem,
+    District, Evaluation, Province, ScoringForm, ScoringQuestion, SelectionStage,
 )
 from ..utils import paginate, parse_page, serialize_ref
+
+
+def get_cohort_display(program_name: str | None) -> str | None:
+    if not program_name:
+        return None
+    import re
+    m = re.search(r'cohort\s*(\d+)', program_name, re.IGNORECASE)
+    if m:
+        return f"OCIF Cohort {m.group(1)}"
+    return program_name
 
 
 def applicant_ser(a: Applicant, user_id: int | None = None) -> dict:
@@ -20,7 +30,7 @@ def applicant_ser(a: Applicant, user_id: int | None = None) -> dict:
         "last_name": a.last_name,
         "email": a.email,
         "program_id": a.program_id,
-        "program_name": a.program.name if a.program else None,
+        "program_name": get_cohort_display(a.program.name) if a.program else None,
         "selection_stage": serialize_ref(a.stage) if a.stage else None,
         "selection_stage_id": a.selection_stage_id,
         "status": serialize_ref(a.status) if a.status else None,
@@ -121,7 +131,123 @@ def applicant_detail(branch_id: int, applicant_id: int, ctx=Depends(require_perm
     grad_forms = db.query(ScoringForm).filter(
         ScoringForm.branch_id == branch_id, ScoringForm.is_for_graduation.is_(True)).all()
     data["graduation_forms"] = [scoring_form_ser(f, nested=False) for f in grad_forms]
+
+    # Look up linked business and its disbursements
+    biz = db.query(Business).filter(
+        (Business.applicant_id == a.id) | (Business.name == a.business_name)
+    ).first()
+    disbursements_list = []
+    total_disbursed_eur = 0.0
+    total_disbursed_jod = 0.0
+    if biz:
+        items = db.query(DisbursementItem, DisbursementBatch).join(
+            DisbursementBatch, DisbursementBatch.id == DisbursementItem.batch_id
+        ).filter(
+            DisbursementItem.business_id == biz.id
+        ).order_by(DisbursementBatch.payment_date.desc(), DisbursementItem.id.desc()).all()
+        for item, batch in items:
+            prg_name = batch.program.name if batch.program else ""
+            b_rate = float(getattr(batch, "exchange_rate", None) if getattr(batch, "exchange_rate", None) is not None else 0.76)
+            it_rate = float(getattr(item, "exchange_rate", None) if getattr(item, "exchange_rate", None) is not None else b_rate)
+            it_date = str(getattr(item, "disbursement_date", None) or batch.payment_date or "")
+            amt_eur = float(item.amount or 0.0)
+            amt_jod = float(getattr(item, "amount_jod", None) if getattr(item, "amount_jod", None) is not None else round(amt_eur * it_rate, 3))
+            disb_curr = getattr(batch, "disbursement_currency", None) or "JOD"
+
+            disbursements_list.append({
+                "id": item.id,
+                "batch_id": batch.id,
+                "batch_title": batch.title,
+                "program_id": batch.program_id,
+                "program_name": prg_name,
+                "payment_date": str(batch.payment_date) if batch.payment_date else "",
+                "disbursement_date": it_date,
+                "currency": batch.currency or "EUR",
+                "disbursement_currency": disb_curr,
+                "exchange_rate": it_rate,
+                "amount": amt_eur,
+                "amount_eur": amt_eur,
+                "amount_jod": amt_jod,
+                "percentage": item.percentage,
+                "is_included": bool(item.is_included),
+                "status": batch.status,
+                "notes": item.notes or "",
+            })
+            if item.amount > 0 and item.is_included:
+                total_disbursed_eur += amt_eur
+                total_disbursed_jod += amt_jod
+    data["business_id"] = biz.id if biz else None
+    data["disbursements"] = disbursements_list
+    data["total_disbursed"] = total_disbursed_eur
+    data["total_disbursed_eur"] = total_disbursed_eur
+    data["total_disbursed_jod"] = total_disbursed_jod
     return data
+
+
+@router.get("/applicants/{branch_id}/{applicant_id}/disbursements/")
+def applicant_disbursements(branch_id: int, applicant_id: int, ctx=Depends(require_perm("selections.view"))):
+    db: Session = ctx["db"]
+    a = db.get(Applicant, applicant_id)
+    if not a or a.branch_id != branch_id:
+        raise HTTPException(status_code=404, detail="Not found.")
+    biz = db.query(Business).filter(
+        (Business.applicant_id == a.id) | (Business.name == a.business_name)
+    ).first()
+    if not biz:
+        return {
+            "business_id": None,
+            "total_disbursed": 0.0,
+            "total_disbursed_eur": 0.0,
+            "total_disbursed_jod": 0.0,
+            "items": [],
+        }
+    items = db.query(DisbursementItem, DisbursementBatch).join(
+        DisbursementBatch, DisbursementBatch.id == DisbursementItem.batch_id
+    ).filter(
+        DisbursementItem.business_id == biz.id
+    ).order_by(DisbursementBatch.payment_date.desc(), DisbursementItem.id.desc()).all()
+    results = []
+    total_eur = 0.0
+    total_jod = 0.0
+    for item, batch in items:
+        prg_name = batch.program.name if batch.program else ""
+        b_rate = float(getattr(batch, "exchange_rate", None) if getattr(batch, "exchange_rate", None) is not None else 0.76)
+        it_rate = float(getattr(item, "exchange_rate", None) if getattr(item, "exchange_rate", None) is not None else b_rate)
+        it_date = str(getattr(item, "disbursement_date", None) or batch.payment_date or "")
+        amt_eur = float(item.amount or 0.0)
+        amt_jod = float(getattr(item, "amount_jod", None) if getattr(item, "amount_jod", None) is not None else round(amt_eur * it_rate, 3))
+        disb_curr = getattr(batch, "disbursement_currency", None) or "JOD"
+
+        results.append({
+            "id": item.id,
+            "batch_id": batch.id,
+            "batch_title": batch.title,
+            "program_id": batch.program_id,
+            "program_name": prg_name,
+            "payment_date": str(batch.payment_date) if batch.payment_date else "",
+            "disbursement_date": it_date,
+            "currency": batch.currency or "EUR",
+            "disbursement_currency": disb_curr,
+            "exchange_rate": it_rate,
+            "amount": amt_eur,
+            "amount_eur": amt_eur,
+            "amount_jod": amt_jod,
+            "percentage": item.percentage,
+            "is_included": bool(item.is_included),
+            "status": batch.status,
+            "notes": item.notes or "",
+        })
+        if item.amount > 0 and item.is_included:
+            total_eur += amt_eur
+            total_jod += amt_jod
+    return {
+        "business_id": biz.id,
+        "business_name": biz.name,
+        "total_disbursed": total_eur,
+        "total_disbursed_eur": total_eur,
+        "total_disbursed_jod": total_jod,
+        "items": results,
+    }
 
 
 class ApplicantPatch(BaseModel):

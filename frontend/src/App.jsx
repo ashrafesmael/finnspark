@@ -9,6 +9,7 @@ import Forms from './pages/Forms'
 import Programs from './pages/Programs'
 import ProgramDetail from './pages/ProgramDetail'
 import Disbursements from './pages/Disbursements'
+import LoanRepayments from './pages/LoanRepayments'
 import Courses, { CourseDetail } from './pages/Courses'
 import Announcements from './pages/Announcements'
 import Dealflow from './pages/Dealflow'
@@ -42,6 +43,7 @@ function Shell() {
         <Route path="/programs" element={<Programs />} />
         <Route path="/programs-courses/:id" element={<ProgramDetail />} />
         <Route path="/disbursements" element={<Disbursements />} />
+        <Route path="/loan-repayments" element={<LoanRepayments />} />
         <Route path="/courses" element={<Courses />} />
         <Route path="/courses/view/:id" element={<CourseDetail />} />
         <Route path="/library" element={<Library />} />

@@ -91,8 +91,8 @@ export default function Dashboard() {
             <StatTile label="Graduated businesses" value={prog.tiles.graduated_businesses} />
             <StatTile
               label="Total Cohort Disbursements"
-              value={`$${(prog.tiles.total_disbursed || 0).toLocaleString()}`}
-              sub="Across all cohorts"
+              value={`€${(prog.tiles.total_disbursed_eur || prog.tiles.total_disbursed || 0).toLocaleString()}`}
+              sub={`${((prog.tiles.total_disbursed_jod != null ? prog.tiles.total_disbursed_jod : (prog.tiles.total_disbursed || 0) * 0.76)).toLocaleString()} JOD · Across all cohorts`}
             />
           </div>
 
@@ -156,10 +156,13 @@ export default function Dashboard() {
                     tick={{ fontSize: 11 }}
                   />
                   <YAxis
-                    tickFormatter={(v) => `$${v >= 1000 ? `${(v / 1000).toFixed(0)}k` : v}`}
+                    tickFormatter={(v) => `€${v >= 1000 ? `${(v / 1000).toFixed(0)}k` : v}`}
                   />
                   <Tooltip
-                    formatter={(value, name) => [`$${Number(value).toLocaleString()}`, name]}
+                    formatter={(value, name) => [
+                      `€${Number(value).toLocaleString()} (${(Number(value) * 0.76).toLocaleString()} JOD)`,
+                      name,
+                    ]}
                     labelFormatter={(label, payload) => payload?.[0]?.payload?.name || label}
                   />
                   <Legend wrapperStyle={{ fontSize: '12px' }} />
@@ -354,20 +357,29 @@ function DisbursementsDrillDownModal({ branchId, cohort, onClose }) {
       <div className="grid-3 gap" style={{ marginBottom: '14px' }}>
         <div className="card pad">
           <span className="muted sm">Total Disbursed</span>
-          <div style={{ fontSize: '20px', fontWeight: '800', color: 'var(--accent)' }}>
-            ${(cohort.total_amount || 0).toLocaleString()} {cohort.currency}
+          <div style={{ fontSize: '19px', fontWeight: '800', color: 'var(--accent)' }}>
+            €{(cohort.total_amount_eur || cohort.total_amount || 0).toLocaleString()} {cohort.currency || 'EUR'}
+          </div>
+          <div className="muted sm" style={{ fontSize: '12px', marginTop: 2 }}>
+            {(cohort.total_amount_jod || ((cohort.total_amount || 0) * 0.76)).toLocaleString()} {cohort.disbursement_currency || 'JOD'}
           </div>
         </div>
         <div className="card pad">
           <span className="muted sm">Confirmed & Processed</span>
-          <div style={{ fontSize: '20px', fontWeight: '800', color: 'var(--ok-fg)' }}>
-            ${(cohort.processed_amount || 0).toLocaleString()} {cohort.currency}
+          <div style={{ fontSize: '19px', fontWeight: '800', color: 'var(--ok-fg)' }}>
+            €{(cohort.processed_amount_eur || cohort.processed_amount || 0).toLocaleString()} {cohort.currency || 'EUR'}
+          </div>
+          <div className="muted sm" style={{ fontSize: '12px', marginTop: 2 }}>
+            {(cohort.processed_amount_jod || ((cohort.processed_amount || 0) * 0.76)).toLocaleString()} {cohort.disbursement_currency || 'JOD'}
           </div>
         </div>
         <div className="card pad">
           <span className="muted sm">Draft / Pending Batches</span>
-          <div style={{ fontSize: '20px', fontWeight: '800', color: 'var(--warn-fg)' }}>
-            ${(cohort.draft_amount || 0).toLocaleString()} {cohort.currency}
+          <div style={{ fontSize: '19px', fontWeight: '800', color: 'var(--warn-fg)' }}>
+            €{(cohort.draft_amount_eur || cohort.draft_amount || 0).toLocaleString()} {cohort.currency || 'EUR'}
+          </div>
+          <div className="muted sm" style={{ fontSize: '12px', marginTop: 2 }}>
+            {(cohort.draft_amount_jod || ((cohort.draft_amount || 0) * 0.76)).toLocaleString()} {cohort.disbursement_currency || 'JOD'}
           </div>
         </div>
       </div>
@@ -394,56 +406,64 @@ function DisbursementsDrillDownModal({ branchId, cohort, onClose }) {
                 <th>Payment Date</th>
                 <th>Status</th>
                 <th>Startups</th>
-                <th>Total Payout</th>
+                <th>Total Payout (EUR / JOD)</th>
                 <th>Confirmed By</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              {batches.map((b) => (
-                <tr key={b.id}>
-                  <td>
-                    <b>{b.title}</b>
-                    {b.notes && <div className="sm muted">{b.notes}</div>}
-                  </td>
-                  <td>
-                    <span className="row gap sm">
-                      <Calendar size={13} className="muted" />
-                      {b.payment_date}
-                    </span>
-                  </td>
-                  <td>
-                    <span className={`pill ${b.status === 'processed' ? 'ok' : 'warn'}`}>
-                      {b.status === 'processed' ? '✓ Processed' : 'Draft'}
-                    </span>
-                  </td>
-                  <td>{b.items_count} startups</td>
-                  <td>
-                    <b>{b.total_amount?.toLocaleString()} {b.currency}</b>
-                  </td>
-                  <td className="sm muted">
-                    {b.confirmed_by ? `${b.confirmed_by.name} (${b.confirmed_at?.slice(0, 10)})` : '—'}
-                  </td>
-                  <td>
-                    <span className="row gap">
-                      <button
-                        className="btn ghost sm"
-                        onClick={() => setSelectedBatch(selectedBatch === b.id ? null : b.id)}
-                        title="View Startups Breakdown"
-                      >
-                        <Eye size={13} /> {selectedBatch === b.id ? 'Hide' : 'Details'}
-                      </button>
-                      <button
-                        className="btn ghost sm"
-                        onClick={() => exportBatch(b.id, b.title)}
-                        title="Export Excel"
-                      >
-                        <Download size={13} />
-                      </button>
-                    </span>
-                  </td>
-                </tr>
-              ))}
+              {batches.map((b) => {
+                const bEur = b.total_amount_eur != null ? b.total_amount_eur : (b.total_amount || 0)
+                const bRate = Number(b.exchange_rate || 0.76)
+                const bJod = b.total_amount_jod != null ? b.total_amount_jod : (bEur * bRate)
+                return (
+                  <tr key={b.id}>
+                    <td>
+                      <b>{b.title}</b>
+                      {b.notes && <div className="sm muted">{b.notes}</div>}
+                    </td>
+                    <td>
+                      <span className="row gap sm">
+                        <Calendar size={13} className="muted" />
+                        {b.payment_date}
+                      </span>
+                    </td>
+                    <td>
+                      <span className={`pill ${b.status === 'processed' ? 'ok' : 'warn'}`}>
+                        {b.status === 'processed' ? '✓ Processed' : 'Draft'}
+                      </span>
+                    </td>
+                    <td>{b.items_count} startups</td>
+                    <td>
+                      <b>€{bEur.toLocaleString()} EUR</b>
+                      <div className="sm muted" style={{ color: '#0284c7', fontSize: '11.5px' }}>
+                        {bJod.toLocaleString()} {b.disbursement_currency || 'JOD'}
+                      </div>
+                    </td>
+                    <td className="sm muted">
+                      {b.confirmed_by ? `${b.confirmed_by.name} (${b.confirmed_at?.slice(0, 10)})` : '—'}
+                    </td>
+                    <td>
+                      <span className="row gap">
+                        <button
+                          className="btn ghost sm"
+                          onClick={() => setSelectedBatch(selectedBatch === b.id ? null : b.id)}
+                          title="View Startups Breakdown"
+                        >
+                          <Eye size={13} /> {selectedBatch === b.id ? 'Hide' : 'Details'}
+                        </button>
+                        <button
+                          className="btn ghost sm"
+                          onClick={() => exportBatch(b.id, b.title)}
+                          title="Export Excel"
+                        >
+                          <Download size={13} />
+                        </button>
+                      </span>
+                    </td>
+                  </tr>
+                )
+              })}
             </tbody>
           </table>
         </div>
@@ -477,7 +497,10 @@ function BatchItemsInlineView({ branchId, batchId, onClose }) {
       <div className="row spread" style={{ marginBottom: '8px' }}>
         <div>
           <b>Startup Breakdown: {batch.title}</b>
-          <span className="sm muted"> ({batch.items?.length || 0} startups · Base Rate: ${batch.base_amount} {batch.currency})</span>
+          <span className="sm muted">
+            {' '}({batch.items?.length || 0} startups · Base Rate:{' '}
+            {batch.base_amount > 0 ? `€${batch.base_amount} ${batch.currency}` : `Custom (${batch.currency})`})
+          </span>
         </div>
         <button className="btn ghost sm" onClick={onClose}>✕</button>
       </div>
@@ -488,24 +511,34 @@ function BatchItemsInlineView({ branchId, batchId, onClose }) {
               <th>Startup</th>
               <th>Founders</th>
               <th>Payment %</th>
-              <th>Disbursed ({batch.currency})</th>
+              <th>Base ({batch.currency || 'EUR'})</th>
+              <th>Disbursed ({batch.disbursement_currency || 'JOD'})</th>
               <th>Remarks</th>
             </tr>
           </thead>
           <tbody>
-            {(batch.items || []).map((it) => (
-              <tr key={it.id}>
-                <td><b>{it.business_name}</b></td>
-                <td className="sm muted">{it.founders?.map((f) => f.name).join(', ') || '—'}</td>
-                <td>
-                  <span className={`pill ${it.percentage === 100 ? 'ok' : it.percentage > 0 ? 'warn' : 'bad'}`}>
-                    {it.percentage}%
-                  </span>
-                </td>
-                <td><b>{it.amount?.toLocaleString()}</b></td>
-                <td className="sm muted">{it.notes || '—'}</td>
-              </tr>
-            ))}
+            {(batch.items || []).map((it) => {
+              const itEur = Number(it.amount_eur != null ? it.amount_eur : (it.amount || 0))
+              const itRate = Number(it.exchange_rate || batch.exchange_rate || 0.76)
+              const itJod = Number(it.amount_jod != null ? it.amount_jod : (itEur * itRate))
+
+              return (
+                <tr key={it.id}>
+                  <td><b>{it.business_name}</b></td>
+                  <td className="sm muted">{it.founders?.map((f) => f.name).join(', ') || '—'}</td>
+                  <td>
+                    <span className={`pill ${it.percentage === 100 ? 'ok' : it.percentage > 0 ? 'warn' : 'bad'}`}>
+                      {it.percentage}%
+                    </span>
+                  </td>
+                  <td><b>€{itEur.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</b></td>
+                  <td style={{ color: '#0284c7', fontWeight: 600 }}>
+                    {itJod.toLocaleString(undefined, { minimumFractionDigits: 3, maximumFractionDigits: 3 })} {batch.disbursement_currency || 'JOD'}
+                  </td>
+                  <td className="sm muted">{it.notes || '—'}</td>
+                </tr>
+              )
+            })}
           </tbody>
         </table>
       </div>

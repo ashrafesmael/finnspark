@@ -2,7 +2,7 @@ const dict = {
   en: {
     dashboard: 'Home', announcements: 'Announcements', selections: 'Selection Board',
     forms: 'Forms', programs: 'Programs', courses: 'Courses', library: 'Library',
-    disbursements: 'Disbursements', investmentForms: 'Investment Forms', dealflow: 'Dealflow', approval: 'Approval',
+    disbursements: 'Disbursements', loanRepayments: 'Loan Repayments', investmentForms: 'Investment Forms', dealflow: 'Dealflow', approval: 'Approval',
     portfolio: 'Portfolio Management', reports: 'Reports', calendar: 'Calendar',
     directories: 'Directories', chat: 'Chat', users: 'Users & Roles', organizations: 'Organizations',
     systemReset: 'Reset Data & Maintenance',
@@ -13,7 +13,7 @@ const dict = {
   ar: {
     dashboard: 'الرئيسية', announcements: 'الإعلانات', selections: 'لجنة الاختيار',
     forms: 'النماذج', programs: 'البرامج', courses: 'الدورات', library: 'المكتبة',
-    disbursements: 'الدفعات الشهرية', investmentForms: 'نماذج الاستثمار', dealflow: 'تدفق الصفقات', approval: 'الاعتماد',
+    disbursements: 'الدفعات الشهرية', loanRepayments: 'سداد القروض', investmentForms: 'نماذج الاستثمار', dealflow: 'تدفق الصفقات', approval: 'الاعتماد',
     portfolio: 'إدارة المحفظة', reports: 'التقارير', calendar: 'التقويم',
     directories: 'الأدلة', chat: 'المحادثة', users: 'المستخدمون والأدوار', organizations: 'المنظمات',
     systemReset: 'إعادة ضبط البيانات والصيانة',

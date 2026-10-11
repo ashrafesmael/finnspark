@@ -577,9 +577,12 @@ class DisbursementBatch(Base):
     program_id = Column(Integer, ForeignKey("programs.id"), nullable=False)
     title = Column(String(250), nullable=False)
     payment_date = Column(Date, nullable=False)
-    currency = Column(String(10), default="USD")  # USD, EUR, JOD
+    currency = Column(String(10), default="EUR")  # Base currency (EUR)
+    disbursement_currency = Column(String(10), default="JOD")  # Payout currency (JOD)
+    exchange_rate = Column(Float, default=0.76)  # 1 EUR = X JOD
     base_amount = Column(Float, default=0.0)
     total_amount = Column(Float, default=0.0)
+    total_amount_jod = Column(Float, default=0.0)
     status = Column(String(30), default="draft")  # draft | processed
     notes = Column(Text, default="")
     created_by_id = Column(Integer, ForeignKey("users.id"), nullable=True)
@@ -602,12 +605,51 @@ class DisbursementItem(Base):
     business_id = Column(Integer, ForeignKey("businesses.id"), nullable=False)
     percentage = Column(Float, default=100.0)  # 100%, 50%, 0%, or custom
     amount = Column(Float, default=0.0)
+    amount_jod = Column(Float, default=0.0)
+    disbursement_date = Column(Date, nullable=True)  # Exact transaction date
+    exchange_rate = Column(Float, nullable=True)  # Exact transaction exchange rate
     is_included = Column(Boolean, default=True)
     notes = Column(String(500), default="")
     created_at = Column(DateTime, default=datetime.utcnow)
 
     batch = relationship("DisbursementBatch", back_populates="items")
     business = relationship("Business")
+
+
+# ---------------------------------------------------------------- Loan Repayments
+
+class LoanRepayment(Base):
+    __tablename__ = "loan_repayments"
+    id = Column(Integer, primary_key=True)
+    branch_id = Column(Integer, ForeignKey("branches.id"), nullable=False)
+    business_id = Column(Integer, ForeignKey("businesses.id"), nullable=False)
+    case_id = Column(Integer, ForeignKey("investment_cases.id"), nullable=True)
+    schedule_entry_id = Column(Integer, ForeignKey("payment_schedule_entries.id"), nullable=True)
+
+    payment_date = Column(Date, nullable=False)
+    amount = Column(Float, default=0.0)             # Base amount (EUR)
+    currency = Column(String(10), default="EUR")    # Base currency (EUR)
+    disbursement_currency = Column(String(10), default="JOD") # Repayment/Payout currency (JOD)
+    exchange_rate = Column(Float, default=0.76)     # Exchange rate (EUR -> JOD)
+    amount_jod = Column(Float, default=0.0)         # Amount in JOD
+
+    principal_amount = Column(Float, default=0.0)   # Principal portion
+    interest_amount = Column(Float, default=0.0)    # Interest / service fee portion (if any)
+    payment_method = Column(String(50), default="Bank Transfer")  # Bank Transfer, Cheque, Cash, Deposit Slip, Mobile Wallet, Other
+    reference_number = Column(String(100), default="") # Bank transaction reference / Receipt #
+    status = Column(String(30), default="completed")  # completed, pending, cancelled
+    notes = Column(Text, default="")
+    receipt_url = Column(String(500), nullable=True)
+
+    recorded_by_id = Column(Integer, ForeignKey("users.id"), nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    # Relationships
+    branch = relationship("Branch")
+    business = relationship("Business")
+    case = relationship("InvestmentCase")
+    schedule_entry = relationship("PaymentScheduleEntry")
+    recorded_by = relationship("User")
 
 
 # ---------------------------------------------------------------- Collaboration (7.6)

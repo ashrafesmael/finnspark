@@ -3,7 +3,7 @@ import {
   LayoutDashboard, Megaphone, KanbanSquare, FileInput, FolderKanban, GraduationCap,
   BookOpen, FileSignature, Workflow, Stamp, Briefcase, BarChart3, CalendarDays, Users,
   MessageSquare, UserCog, Building2, LifeBuoy, Bell, ChevronDown, LogOut, Banknote,
-  RotateCcw,
+  RotateCcw, Receipt,
 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import Logo from './Logo'
@@ -18,6 +18,7 @@ const NAV = [
   { to: '/forms', icon: FileInput, key: 'forms' },
   { to: '/programs', icon: FolderKanban, key: 'programs' },
   { to: '/disbursements', icon: Banknote, key: 'disbursements' },
+  { to: '/loan-repayments', icon: Receipt, key: 'loanRepayments' },
   { to: '/courses', icon: GraduationCap, key: 'courses' },
   { to: '/library', icon: BookOpen, key: 'library' },
   { to: '/investment-forms', icon: FileSignature, key: 'investmentForms' },

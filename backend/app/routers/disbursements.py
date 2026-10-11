@@ -23,9 +23,13 @@ def batch_ser(b: DisbursementBatch, db: Session, include_items: bool = True) -> 
         "program_name": b.program.name if b.program else None,
         "title": b.title,
         "payment_date": str(b.payment_date) if b.payment_date else None,
-        "currency": b.currency,
+        "currency": b.currency or "EUR",
+        "disbursement_currency": getattr(b, "disbursement_currency", None) or "JOD",
+        "exchange_rate": float(getattr(b, "exchange_rate", None) if getattr(b, "exchange_rate", None) is not None else 0.76),
         "base_amount": float(b.base_amount or 0.0),
         "total_amount": float(b.total_amount or 0.0),
+        "total_amount_eur": float(b.total_amount or 0.0),
+        "total_amount_jod": float(getattr(b, "total_amount_jod", None) if getattr(b, "total_amount_jod", None) is not None else round((b.total_amount or 0.0) * (getattr(b, "exchange_rate", None) or 0.76), 3)),
         "status": b.status or "draft",
         "notes": b.notes or "",
         "created_by": {
@@ -44,6 +48,7 @@ def batch_ser(b: DisbursementBatch, db: Session, include_items: bool = True) -> 
         "items_count": len(b.items) if b.items else 0,
     }
     if include_items:
+        batch_rate = float(getattr(b, "exchange_rate", None) if getattr(b, "exchange_rate", None) is not None else 0.76)
         data["items"] = [
             {
                 "id": it.id,
@@ -60,6 +65,10 @@ def batch_ser(b: DisbursementBatch, db: Session, include_items: bool = True) -> 
                 ],
                 "percentage": float(it.percentage if it.percentage is not None else 100.0),
                 "amount": float(it.amount or 0.0),
+                "amount_eur": float(it.amount or 0.0),
+                "amount_jod": float(getattr(it, "amount_jod", None) if getattr(it, "amount_jod", None) is not None else round((it.amount or 0.0) * (getattr(it, "exchange_rate", None) or batch_rate), 3)),
+                "disbursement_date": str(getattr(it, "disbursement_date", None) or b.payment_date or ""),
+                "exchange_rate": float(getattr(it, "exchange_rate", None) if getattr(it, "exchange_rate", None) is not None else batch_rate),
                 "is_included": bool(it.is_included),
                 "notes": it.notes or "",
             }
@@ -140,13 +149,18 @@ class DisbursementItemIn(BaseModel):
     is_included: bool = True
     notes: str = ""
     amount: float | None = None
+    amount_jod: float | None = None
+    disbursement_date: date | None = None
+    exchange_rate: float | None = None
 
 
 class DisbursementBatchCreateIn(BaseModel):
     program_id: int
     title: str | None = None
     payment_date: date
-    currency: str = "USD"
+    currency: str = "EUR"
+    disbursement_currency: str = "JOD"
+    exchange_rate: float = 0.76
     base_amount: float = 0.0
     notes: str = ""
     items: list[DisbursementItemIn] | None = None
@@ -165,9 +179,12 @@ def create_disbursement_batch(
     if not program or program.branch_id != branch_id:
         raise HTTPException(status_code=404, detail="Programme / Cohort not found in this branch.")
 
-    currency = data.currency.upper() if data.currency else "USD"
+    currency = data.currency.upper() if data.currency else "EUR"
     if currency not in ("USD", "EUR", "JOD"):
         raise HTTPException(status_code=400, detail="Currency must be USD, EUR, or JOD.")
+
+    rate = float(data.exchange_rate if data.exchange_rate is not None else 0.76)
+    disb_curr = (data.disbursement_currency or "JOD").upper()
 
     title = (data.title or "").strip()
     if not title:
@@ -180,6 +197,8 @@ def create_disbursement_batch(
         title=title,
         payment_date=data.payment_date,
         currency=currency,
+        disbursement_currency=disb_curr,
+        exchange_rate=rate,
         base_amount=float(data.base_amount or 0.0),
         notes=data.notes or "",
         status="draft",
@@ -189,6 +208,7 @@ def create_disbursement_batch(
     db.flush()
 
     total_amount = 0.0
+    total_amount_jod = 0.0
 
     if data.items is not None and len(data.items) > 0:
         for it in data.items:
@@ -198,13 +218,20 @@ def create_disbursement_batch(
             pct = float(it.percentage if it.percentage is not None else 100.0)
             item_amount = it.amount if it.amount is not None else (batch.base_amount * (pct / 100.0))
             item_amount = round(float(item_amount), 2)
+            it_rate = float(it.exchange_rate if it.exchange_rate is not None else rate)
+            it_jod = float(it.amount_jod) if it.amount_jod is not None else round(item_amount * it_rate, 3)
+            it_date = it.disbursement_date or batch.payment_date
             if it.is_included:
                 total_amount += item_amount
+                total_amount_jod += it_jod
             item = DisbursementItem(
                 batch_id=batch.id,
                 business_id=biz.id,
                 percentage=pct,
                 amount=item_amount,
+                amount_jod=it_jod,
+                disbursement_date=it_date,
+                exchange_rate=it_rate,
                 is_included=it.is_included,
                 notes=it.notes or "",
             )
@@ -219,22 +246,166 @@ def create_disbursement_batch(
         for biz in businesses:
             pct = 100.0
             item_amount = round(float(batch.base_amount * (pct / 100.0)), 2)
+            it_jod = round(item_amount * rate, 3)
             total_amount += item_amount
+            total_amount_jod += it_jod
             item = DisbursementItem(
                 batch_id=batch.id,
                 business_id=biz.id,
                 percentage=pct,
                 amount=item_amount,
+                amount_jod=it_jod,
+                disbursement_date=batch.payment_date,
+                exchange_rate=rate,
                 is_included=True,
                 notes="",
             )
             db.add(item)
 
     batch.total_amount = round(total_amount, 2)
+    batch.total_amount_jod = round(total_amount_jod, 3)
     db.commit()
     db.refresh(batch)
 
     return batch_ser(batch, db, include_items=True)
+
+
+# ------------------------------------------------------------------ Export all disbursements (Excel / CSV)
+
+@router.get("/disbursements/{branch_id}/export/")
+def export_all_disbursements(
+    branch_id: int,
+    request: Request,
+    ctx=Depends(require_perm("disbursements.view")),
+):
+    import csv
+    from openpyxl import Workbook
+    from openpyxl.styles import Font, PatternFill, Alignment
+
+    db: Session = ctx["db"]
+    batches = db.query(DisbursementBatch).filter(
+        DisbursementBatch.branch_id == branch_id
+    ).order_by(DisbursementBatch.payment_date.desc(), DisbursementBatch.id.desc()).all()
+
+    fmt = request.query_params.get("format", "excel").lower()
+
+    headers = [
+        "Batch ID",
+        "Batch Title",
+        "Cohort / Programme",
+        "Startup / Business",
+        "Founder Name",
+        "Exact Disbursement Date",
+        "Payment %",
+        "Base Currency",
+        "Amount (EUR)",
+        "Exchange Rate (EUR/JOD)",
+        "Disbursement Currency",
+        "Amount (JOD)",
+        "Status",
+        "Notes",
+    ]
+
+    rows = []
+    tot_eur = 0.0
+    tot_jod = 0.0
+
+    for b in batches:
+        b_rate = float(getattr(b, "exchange_rate", None) if getattr(b, "exchange_rate", None) is not None else 0.76)
+        curr = b.currency or "EUR"
+        disb_curr = getattr(b, "disbursement_currency", None) or "JOD"
+
+        for item in b.items:
+            if not item.is_included:
+                continue
+            founders_str = ", ".join(
+                f"{f.first_name} {f.last_name}".strip() for f in (item.business.founders if item.business else [])
+            )
+            it_date = str(getattr(item, "disbursement_date", None) or b.payment_date or "")
+            it_rate = float(getattr(item, "exchange_rate", None) if getattr(item, "exchange_rate", None) is not None else b_rate)
+            it_amt_eur = float(item.amount or 0.0)
+            it_amt_jod = float(getattr(item, "amount_jod", None) if getattr(item, "amount_jod", None) is not None else round(it_amt_eur * it_rate, 3))
+            tot_eur += it_amt_eur
+            tot_jod += it_amt_jod
+
+            rows.append([
+                b.id,
+                b.title,
+                b.program.name if b.program else "",
+                item.business.name if item.business else "—",
+                founders_str,
+                it_date,
+                f"{item.percentage:.1f}%",
+                curr,
+                it_amt_eur,
+                it_rate,
+                disb_curr,
+                it_amt_jod,
+                b.status.capitalize(),
+                item.notes or "",
+            ])
+
+    if fmt == "csv":
+        buf = io.StringIO()
+        writer = csv.writer(buf)
+        writer.writerow(["# finnspark — All Disbursements Export"])
+        writer.writerow([f"# Total EUR: {tot_eur:,.2f} | Total JOD: {tot_jod:,.3f}"])
+        writer.writerow(headers)
+        for r in rows:
+            writer.writerow(r)
+        output = io.BytesIO(buf.getvalue().encode("utf-8-sig"))
+        return StreamingResponse(
+            output,
+            media_type="text/csv",
+            headers={"Content-Disposition": "attachment; filename=all_disbursements_report.csv"},
+        )
+
+    wb = Workbook()
+    ws = wb.active
+    ws.title = "All Disbursements"
+
+    header_fill = PatternFill(start_color="1E293B", end_color="1E293B", fill_type="solid")
+    header_font = Font(name="Arial", size=11, bold=True, color="FFFFFF")
+    title_font = Font(name="Arial", size=14, bold=True)
+    meta_font = Font(name="Arial", size=10, italic=True)
+
+    ws.append(["finnspark — Comprehensive Disbursements Report"])
+    ws.cell(row=1, column=1).font = title_font
+    ws.append([f"Total Base Amount: €{tot_eur:,.2f} EUR | Total Disbursed: {tot_jod:,.3f} JOD | Transactions: {len(rows)}"])
+    ws.cell(row=2, column=1).font = meta_font
+    ws.append([])
+
+    ws.append(headers)
+    header_row_idx = 4
+    for col_idx in range(1, len(headers) + 1):
+        cell = ws.cell(row=header_row_idx, column=col_idx)
+        cell.fill = header_fill
+        cell.font = header_font
+
+    for r in rows:
+        ws.append(r)
+
+    # Total row
+    ws.append(["TOTAL", "", "", "", "", "", "", "", tot_eur, "", "", tot_jod, "", ""])
+    last_row = ws.max_row
+    total_font = Font(name="Arial", size=11, bold=True)
+    for col_idx in range(1, len(headers) + 1):
+        cell = ws.cell(row=last_row, column=col_idx)
+        cell.font = total_font
+
+    for col in ws.columns:
+        max_len = max(len(str(cell.value or '')) for cell in col)
+        col_letter = col[0].column_letter
+        ws.column_dimensions[col_letter].width = max(max_len + 3, 13)
+
+    buf = io.BytesIO()
+    wb.save(buf)
+    buf.seek(0)
+    return StreamingResponse(
+        buf,
+        media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        headers={"Content-Disposition": "attachment; filename=all_disbursements_report.xlsx"},
+    )
 
 
 # ------------------------------------------------------------------ Get single batch
@@ -262,12 +433,17 @@ class DisbursementItemUpdateIn(BaseModel):
     is_included: bool = True
     notes: str = ""
     amount: float | None = None
+    amount_jod: float | None = None
+    disbursement_date: date | None = None
+    exchange_rate: float | None = None
 
 
 class DisbursementBatchUpdateIn(BaseModel):
     title: str | None = None
     payment_date: date | None = None
     currency: str | None = None
+    disbursement_currency: str | None = None
+    exchange_rate: float | None = None
     base_amount: float | None = None
     notes: str | None = None
     items: list[DisbursementItemUpdateIn] | None = None
@@ -300,14 +476,21 @@ def update_disbursement_batch(
         if curr not in ("USD", "EUR", "JOD"):
             raise HTTPException(status_code=400, detail="Currency must be USD, EUR, or JOD.")
         batch.currency = curr
+    if data.disbursement_currency is not None:
+        batch.disbursement_currency = data.disbursement_currency.upper()
+    if data.exchange_rate is not None:
+        batch.exchange_rate = float(data.exchange_rate)
     if data.base_amount is not None:
         batch.base_amount = float(data.base_amount)
     if data.notes is not None:
         batch.notes = data.notes
 
+    batch_rate = float(batch.exchange_rate if batch.exchange_rate is not None else 0.76)
+
     if data.items is not None:
         existing_items = {it.id: it for it in batch.items}
         total_amount = 0.0
+        total_amount_jod = 0.0
 
         for item_data in data.items:
             if item_data.id and item_data.id in existing_items:
@@ -317,34 +500,62 @@ def update_disbursement_batch(
                 item.notes = item_data.notes or ""
                 calc_amt = item_data.amount if item_data.amount is not None else (batch.base_amount * (item.percentage / 100.0))
                 item.amount = round(float(calc_amt), 2)
+                if item_data.exchange_rate is not None:
+                    item.exchange_rate = float(item_data.exchange_rate)
+                it_rate = float(item.exchange_rate if item.exchange_rate is not None else batch_rate)
+                if item_data.amount_jod is not None:
+                    item.amount_jod = float(item_data.amount_jod)
+                else:
+                    item.amount_jod = round(item.amount * it_rate, 3)
+                if item_data.disbursement_date is not None:
+                    item.disbursement_date = item_data.disbursement_date
+                elif not item.disbursement_date:
+                    item.disbursement_date = batch.payment_date
+
                 if item.is_included:
                     total_amount += item.amount
+                    total_amount_jod += item.amount_jod
             elif item_data.business_id:
                 biz = db.get(Business, item_data.business_id)
                 if biz and biz.branch_id == branch_id:
                     pct = float(item_data.percentage)
                     calc_amt = item_data.amount if item_data.amount is not None else (batch.base_amount * (pct / 100.0))
                     calc_amt = round(float(calc_amt), 2)
+                    it_rate = float(item_data.exchange_rate if item_data.exchange_rate is not None else batch_rate)
+                    it_jod = float(item_data.amount_jod) if item_data.amount_jod is not None else round(calc_amt * it_rate, 3)
+                    it_date = item_data.disbursement_date or batch.payment_date
                     if item_data.is_included:
                         total_amount += calc_amt
+                        total_amount_jod += it_jod
                     new_item = DisbursementItem(
                         batch_id=batch.id,
                         business_id=biz.id,
                         percentage=pct,
                         amount=calc_amt,
+                        amount_jod=it_jod,
+                        disbursement_date=it_date,
+                        exchange_rate=it_rate,
                         is_included=item_data.is_included,
                         notes=item_data.notes or "",
                     )
                     db.add(new_item)
         batch.total_amount = round(total_amount, 2)
+        batch.total_amount_jod = round(total_amount_jod, 3)
     else:
-        # Recalculate based on updated base_amount
+        # Recalculate based on updated base_amount and exchange_rate
         total_amount = 0.0
+        total_amount_jod = 0.0
         for item in batch.items:
             item.amount = round(float(batch.base_amount * (item.percentage / 100.0)), 2)
+            it_rate = float(item.exchange_rate if item.exchange_rate is not None else batch_rate)
+            item.amount_jod = round(item.amount * it_rate, 3)
+            if not item.disbursement_date:
+                item.disbursement_date = batch.payment_date
             if item.is_included:
                 total_amount += item.amount
+                total_amount_jod += item.amount_jod
         batch.total_amount = round(total_amount, 2)
+        batch.total_amount_jod = round(total_amount_jod, 3)
 
     batch.updated_at = datetime.utcnow()
     db.commit()
@@ -448,79 +659,121 @@ def delete_disbursement_batch(
     return {"detail": "Disbursement batch deleted successfully."}
 
 
-# ------------------------------------------------------------------ Export batch to Excel
+# ------------------------------------------------------------------ Export batch to Excel / CSV
 
 @router.get("/disbursements/{branch_id}/{batch_id}/export/")
 def export_disbursement_batch(
     branch_id: int,
     batch_id: int,
+    request: Request,
     ctx=Depends(require_perm("disbursements.view")),
 ):
+    import csv
     from openpyxl import Workbook
-    from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
+    from openpyxl.styles import Font, PatternFill, Alignment
 
     db: Session = ctx["db"]
     batch = db.get(DisbursementBatch, batch_id)
     if not batch or batch.branch_id != branch_id:
         raise HTTPException(status_code=404, detail="Disbursement batch not found.")
 
+    curr = batch.currency or "EUR"
+    disb_curr = getattr(batch, "disbursement_currency", None) or "JOD"
+    rate = float(getattr(batch, "exchange_rate", None) if getattr(batch, "exchange_rate", None) is not None else 0.76)
+    tot_eur = float(batch.total_amount or 0.0)
+    tot_jod = float(getattr(batch, "total_amount_jod", None) if getattr(batch, "total_amount_jod", None) is not None else round(tot_eur * rate, 3))
+
+    fmt = request.query_params.get("format", "excel").lower()
+
+    headers = [
+        "Startup / Business",
+        "Founders",
+        "Exact Disbursement Date",
+        "Payment %",
+        f"Base Amount ({curr})",
+        f"Exchange Rate ({curr} to {disb_curr})",
+        f"Disbursement Amount ({disb_curr})",
+        "Included in Batch",
+        "Remarks / Notes",
+    ]
+
+    rows = []
+    for item in batch.items:
+        founders_str = ", ".join(
+            f"{f.first_name} {f.last_name}".strip() for f in (item.business.founders if item.business else [])
+        )
+        it_date = str(getattr(item, "disbursement_date", None) or batch.payment_date or "")
+        it_rate = float(getattr(item, "exchange_rate", None) if getattr(item, "exchange_rate", None) is not None else rate)
+        it_jod = float(getattr(item, "amount_jod", None) if getattr(item, "amount_jod", None) is not None else round((item.amount or 0.0) * it_rate, 3))
+        rows.append([
+            item.business.name if item.business else "—",
+            founders_str,
+            it_date,
+            f"{item.percentage:.1f}%",
+            float(item.amount or 0.0),
+            it_rate,
+            it_jod,
+            "Yes" if item.is_included else "No",
+            item.notes or "",
+        ])
+
+    if fmt == "csv":
+        buf = io.StringIO()
+        writer = csv.writer(buf)
+        writer.writerow([f"# finnspark — {batch.title}"])
+        writer.writerow([f"# Payment Date: {batch.payment_date} | Rate: 1 {curr} = {rate} {disb_curr} | Total: {tot_eur:,.2f} {curr} ({tot_jod:,.3f} {disb_curr})"])
+        writer.writerow(headers)
+        for r in rows:
+            writer.writerow(r)
+        writer.writerow(["TOTAL", "", "", "", tot_eur, rate, tot_jod, f"{sum(1 for i in batch.items if i.is_included)} / {len(batch.items)} startups", ""])
+        output = io.BytesIO(buf.getvalue().encode("utf-8-sig"))
+        filename = f"disbursement_{batch.id}_{batch.payment_date}.csv"
+        return StreamingResponse(
+            output,
+            media_type="text/csv",
+            headers={"Content-Disposition": f"attachment; filename={filename}"},
+        )
+
+    # Excel export
     wb = Workbook()
     ws = wb.active
     ws.title = "Disbursement Batch"
 
-    # Header styling
     header_fill = PatternFill(start_color="1E293B", end_color="1E293B", fill_type="solid")
     header_font = Font(name="Arial", size=11, bold=True, color="FFFFFF")
     title_font = Font(name="Arial", size=14, bold=True)
     meta_font = Font(name="Arial", size=10, italic=True)
 
-    # Batch Title & Meta Information
     ws.append([f"finnspark — {batch.title}"])
     ws.cell(row=1, column=1).font = title_font
     ws.append([f"Programme / Cohort: {batch.program.name if batch.program else '—'}"])
     ws.cell(row=2, column=1).font = meta_font
     ws.append([
-        f"Payment Date: {batch.payment_date} | Currency: {batch.currency} | Status: {batch.status.upper()} | Total: {batch.total_amount:,.2f} {batch.currency}"
+        f"Payment Date: {batch.payment_date} | Base: {curr} | Disbursement: {disb_curr} | Rate: 1 {curr} = {rate} {disb_curr} | Total: {tot_eur:,.2f} {curr} ({tot_jod:,.3f} {disb_curr})"
     ])
     ws.cell(row=3, column=1).font = meta_font
-    ws.append([])  # blank line
+    ws.append([])
 
-    headers = [
-        "Startup / Business",
-        "Founders",
-        "Payment %",
-        f"Disbursement Amount ({batch.currency})",
-        "Included in Batch",
-        "Remarks / Notes",
-    ]
     ws.append(headers)
     header_row_idx = 5
     for col_idx in range(1, len(headers) + 1):
         cell = ws.cell(row=header_row_idx, column=col_idx)
         cell.fill = header_fill
         cell.font = header_font
-        cell.alignment = Alignment(horizontal="center" if col_idx in (3, 4, 5) else "left", vertical="center")
+        cell.alignment = Alignment(horizontal="center" if col_idx in (3, 4, 5, 6, 7, 8) else "left", vertical="center")
 
-    for item in batch.items:
-        founders_str = ", ".join(
-            f"{f.first_name} {f.last_name}".strip() for f in (item.business.founders if item.business else [])
-        )
-        row_data = [
-            item.business.name if item.business else "—",
-            founders_str,
-            f"{item.percentage:.1f}%",
-            item.amount,
-            "Yes" if item.is_included else "No",
-            item.notes or "",
-        ]
-        ws.append(row_data)
+    for r in rows:
+        ws.append(r)
 
     # Summary Row
     summary_row = [
         "TOTAL COHORT DISBURSEMENT",
         "",
         "",
-        batch.total_amount,
+        "",
+        tot_eur,
+        rate,
+        tot_jod,
         f"{sum(1 for i in batch.items if i.is_included)} / {len(batch.items)} startups",
         "",
     ]
@@ -531,7 +784,6 @@ def export_disbursement_batch(
         cell = ws.cell(row=last_row, column=col_idx)
         cell.font = total_font
 
-    # Column widths auto-adjust
     for col in ws.columns:
         max_len = max(len(str(cell.value or '')) for cell in col)
         col_letter = col[0].column_letter
@@ -540,10 +792,12 @@ def export_disbursement_batch(
     buf = io.BytesIO()
     wb.save(buf)
     buf.seek(0)
-
     filename = f"disbursement_{batch.id}_{batch.payment_date}.xlsx"
     return StreamingResponse(
         buf,
         media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         headers={"Content-Disposition": f"attachment; filename={filename}"},
     )
+
+
+
