@@ -8,8 +8,8 @@ WorkingDirectory=/home/administrator/finnspark/backend
 ExecStart=/usr/bin/python3 run.py
 Environment=PORT=8002
 Environment=PUBLIC_BASE_URL=https://accelerate.finnpact.com
-DATABASE_URL=sqlite:////home/administrator/finnspark/backend/finnspark.db
-Environment=JWT_SECRET=CHANGE-ME-to-a-long-random-string
+Environment=DATABASE_URL=sqlite:////home/administrator/finnspark/backend/finnspark.db
+# JWT_SECRET and SMTP/Graph credentials load from backend/.env via config.py (dotenv)
 Restart=on-failure
 RestartSec=3
 
