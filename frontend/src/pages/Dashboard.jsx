@@ -141,11 +141,11 @@ export default function Dashboard() {
                 <h3>Disbursements per Programme / Cohort</h3>
                 <span className="muted sm">Click bars for batch details 🔍</span>
               </div>
-              <ResponsiveContainer width="100%" height={240}>
+              <ResponsiveContainer width="100%" height={272}>
                 <BarChart
                   data={prog.disbursements || []}
                   onClick={handleDisbursementClick}
-                  margin={{ top: 10, right: 10, left: 20, bottom: 25 }}
+                  margin={{ top: 10, right: 10, left: 20, bottom: 62 }}
                   style={{ cursor: 'pointer' }}
                 >
                   <XAxis
@@ -154,6 +154,7 @@ export default function Dashboard() {
                     angle={-15}
                     textAnchor="end"
                     tick={{ fontSize: 11 }}
+                    tickFormatter={(v) => String(v || '').replace(/^[\s\-]+/, '')}
                   />
                   <YAxis
                     tickFormatter={(v) => `€${v >= 1000 ? `${(v / 1000).toFixed(0)}k` : v}`}
@@ -165,7 +166,7 @@ export default function Dashboard() {
                     ]}
                     labelFormatter={(label, payload) => payload?.[0]?.payload?.name || label}
                   />
-                  <Legend wrapperStyle={{ fontSize: '12px' }} />
+                  <Legend verticalAlign="top" wrapperStyle={{ fontSize: '12px', paddingBottom: 4 }} />
                   <Bar dataKey="processed_amount" name="Processed" fill="#52bc7e" radius={[4, 4, 0, 0]} />
                   <Bar dataKey="draft_amount" name="Draft / Pending" fill="#e08a00" radius={[4, 4, 0, 0]} />
                 </BarChart>
