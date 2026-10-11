@@ -46,6 +46,8 @@ def batch_ser(b: DisbursementBatch, db: Session, include_items: bool = True) -> 
         "created_at": str(b.created_at) if b.created_at else None,
         "updated_at": str(b.updated_at) if b.updated_at else None,
         "items_count": len(b.items) if b.items else 0,
+        # startups that actually received the payment (excluded ones don't count)
+        "received_count": sum(1 for it in (b.items or []) if it.is_included),
     }
     if include_items:
         batch_rate = float(getattr(b, "exchange_rate", None) if getattr(b, "exchange_rate", None) is not None else 0.76)

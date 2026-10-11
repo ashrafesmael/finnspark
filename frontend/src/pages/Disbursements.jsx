@@ -236,7 +236,7 @@ export default function Disbursements() {
           },
           {
             header: 'Startups',
-            render: (r) => `${r.items_count} enrolled`,
+            render: (r) => `${r.received_count ?? r.items_count} received`,
           },
           {
             header: 'Status',
