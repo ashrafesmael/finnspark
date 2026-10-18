@@ -57,3 +57,7 @@ Thumbs.db
 .vscode/
 *.swp
 *.swo
+
+# Source documents (working data, not code)
+*.pdf
+*.xlsx
