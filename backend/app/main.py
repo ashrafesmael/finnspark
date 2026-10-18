@@ -118,3 +118,52 @@ def _migrate(engine):
         if "invited_at" not in cols:
             conn.exec_driver_sql("ALTER TABLE applicants ADD COLUMN invited_at DATETIME")
             logger.info("added applicants.invited_at")
+
+    # repayment batches (monthly uploads mirroring disbursement batches)
+    lr_cols = {c["name"] for c in insp.get_columns("loan_repayments")}
+    with engine.begin() as conn:
+        for name, ddl in (
+            ("batch_id", "INTEGER"),
+            ("loan_number", "VARCHAR(50) DEFAULT ''"),
+            ("cohort", "VARCHAR(20) DEFAULT ''"),
+            ("payer_name", "VARCHAR(250) DEFAULT ''"),
+            ("channel", "VARCHAR(150) DEFAULT ''"),
+            ("instalment_label", "VARCHAR(250) DEFAULT ''"),
+            ("verified_against", "VARCHAR(300) DEFAULT ''"),
+            ("verified", "BOOLEAN DEFAULT 1"),
+            ("entry_type", "VARCHAR(30) DEFAULT 'installment'"),
+        ):
+            if name not in lr_cols:
+                conn.exec_driver_sql(f"ALTER TABLE loan_repayments ADD COLUMN {name} {ddl}")
+                logger.info("added loan_repayments.%s", name)
+
+    # schedules carry their loan and currency: a startup can hold two loans
+    # (1st/2nd, restructured) whose schedules must not be merged
+    ic_cols = {c["name"] for c in insp.get_columns("investment_cases")}
+    with engine.begin() as conn:
+        if "disbursement_amount" not in ic_cols:
+            conn.exec_driver_sql("ALTER TABLE investment_cases ADD COLUMN disbursement_amount FLOAT DEFAULT 0")
+            logger.info("added investment_cases.disbursement_amount")
+        if "disbursement_amount_jod" not in ic_cols:
+            conn.exec_driver_sql("ALTER TABLE investment_cases ADD COLUMN disbursement_amount_jod FLOAT DEFAULT 0")
+            logger.info("added investment_cases.disbursement_amount_jod")
+
+    if "name_en" not in {c["name"] for c in insp.get_columns("businesses")}:
+        with engine.begin() as conn:
+            conn.exec_driver_sql("ALTER TABLE businesses ADD COLUMN name_en VARCHAR(255)")
+            logger.info("added businesses.name_en")
+
+    ps_cols = {c["name"] for c in insp.get_columns("payment_schedule_entries")}
+    with engine.begin() as conn:
+        if "loan_number" not in ps_cols:
+            conn.exec_driver_sql("ALTER TABLE payment_schedule_entries ADD COLUMN loan_number VARCHAR(50) DEFAULT ''")
+            logger.info("added payment_schedule_entries.loan_number")
+        if "currency" not in ps_cols:
+            conn.exec_driver_sql("ALTER TABLE payment_schedule_entries ADD COLUMN currency VARCHAR(10) DEFAULT ''")
+            logger.info("added payment_schedule_entries.currency")
+        for name, ddl in (("principal_amount", "FLOAT DEFAULT 0"),
+                          ("interest_amount", "FLOAT DEFAULT 0"),
+                          ("fee_amount", "FLOAT DEFAULT 0")):
+            if name not in ps_cols:
+                conn.exec_driver_sql(f"ALTER TABLE payment_schedule_entries ADD COLUMN {name} {ddl}")
+                logger.info("added payment_schedule_entries.%s", name)

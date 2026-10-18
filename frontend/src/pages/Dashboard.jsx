@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend,
+  ComposedChart, Line,
 } from 'recharts'
 import { Download, ExternalLink, Calendar, ChevronRight, Eye, CheckCircle2, AlertCircle } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
@@ -31,6 +32,25 @@ export default function Dashboard() {
     branch ? `/applicants/application-years/${branch.id}/` : null)
   const { data: prog } = useFetch(`/dashboard-program/?${q}`)
   const { data: biz } = useFetch(`/dashboard-businesses/?${q}`)
+  const loansQ = new URLSearchParams()
+  if (branch?.id) loansQ.set('branch_id', branch.id)
+  if (program) loansQ.set('program_id', program)
+  const { data: cohortLoans } = useFetch(
+    (tab === 2 || tab === 0) && branch ? `/dashboard-loans-by-cohort/?${loansQ.toString()}` : null,
+    [tab, program])
+
+  const cohortChart = useMemo(() => {
+    if (!cohortLoans?.results) return []
+    return cohortLoans.results.map((r) => ({
+      name: r.cohort.replace('OCIF ', ''),
+      'Approved (EUR)': r.approved_eur,
+      'Disbursed (EUR)': r.disbursed_eur,
+      'Disbursed (JOD)': r.disbursed_jod,
+      'Collected (EUR)': r.collected_eur,
+      'Collected (JOD)': r.collected_jod,
+      '% repaid': r.pct_repaid,
+    }))
+  }, [cohortLoans])
 
   const funnel = useMemo(() => prog && [
     { name: 'Applied', value: prog.funnel.applied, stage: 'applied' },
@@ -258,6 +278,38 @@ export default function Dashboard() {
             <DistCard title="By stage" items={biz.investment.by_stage.map((x) => ({ name: x.name, value: x.count }))} />
             <DistCard title="By round" items={biz.investment.by_round.map((x) => ({ name: x.name, value: x.count }))} />
           </div>
+
+          {cohortChart.length > 0 && (
+            <div className="card chart-card" style={{ marginTop: 4 }}>
+              <div className="row spread wrap gap">
+                <h3>Loan repayments by cohort</h3>
+                <span className="muted sm">approved per grant letters · disbursed &amp; collected per loan currency · % of JOD disbursed</span>
+              </div>
+              <ResponsiveContainer width="100%" height={300}>
+                <ComposedChart data={cohortChart} margin={{ top: 12, right: 12, left: 4, bottom: 4 }}>
+                  <XAxis dataKey="name" tick={{ fontSize: 12 }} />
+                  <YAxis yAxisId="amt" tick={{ fontSize: 11 }}
+                         tickFormatter={(v) => v >= 1000 ? `${Math.round(v / 1000)}k` : v} />
+                  <YAxis yAxisId="pct" orientation="right" domain={[0, 100]} tick={{ fontSize: 11 }}
+                         tickFormatter={(v) => `${v}%`} />
+                  <Tooltip
+                    formatter={(value, name) => {
+                      if (name === '% repaid') return [`${value}%`, name]
+                      return [Number(value).toLocaleString('en-US', { maximumFractionDigits: 0 }), name]
+                    }}
+                    labelStyle={{ fontWeight: 700 }} />
+                  <Legend wrapperStyle={{ fontSize: 11 }} />
+                  <Bar yAxisId="amt" dataKey="Approved (EUR)" fill="#174950" radius={[3, 3, 0, 0]} />
+                  <Bar yAxisId="amt" dataKey="Disbursed (EUR)" fill="#52bc7e" radius={[3, 3, 0, 0]} />
+                  <Bar yAxisId="amt" dataKey="Collected (EUR)" fill="#8cd2a9" radius={[3, 3, 0, 0]} />
+                  <Bar yAxisId="amt" dataKey="Disbursed (JOD)" fill="#1c5b63" radius={[3, 3, 0, 0]} />
+                  <Bar yAxisId="amt" dataKey="Collected (JOD)" fill="#e08a00" radius={[3, 3, 0, 0]} />
+                  <Line yAxisId="pct" type="monotone" dataKey="% repaid" stroke="#d92d20"
+                        strokeWidth={2} dot={{ r: 4 }} />
+                </ComposedChart>
+              </ResponsiveContainer>
+            </div>
+          )}
         </>
       )}
 

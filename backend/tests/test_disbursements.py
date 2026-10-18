@@ -186,6 +186,134 @@ class TestDisbursements:
         assert data["batch"]["status"] == "draft"
         assert data["batch"]["confirmed_by"] is None
 
+        # Changing the batch exchange rate must re-rate every transaction
+        res = client.put(
+            f"/api/disbursements/{TestDisbursements.branch_id}/{TestDisbursements.batch_id}/",
+            json={"exchange_rate": 0.9},
+            headers=headers,
+        )
+        assert res.status_code == 200
+        batch = res.json()
+        assert batch["exchange_rate"] == 0.9
+        for it in batch["items"]:
+            assert it["exchange_rate"] == pytest.approx(0.9)
+            assert it["amount_jod"] == pytest.approx(round(it["amount_eur"] * 0.9, 3))
+        assert batch["total_amount_jod"] == pytest.approx(
+            round(sum(it["amount_jod"] for it in batch["items"] if it["is_included"]), 3)
+        )
+
+        # Also when the payload includes items carrying stale per-item rates and
+        # amount_jod values computed with the old rate: the changed batch rate wins
+        res = client.get(
+            f"/api/disbursements/{TestDisbursements.branch_id}/{TestDisbursements.batch_id}/",
+            headers=headers,
+        )
+        assert res.status_code == 200
+        items = res.json()["items"]
+        res = client.put(
+            f"/api/disbursements/{TestDisbursements.branch_id}/{TestDisbursements.batch_id}/",
+            json={
+                "exchange_rate": 0.85,
+                "items": [
+                    {
+                        "id": it["id"],
+                        "business_id": it["business_id"],
+                        "percentage": it["percentage"],
+                        "is_included": it["is_included"],
+                        "notes": it.get("notes", ""),
+                        "amount": it["amount"],
+                        "exchange_rate": 0.9,
+                        "amount_jod": round(it["amount"] * 0.9, 3),
+                    }
+                    for it in items
+                ],
+            },
+            headers=headers,
+        )
+        assert res.status_code == 200
+        batch = res.json()
+        assert batch["exchange_rate"] == 0.85
+        for it in batch["items"]:
+            assert it["exchange_rate"] == pytest.approx(0.85)
+            assert it["amount_jod"] == pytest.approx(round(it["amount"] * 0.85, 3))
+
+        # Changing the batch payment date must update every transaction date
+        res = client.put(
+            f"/api/disbursements/{TestDisbursements.branch_id}/{TestDisbursements.batch_id}/",
+            json={"payment_date": "2026-09-30"},
+            headers=headers,
+        )
+        assert res.status_code == 200
+        batch = res.json()
+        assert batch["payment_date"] == "2026-09-30"
+        for it in batch["items"]:
+            assert it["disbursement_date"] == "2026-09-30"
+
+        # Even when the payload carries stale explicit item dates
+        res = client.get(
+            f"/api/disbursements/{TestDisbursements.branch_id}/{TestDisbursements.batch_id}/",
+            headers=headers,
+        )
+        assert res.status_code == 200
+        items = res.json()["items"]
+        res = client.put(
+            f"/api/disbursements/{TestDisbursements.branch_id}/{TestDisbursements.batch_id}/",
+            json={
+                "payment_date": "2026-10-31",
+                "items": [
+                    {
+                        "id": it["id"],
+                        "business_id": it["business_id"],
+                        "percentage": it["percentage"],
+                        "is_included": it["is_included"],
+                        "notes": it.get("notes", ""),
+                        "amount": it["amount"],
+                        "exchange_rate": it["exchange_rate"],
+                        "disbursement_date": "2026-09-30",
+                    }
+                    for it in items
+                ],
+            },
+            headers=headers,
+        )
+        assert res.status_code == 200
+        batch = res.json()
+        assert batch["payment_date"] == "2026-10-31"
+        for it in batch["items"]:
+            assert it["disbursement_date"] == "2026-10-31"
+
+        # Without a batch date change, a per-item disbursement date wins as an explicit override
+        res = client.get(
+            f"/api/disbursements/{TestDisbursements.branch_id}/{TestDisbursements.batch_id}/",
+            headers=headers,
+        )
+        assert res.status_code == 200
+        items = res.json()["items"]
+        res = client.put(
+            f"/api/disbursements/{TestDisbursements.branch_id}/{TestDisbursements.batch_id}/",
+            json={
+                "items": [
+                    {
+                        "id": it["id"],
+                        "business_id": it["business_id"],
+                        "percentage": it["percentage"],
+                        "is_included": it["is_included"],
+                        "notes": it.get("notes", ""),
+                        "amount": it["amount"],
+                        "exchange_rate": it["exchange_rate"],
+                        "disbursement_date": "2026-09-15" if idx == 0 else it["disbursement_date"],
+                    }
+                    for idx, it in enumerate(items)
+                ],
+            },
+            headers=headers,
+        )
+        assert res.status_code == 200
+        batch = res.json()
+        assert batch["items"][0]["disbursement_date"] == "2026-09-15"
+        for it in batch["items"][1:]:
+            assert it["disbursement_date"] == "2026-10-31"
+
         # Re-edit is now allowed
         res = client.put(
             f"/api/disbursements/{TestDisbursements.branch_id}/{TestDisbursements.batch_id}/",

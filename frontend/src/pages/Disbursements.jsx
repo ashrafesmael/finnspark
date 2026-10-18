@@ -23,8 +23,15 @@ export default function Disbursements() {
   const [activeBatchId, setActiveBatchId] = useState(null)
   const [showCreateModal, setShowCreateModal] = useState(false)
 
-  // Fetch summary metrics
-  const summaryRes = useFetch(branch ? `/disbursements/${branch.id}/summary/` : null)
+  // Fetch summary metrics — mirrors the list filters so the headline tiles
+  // follow whatever the toolbar has selected
+  const summaryQuery = new URLSearchParams()
+  if (search) summaryQuery.append('search', search)
+  if (programFilter) summaryQuery.append('program_id', programFilter)
+  if (statusFilter) summaryQuery.append('status', statusFilter)
+  if (currencyFilter) summaryQuery.append('currency', currencyFilter)
+  const summaryQs = summaryQuery.toString()
+  const summaryRes = useFetch(branch ? `/disbursements/${branch.id}/summary/${summaryQs ? `?${summaryQs}` : ''}` : null)
   
   // Fetch programs for filter and creator
   const programsRes = useFetch(branch ? `/programs/${branch.id}/?page=1&page_size=100` : null)
@@ -123,25 +130,6 @@ export default function Disbursements() {
         </div>
       </div>
 
-      {/* KPI Stats */}
-      <div className="grid-3 tiles-row">
-        <StatTile
-          label="Total Base Processed (EUR)"
-          value={`€${(summary.totals_by_currency?.EUR || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
-          sub={`${summary.processed_batches || 0} processed batches across all cohorts`}
-        />
-        <StatTile
-          label="Total Equivalent Disbursed (JOD)"
-          value={`${((summary.totals_by_currency?.JOD || 0) || ((summary.totals_by_currency?.EUR || 0) * 0.76)).toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })} JOD`}
-          sub="Disbursed at ~0.7600 JOD / EUR exchange rate"
-        />
-        <StatTile
-          label="Pending / Draft Batches"
-          value={`${summary.draft_batches || 0}`}
-          sub="Awaiting final confirmation"
-        />
-      </div>
-
       {/* Filters Toolbar */}
       <div className="card pad filters" style={{ margin: '14px 0' }}>
         <div className="row spread wrap gap">
@@ -186,6 +174,44 @@ export default function Disbursements() {
             <RefreshCw size={14} /> Refresh
           </button>
         </div>
+      </div>
+
+      {/* KPI Stats */}
+      <div className="grid-3 tiles-row">
+        <StatTile
+          label="Total Base Processed (EUR)"
+          value={`€${(summary.totals_by_currency?.EUR || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+          sub={`${summary.processed_batches || 0} processed batches${(search || programFilter || statusFilter || currencyFilter) ? ' (filtered)' : ' across all cohorts'}`}
+        />
+        <StatTile
+          label="Total Equivalent Disbursed (JOD)"
+          value={`${((summary.jod_actual || 0) || ((summary.totals_by_currency?.JOD || 0) || ((summary.totals_by_currency?.EUR || 0) * 0.76))).toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })} JOD`}
+          sub={summary.jod_actual ? 'Per-batch items at their own exchange rates' : 'Disbursed at ~0.7600 JOD / EUR exchange rate'}
+        />
+        <StatTile
+          label="Pending / Draft Batches"
+          value={`${summary.draft_batches || 0}`}
+          sub="Awaiting final confirmation"
+        />
+      </div>
+
+      {/* Track breakdown */}
+      <div className="grid-3 tiles-row" style={{ marginTop: 12 }}>
+        <StatTile
+          label="Track I — Grants"
+          value={`€${(summary.by_track?.grant_I?.eur || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+          sub={`${(summary.by_track?.grant_I?.jod || 0).toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })} JOD · stipends & vouchers, not repayable`}
+        />
+        <StatTile
+          label="Track II — Loans"
+          value={`€${(summary.by_track?.loan_II?.eur || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+          sub={`${(summary.by_track?.loan_II?.jod || 0).toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })} JOD · repayable principal`}
+        />
+        <StatTile
+          label="Track II — Grants"
+          value={`€${(summary.by_track?.grant_II?.eur || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+          sub={`${(summary.by_track?.grant_II?.jod || 0).toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })} JOD · co-financing halves, not repayable`}
+        />
       </div>
 
       {/* Batches Table */}
@@ -790,6 +816,16 @@ function BatchDetailModal({ branchId, batchId, onClose, onUpdated, onExport }) {
     setItems((prev) => prev.map((s) => ({ ...s, percentage: pct })))
   }
 
+  const setAllRates = (rate) => {
+    setExchangeRate(rate)
+    setItems((prev) => prev.map((s) => ({ ...s, exchange_rate: rate })))
+  }
+
+  const setAllDates = (d) => {
+    setPaymentDate(d)
+    setItems((prev) => prev.map((s) => ({ ...s, disbursement_date: d })))
+  }
+
   const currentTotalEur = items.reduce((acc, s) => {
     if (!s.is_included) return acc
     let amt = 0
@@ -971,7 +1007,7 @@ function BatchDetailModal({ branchId, batchId, onClose, onUpdated, onExport }) {
             <input
               type="date"
               value={paymentDate}
-              onChange={(e) => setPaymentDate(e.target.value)}
+              onChange={(e) => setAllDates(e.target.value)}
               style={{ marginTop: '3px' }}
             />
           ) : (
@@ -1005,7 +1041,7 @@ function BatchDetailModal({ branchId, batchId, onClose, onUpdated, onExport }) {
               type="number"
               step="0.0001"
               value={exchangeRate}
-              onChange={(e) => setExchangeRate(e.target.value)}
+              onChange={(e) => setAllRates(e.target.value)}
               style={{ marginTop: '3px' }}
             />
           ) : (

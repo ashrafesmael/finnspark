@@ -49,6 +49,15 @@ def batch_ser(b: DisbursementBatch, db: Session, include_items: bool = True) -> 
         # startups that actually received the payment (excluded ones don't count)
         "received_count": sum(1 for it in (b.items or []) if it.is_included),
     }
+    # the payout the batch actually carries: the included items. Batch-level
+    # totals can go stale when items are added, removed or excluded after the
+    # batch was created, so the displayed figures always come from the items.
+    _inc = [it for it in (b.items or []) if it.is_included]
+    _eur = round(sum(float(it.amount or 0.0) for it in _inc), 2)
+    _jod = round(sum(float(it.amount_jod or 0.0) for it in _inc), 3)
+    _rate = float(getattr(b, "exchange_rate", None) if getattr(b, "exchange_rate", None) is not None else 0.76)
+    data["total_amount_eur"] = _eur
+    data["total_amount_jod"] = _jod if _jod else round(_eur * _rate, 3)
     if include_items:
         batch_rate = float(getattr(b, "exchange_rate", None) if getattr(b, "exchange_rate", None) is not None else 0.76)
         data["items"] = [
@@ -82,26 +91,80 @@ def batch_ser(b: DisbursementBatch, db: Session, include_items: bool = True) -> 
 # ------------------------------------------------------------------ Summary KPIs
 
 @router.get("/disbursements/{branch_id}/summary/")
-def disbursements_summary(branch_id: int, ctx=Depends(require_perm("disbursements.view"))):
+def disbursements_summary(
+    branch_id: int,
+    request: Request,
+    ctx=Depends(require_perm("disbursements.view")),
+):
     db: Session = ctx["db"]
-    batches = db.query(DisbursementBatch).filter(DisbursementBatch.branch_id == branch_id).all()
+    q = db.query(DisbursementBatch).filter(DisbursementBatch.branch_id == branch_id)
+
+    # the same filters the batch list supports, so the headline tiles follow
+    # whatever the toolbar has selected
+    if program_id := request.query_params.get("program_id"):
+        try:
+            q = q.filter(DisbursementBatch.program_id == int(program_id))
+        except ValueError:
+            pass
+    if status := request.query_params.get("status"):
+        q = q.filter(DisbursementBatch.status == status)
+    if currency := request.query_params.get("currency"):
+        q = q.filter(DisbursementBatch.currency == currency.upper())
+    if search := request.query_params.get("search"):
+        q = q.filter(DisbursementBatch.title.ilike(f"%{search}%"))
+
+    batches = q.all()
     
     total_batches = len(batches)
     draft_batches = sum(1 for b in batches if b.status == "draft")
     processed_batches = sum(1 for b in batches if b.status == "processed")
     
+    # headline totals come from the included items as well: batch-level
+    # totals can be stale (items added/removed/excluded after creation), and
+    # the tiles must agree with the track breakdown and the batch rows
     totals_by_currency = {"USD": 0.0, "EUR": 0.0, "JOD": 0.0}
     pending_by_currency = {"USD": 0.0, "EUR": 0.0, "JOD": 0.0}
-
+    _item_agg = db.query(
+        DisbursementItem.batch_id,
+        func.coalesce(func.sum(DisbursementItem.amount), 0.0),
+        func.coalesce(func.sum(DisbursementItem.amount_jod), 0.0),
+    ).filter(
+        DisbursementItem.batch_id.in_([b.id for b in batches]),
+        DisbursementItem.is_included == True,   # noqa: E712
+    ).group_by(DisbursementItem.batch_id).all() if batches else []
+    _item_sums = {bid: (float(eur), float(jod)) for bid, eur, jod in _item_agg}
     for b in batches:
-        curr = (b.currency or "USD").upper()
-        if curr not in totals_by_currency:
-            totals_by_currency[curr] = 0.0
-            pending_by_currency[curr] = 0.0
+        eur, jod = _item_sums.get(b.id, (0.0, 0.0))
         if b.status == "processed":
-            totals_by_currency[curr] += float(b.total_amount or 0.0)
+            totals_by_currency["EUR"] += eur
+            totals_by_currency["JOD"] += jod
         else:
-            pending_by_currency[curr] += float(b.total_amount or 0.0)
+            pending_by_currency["EUR"] += eur
+            pending_by_currency["JOD"] += jod
+
+    # track breakdown over processed batches: base EUR and actually disbursed
+    # JOD come from the included items (batch-level totals can be stale);
+    # batches are classified with the same title rules the repayments module
+    # uses, so both screens tell the same story
+    from .repayments import _classify_disbursement
+    by_track = {
+        "grant_I": {"eur": 0.0, "jod": 0.0, "batches": 0},
+        "loan_II": {"eur": 0.0, "jod": 0.0, "batches": 0},
+        "grant_II": {"eur": 0.0, "jod": 0.0, "batches": 0},
+        "other": {"eur": 0.0, "jod": 0.0, "batches": 0},
+    }
+    jod_actual = 0.0
+    processed = [b for b in batches if b.status == "processed"]
+    for b in processed:
+        eur, jod = _item_sums.get(b.id, (0.0, 0.0))
+        jod_actual += jod
+        kind, track = _classify_disbursement(b.title)
+        key = f"{kind}_{track}"
+        if key not in by_track:
+            key = "other"
+        by_track[key]["eur"] += eur
+        by_track[key]["jod"] += jod
+        by_track[key]["batches"] += 1
 
     return {
         "total_batches": total_batches,
@@ -109,6 +172,8 @@ def disbursements_summary(branch_id: int, ctx=Depends(require_perm("disbursement
         "processed_batches": processed_batches,
         "totals_by_currency": totals_by_currency,
         "pending_by_currency": pending_by_currency,
+        "jod_actual": round(jod_actual, 3),
+        "by_track": by_track,
     }
 
 
@@ -513,6 +578,7 @@ def update_disbursement_batch(
 
     if data.title is not None:
         batch.title = data.title.strip() or batch.title
+    old_date = batch.payment_date
     if data.payment_date is not None:
         batch.payment_date = data.payment_date
     if data.currency is not None:
@@ -522,6 +588,7 @@ def update_disbursement_batch(
         batch.currency = curr
     if data.disbursement_currency is not None:
         batch.disbursement_currency = data.disbursement_currency.upper()
+    old_rate = float(batch.exchange_rate if batch.exchange_rate is not None else 0.76)
     if data.exchange_rate is not None:
         batch.exchange_rate = float(data.exchange_rate)
     if data.base_amount is not None:
@@ -530,6 +597,8 @@ def update_disbursement_batch(
         batch.notes = data.notes
 
     batch_rate = float(batch.exchange_rate if batch.exchange_rate is not None else 0.76)
+    rate_changed = data.exchange_rate is not None and batch_rate != old_rate
+    date_changed = data.payment_date is not None and batch.payment_date != old_date
 
     if data.items is not None:
         existing_items = {it.id: it for it in batch.items}
@@ -544,14 +613,18 @@ def update_disbursement_batch(
                 item.notes = item_data.notes or ""
                 calc_amt = item_data.amount if item_data.amount is not None else (batch.base_amount * (item.percentage / 100.0))
                 item.amount = round(float(calc_amt), 2)
-                if item_data.exchange_rate is not None:
+                if rate_changed:
+                    item.exchange_rate = batch_rate
+                elif item_data.exchange_rate is not None:
                     item.exchange_rate = float(item_data.exchange_rate)
                 it_rate = float(item.exchange_rate if item.exchange_rate is not None else batch_rate)
-                if item_data.amount_jod is not None:
+                if item_data.amount_jod is not None and not rate_changed:
                     item.amount_jod = float(item_data.amount_jod)
                 else:
                     item.amount_jod = round(item.amount * it_rate, 3)
-                if item_data.disbursement_date is not None:
+                if date_changed:
+                    item.disbursement_date = batch.payment_date
+                elif item_data.disbursement_date is not None:
                     item.disbursement_date = item_data.disbursement_date
                 elif not item.disbursement_date:
                     item.disbursement_date = batch.payment_date
@@ -565,9 +638,11 @@ def update_disbursement_batch(
                     pct = float(item_data.percentage)
                     calc_amt = item_data.amount if item_data.amount is not None else (batch.base_amount * (pct / 100.0))
                     calc_amt = round(float(calc_amt), 2)
-                    it_rate = float(item_data.exchange_rate if item_data.exchange_rate is not None else batch_rate)
-                    it_jod = float(item_data.amount_jod) if item_data.amount_jod is not None else round(calc_amt * it_rate, 3)
-                    it_date = item_data.disbursement_date or batch.payment_date
+                    it_rate = batch_rate if rate_changed else float(item_data.exchange_rate if item_data.exchange_rate is not None else batch_rate)
+                    it_jod = round(calc_amt * it_rate, 3)
+                    if item_data.amount_jod is not None and not rate_changed:
+                        it_jod = float(item_data.amount_jod)
+                    it_date = batch.payment_date if date_changed else (item_data.disbursement_date or batch.payment_date)
                     if item_data.is_included:
                         total_amount += calc_amt
                         total_amount_jod += it_jod
@@ -591,9 +666,11 @@ def update_disbursement_batch(
         total_amount_jod = 0.0
         for item in batch.items:
             item.amount = round(float(batch.base_amount * (item.percentage / 100.0)), 2)
-            it_rate = float(item.exchange_rate if item.exchange_rate is not None else batch_rate)
+            if rate_changed or item.exchange_rate is None:
+                item.exchange_rate = batch_rate
+            it_rate = float(item.exchange_rate or batch_rate)
             item.amount_jod = round(item.amount * it_rate, 3)
-            if not item.disbursement_date:
+            if date_changed or not item.disbursement_date:
                 item.disbursement_date = batch.payment_date
             if item.is_included:
                 total_amount += item.amount

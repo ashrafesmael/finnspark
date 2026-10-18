@@ -341,6 +341,8 @@ class Business(Base):
     program_id = Column(Integer, ForeignKey("programs.id"))
     applicant_id = Column(Integer, ForeignKey("applicants.id"), nullable=True)
     name = Column(String(255))
+    # english display name for businesses registered under a non-latin name
+    name_en = Column(String(255), nullable=True)
     logo = Column(String(500), nullable=True)
     type_id = Column(Integer, ForeignKey("business_types.id"))
     industry_id = Column(Integer, ForeignKey("business_industries.id"))
@@ -524,6 +526,11 @@ class InvestmentCase(Base):
     innovation_notes = Column(Text, default="")
     technical_assistance_request = Column(Text, default="")
     forex_rate = Column(Float, default=1.0)
+    # loan book terms: principal actually disbursed (loan currency + EUR) and
+    # the JOD instalments due — the repayable amount exceeds the disbursed
+    # principal once interest/fees are included
+    disbursement_amount = Column(Float, default=0.0)
+    disbursement_amount_jod = Column(Float, default=0.0)
     ceo_name = Column(String(220), default="")
     ceo_bio = Column(Text, default="")
     created_at = Column(DateTime, default=datetime.utcnow)
@@ -555,6 +562,16 @@ class PaymentScheduleEntry(Base):
     amount = Column(Float, default=0.0)
     paid = Column(Boolean, default=False)
     paid_date = Column(Date, nullable=True)
+    # a startup can hold several loans (1st/2nd, restructured); the schedule
+    # stays per loan and in the loan's own currency (Loandisk terms)
+    loan_number = Column(String(50), default="")
+    currency = Column(String(10), default="")
+    # instalment composition from the loan schedule: repayments settle these in
+    # part, so outstanding must be tracked for principal separately from
+    # principal + interest/fees
+    principal_amount = Column(Float, default=0.0)
+    interest_amount = Column(Float, default=0.0)
+    fee_amount = Column(Float, default=0.0)
 
 
 class CommitteeDecision(Base):
@@ -618,6 +635,37 @@ class DisbursementItem(Base):
 
 # ---------------------------------------------------------------- Loan Repayments
 
+class RepaymentBatch(Base):
+    """A monthly batch of repayments uploaded for a branch, mirroring
+    DisbursementBatch: uploaded in draft, reviewed, then confirmed/locked."""
+    __tablename__ = "repayment_batches"
+    id = Column(Integer, primary_key=True)
+    branch_id = Column(Integer, ForeignKey("branches.id"), nullable=False)
+    title = Column(String(250), nullable=False)
+    batch_month = Column(Date, nullable=True)            # month the batch covers
+    source = Column(String(300), default="")             # where the rows came from (bank stmt, Loandisk, ...)
+    currency = Column(String(10), default="EUR")         # base currency (EUR)
+    disbursement_currency = Column(String(10), default="JOD")  # repayment currency (JOD)
+    exchange_rate = Column(Float, default=0.76)          # 1 EUR = X JOD
+    total_eur = Column(Float, default=0.0)
+    total_jod = Column(Float, default=0.0)
+    status = Column(String(30), default="draft")         # draft | processed
+    notes = Column(Text, default="")
+    created_by_id = Column(Integer, ForeignKey("users.id"), nullable=True)
+    confirmed_by_id = Column(Integer, ForeignKey("users.id"), nullable=True)
+    confirmed_at = Column(DateTime, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    branch = relationship("Branch")
+    created_by = relationship("User", foreign_keys=[created_by_id])
+    confirmed_by = relationship("User", foreign_keys=[confirmed_by_id])
+    repayments = relationship("LoanRepayment", back_populates="batch",
+                              foreign_keys="LoanRepayment.batch_id",
+                              cascade="all, delete-orphan",
+                              order_by="LoanRepayment.payment_date")
+
+
 class LoanRepayment(Base):
     __tablename__ = "loan_repayments"
     id = Column(Integer, primary_key=True)
@@ -625,6 +673,19 @@ class LoanRepayment(Base):
     business_id = Column(Integer, ForeignKey("businesses.id"), nullable=False)
     case_id = Column(Integer, ForeignKey("investment_cases.id"), nullable=True)
     schedule_entry_id = Column(Integer, ForeignKey("payment_schedule_entries.id"), nullable=True)
+    batch_id = Column(Integer, ForeignKey("repayment_batches.id"), nullable=True)
+
+    # loan identity: startups can hold several loans (1st/2nd, restructured),
+    # and loan numbers are not unique across startups, so this is stored as
+    # its own field rather than derived from the business
+    loan_number = Column(String(50), default="")
+    cohort = Column(String(20), default="")              # e.g. C#2, C#3
+    payer_name = Column(String(250), default="")         # name on the bank record / slip
+    channel = Column(String(150), default="")            # inward transfer, cash deposit, ...
+    instalment_label = Column(String(250), default="")   # which instalment the payment covers
+    verified_against = Column(String(300), default="")   # source the row was checked against
+    verified = Column(Boolean, default=True)             # False = slip/Loandisk only, not on a bank record
+    entry_type = Column(String(30), default="installment")  # installment | fee | refinanced
 
     payment_date = Column(Date, nullable=False)
     amount = Column(Float, default=0.0)             # Base amount (EUR)
@@ -650,6 +711,8 @@ class LoanRepayment(Base):
     case = relationship("InvestmentCase")
     schedule_entry = relationship("PaymentScheduleEntry")
     recorded_by = relationship("User")
+    batch = relationship("RepaymentBatch", back_populates="repayments",
+                         foreign_keys=[batch_id])
 
 
 # ---------------------------------------------------------------- Collaboration (7.6)

@@ -184,6 +184,79 @@ def dashboard_program(request: Request, ctx=Depends(require_branch_access())):
     }
 
 
+@router.get("/dashboard-loans-by-cohort/")
+def dashboard_loans_by_cohort(request: Request, ctx=Depends(require_branch_access())):
+    """Per-cohort loan figures for the dashboard chart: approved (EUR), the
+    principal disbursed (EUR + JOD at each loan's own rate), collected and the
+    recovery percentage -- both outstanding views included."""
+    db: Session = ctx["db"]
+    branch_id = ctx["branch_id"]
+    from ..models import LoanRepayment, PaymentScheduleEntry, RepaymentBatch, \
+        InvestmentCase, Business, Program
+
+    cases = db.query(InvestmentCase).filter(
+        InvestmentCase.branch_id == branch_id,
+        InvestmentCase.investment_amount > 0).all()
+    processed_ids = {b.id for b in db.query(RepaymentBatch.id).filter(
+        RepaymentBatch.branch_id == branch_id,
+        RepaymentBatch.status == "processed").all()}
+    repayments = [r for r in db.query(LoanRepayment).filter(
+        LoanRepayment.branch_id == branch_id).all()
+        if r.status == "completed" and (r.batch_id is None or r.batch_id in processed_ids)]
+
+    from ..routers.repayments import _case_repay_position
+    rows = {}
+    for c in cases:
+        if not c.business_id:
+            continue
+        biz = db.get(Business, c.business_id)
+        prog = biz.program if biz else None
+        if prog is None:
+            continue
+        key = prog.id
+        row = rows.setdefault(key, {
+            "program_id": prog.id, "cohort": prog.name,
+            "approved_eur": 0.0, "disbursed_eur": 0.0, "disbursed_jod": 0.0,
+            "collected_eur": 0.0, "collected_jod": 0.0,
+            "outstanding_principal_eur": 0.0, "outstanding_incl_eur": 0.0,
+            "loans": 0,
+        })
+        row["approved_eur"] += float(c.investment_amount or 0.0)
+        disb_eur = float(c.disbursement_amount or 0.0)
+        disb_jod = float(c.disbursement_amount_jod or 0.0)
+        # only count disbursed loans (never-disbursed cases have nothing to chart)
+        if disb_eur > 0 or disb_jod > 0:
+            row["loans"] += 1
+            row["disbursed_eur"] += disb_eur
+            row["disbursed_jod"] += disb_jod
+            case_reps = [r for r in repayments if r.case_id == c.id]
+            entries = db.query(PaymentScheduleEntry).filter(
+                PaymentScheduleEntry.case_id == c.id).all()
+            pos = _case_repay_position(c, case_reps, entries)
+            sccy = (entries[0].currency or "").upper() if entries else                 str(c.currency or "").upper()
+            rate = float(c.forex_rate or 0.76) or 0.76
+            if sccy == "EUR":
+                row["collected_eur"] += pos["settled_principal_i"] + pos["settled_charges_i"]
+                row["collected_jod"] += (pos["settled_principal_i"] + pos["settled_charges_i"]) * rate
+            else:
+                row["collected_jod"] += pos["settled_principal_i"] + pos["settled_charges_i"]
+                row["collected_eur"] += (pos["settled_principal_i"] + pos["settled_charges_i"]) / rate
+            row["outstanding_principal_eur"] += pos["principal_out_eur"]
+            row["outstanding_incl_eur"] += pos["incl_out_eur"]
+
+    out = []
+    for r in rows.values():
+        disb_eur = round(r["disbursed_eur"], 2)
+        r["collected_eur"] = round(r["collected_eur"], 2)
+        r["collected_jod"] = round(r["collected_jod"], 2)
+        r["disbursed_jod"] = round(r["disbursed_jod"], 2)
+        r["pct_repaid"] = round(100.0 * r["collected_jod"] / r["disbursed_jod"], 1) \
+            if r["disbursed_jod"] > 0 else 0.0
+        out.append(r)
+    out.sort(key=lambda r: r["cohort"])
+    return {"results": out, "count": len(out)}
+
+
 @router.get("/dashboard-businesses/")
 def dashboard_businesses(request: Request, ctx=Depends(require_branch_access())):
     """Businesses/Investment/Learning views aggregated from live data."""

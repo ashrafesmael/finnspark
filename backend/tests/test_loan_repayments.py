@@ -54,7 +54,10 @@ def test_setup():
         sch = PaymentScheduleEntry(
             case_id=case.id,
             due_date=date(2026, 6, 1),
-            amount=5000.0,
+            amount=20000.0 * 0.76,   # full repayable in the loan currency (JOD)
+            principal_amount=20000.0 * 0.76,
+            loan_number="TEST-LOAN",
+            currency="JOD",
             paid=False,
         )
         db.add(sch)
@@ -117,7 +120,7 @@ def test_03_loans_overview(test_setup):
     assert item is not None
     assert item["loan_approved_eur"] == 20000.0
     assert item["total_repaid_eur"] == 2500.0
-    assert item["outstanding_balance_eur"] == 17500.0
+    assert item["outstanding_principal_eur"] == 17500.0
 
 
 def test_04_list_repayments_ledger(test_setup):

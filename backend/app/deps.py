@@ -66,6 +66,7 @@ ROLE_PERMISSIONS = {
         "announcements.view", "calendar.view", "directories.view", "chat.use", "programs.edit",
         "disbursements.view", "disbursements.create", "disbursements.edit", "disbursements.confirm",
         "repayments.view", "repayments.create", "repayments.edit", "repayments.delete",
+        "repayments.confirm",
     },
     "mentor": {
         "dashboard.view", "programs.view", "courses.view", "library.view", "announcements.view",
