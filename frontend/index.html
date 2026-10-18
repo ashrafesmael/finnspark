@@ -3,6 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- The shell must never be served stale: asset filenames are content-hashed,
+         so a cached index.html pins the browser to a previous build. Proper
+         no-store headers on the server are the real fix; these are the fallback. -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <meta name="theme-color" content="#174950" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />

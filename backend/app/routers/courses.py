@@ -1,3 +1,4 @@
+import re
 from datetime import datetime
 
 from fastapi import APIRouter, Depends, HTTPException, Request
@@ -62,7 +63,13 @@ def list_courses(branch_id: int, request: Request, ctx=Depends(require_perm("cou
         q = q.filter(Course.language == v)
     if s := request.query_params.get("search"):
         q = q.filter(func.lower(Course.name).contains(s.lower()))
-    q = q.order_by(Course.created_at.desc())
+    # A numbered curriculum ("01. ...") is a sequence, not a newest-first feed,
+    # so ordering falls back to the course name when every course is numbered.
+    names = [row.name for row in q.with_entities(Course.name).all()]
+    if names and all(re.match(r"^\d+\.\s", name or "") for name in names):
+        q = q.order_by(Course.name.asc())
+    else:
+        q = q.order_by(Course.created_at.desc())
     return paginate(q, page, size, lambda c: course_ser(c, db, ctx["user"].id))
 
 
@@ -80,7 +87,12 @@ def my_courses(branch_id: int, ctx=Depends(require_perm("courses.view"))):
         (Course.program_id.is_(None)) |
         (Course.program_id.in_(program_ids or [0]))
     )
-    return [course_ser(c, db, user.id) for c in q.order_by(Course.created_at.desc()).all()]
+    rows = q.all()
+    if rows and all(re.match(r"^\d+\.\s", c.name or "") for c in rows):
+        rows.sort(key=lambda c: c.name)
+    else:
+        rows.sort(key=lambda c: c.created_at or datetime.min, reverse=True)
+    return [course_ser(c, db, user.id) for c in rows]
 
 
 class BlockIn(BaseModel):

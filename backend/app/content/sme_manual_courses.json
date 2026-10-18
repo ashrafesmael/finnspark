@@ -1,0 +1,2327 @@
+[
+  {
+    "name": "01. Management & Organisation",
+    "description": "<p class=\"kicker\">TEN RULES FOR SUCCESSFULLY OPERATING A BUSINESS</p><p>If you’re a successful entrepreneur, you have become so by working hard, outsmarting the competition and investing wisely. It took some courage to take risks and yes, you might have had some luck, taking them at just the right time. But after a few years, there is a danger that things become routine. Your business is operating, but not accelerating. How can you revive the initial spirit and make your company more profitable? Here are ten guidelines from professionals in the workplace.</p><p><em>Adapted from &ldquo;Successfully Operating a Business &ndash; The Manual&rdquo;, PUM Netherlands senior experts.</em></p>",
+    "language": "en",
+    "subtitle_languages": [],
+    "program_id": null,
+    "status": "published",
+    "modules": [
+      {
+        "name": "Overview",
+        "description": "",
+        "lessons": [
+          {
+            "name": "01. HAVE A MISSION. HAVE A VISION. SET YOUR GOALS",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Ask yourself some very important questions. What do you want to do? What is good for your business? Who are your customers and what do they want? How will that be in three to five years from now? Getting to know your customers is the key – having a clear sense of what they want now and how that may evolve in the future. What do you want your company to be? If you already have a clear vision, what changes are needed to get there? You may need to invest in upgraded equipment or facilities or possibly hire better qualified staff. Know your customers’ needs and expectations. Understand what they are willing and able to pay.\nMake sure your products and services match market trends. Know your competitors.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "02. WRITE A BUSINESS PLAN",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>(see also chapter 11) If you know what you want to do, take a close look at how to do it.\nDoing the right things well is a recipe for success. A business plan can help to shape this into reality. Generally, a business plan contains a thorough analysis of how well your company will do in the five years to come. How will you deal with rising production costs, how will the market change, what will your profitability look like in the long run? A business plan takes a close look at your financial reserves, your investment needs for the years to come, the way the competition is operating, and national and global economic trends. In other words: all aspects of management, from buying raw materials and commodities to production, marketing, logistics, ICT, finances and human resources.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "03. PRIORITISE",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>A business plan without action steps is just paper. Translate your business plan into concrete actions that you have to do now to get where you want to go. Make sure what the priorities are and who is responsible for what. Make sure it is perfectly clear what is expected of everyone, and where to turn to for advice and feedback. When should deadlines be met?</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "04. THINK SMARTER",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Whatever you do, always try to do it better. Be it the quality of your product or service, or marketing, sales and logistics or the smart use of information technology. It pays to be able to adapt quickly to your clients’ changing tastes, wherever they are, next door or far away. If you export abroad, you have to be able to cater to the needs of the country you’re expanding into. Don’t forget your company’s image. More and more consumers demand fair production processes and green solutions.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "06. DELEGATE",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>All too often, the owner or entrepreneur who started the business keeps too much control of the process. If a business is growing, this may at some point harm future growth. A wise entrepreneur knows when to let go of the reins a bit. Distribute tasks and responsibilities. Create an effective organisation with management lines and operating divisions. Make sure people are equipped to do what is asked of them. Educate. Delegate operational decisions to the levels where they should be taken. If a business succeeds in doing this, the owner or entrepreneur who founded the business will have more time for long-term planning, financial reviews, human resources and external relations. A true business leader looks after the long-term conditions of the company. He is the face of the company, he embodies it within the company, as well as to the outside world.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "07. GIVE DIRECTION",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Your greatest asset may be motivated workers. Trust and respect are great motivation builders. Delegating responsibility is a way of showing trust. A true leader is always visible, providing opportunities and motivation. He is the one who steers the ship and makes sure everyone is heading in the right direction.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "08. COORDINATE & COMMUNICATE",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>When a company grows, subdivisions can tend to lead a life of their own. It is important that all parts of the chain communicate and cooperate effectively and efficiently. If frictions arise between divisions, the management team is there to solve any difficulties and iron out the problems. A weekly meeting of division heads and the managing director is the minimum to create optimal working conditions.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "09. REWARD TALENT",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Invest in your people. Make sure the right person is in the right place. Reward talent: create opportunities for your best employees.\nInvest in education. It is essential to keep talented people in your company. If a person has outgrown his or her time at your company, for whatever reason, create elegant ways for them to leave that save face for all parties involved. Motivated, committed staff is the secret combination for any sound-run business operation.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Advice",
+        "description": "",
+        "lessons": [
+          {
+            "name": "05. WORK TOGETHER",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Competition is everywhere, but united you’re strong. Team up with others when it comes to outsourcing work, operating together on buying commodities or resources or finding cheaper transport deals by offering volume contracts. Working together only works if it’s good for both parties involved and when it creates synergy. Chambers of Commerce can facilitate ways of working together. Where it works, a win-win situation arises, creating two stronger companies.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              },
+              {
+                "block_type": "text",
+                "title": "Case study: POWER SUPPLIER IN JORDAN",
+                "payload": {
+                  "html": "<p>A privatised producer of electricity, previously state-operated, had to learn to compete with other power suppliers. It meant a total change of mindset.</p>",
+                  "kind": "case",
+                  "label": "POWER SUPPLIER IN JORDAN"
+                },
+                "order": 1
+              },
+              {
+                "block_type": "text",
+                "title": "In practice: ADVICE",
+                "payload": {
+                  "html": "<p>• Rewrite the business’ mission, change the organisation accordingly, streamline current activities and look for new business opportunities.\n• Get rid of old bureaucratic and rigid management styles. Open up to a transparent management structure that allows free-flowing communication.\n• Create targets for senior management, discuss the actual results regularly.\n• Offer a fair system of incentives and bonuses for good workers, with yearly reviews.\n• Create career opportunities with more responsibility.\n• Reduce and reorganise staff. People should be hired and rewarded based on professional merits, not on how long they have been working. Offer graceful exit plans for loyal senior staff that allow them to leave without losing face.</p>",
+                  "kind": "practice",
+                  "label": "ADVICE"
+                },
+                "order": 2
+              },
+              {
+                "block_type": "text",
+                "title": "In practice: RESULTS",
+                "payload": {
+                  "html": "<p>It was not easy. Change is difficult for any company, but even more so for a former state-operated business. Implementing the advice turned out to be very difficult. Some management team members feared losing their jobs. A start was made by implementing the last three recommendations first. Six months later news came out that the Managing Director had honourably taken early leave of his position, his function being taken over by the Strategy &amp; Planning Manager. The advice seemed to have led to evident results.</p>",
+                  "kind": "practice",
+                  "label": "RESULTS"
+                },
+                "order": 3
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Analysis",
+        "description": "",
+        "lessons": [
+          {
+            "name": "10. LEAVE ON TIME",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>If you started your own company, it can be a big challenge to let go when the time comes. A wise leader prepares for that day. Make sure there are good people around who can guide the company into the next phase of its existence, without you. It’s an emotional moment, but failing to think about a proper exit might be worse for all concerned.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              },
+              {
+                "block_type": "text",
+                "title": "Case study: FURNITURE FACTORY IN INDONESIA",
+                "payload": {
+                  "html": "<p>A furniture factory in Indonesia was producing first-rate quality wooden furniture for hotels in the four and five star range. It also manufactured decorative items for the retail market. The manufacturer wanted to exploit the business’ strengths while the weak points were to be looked at and improved.</p>",
+                  "kind": "case",
+                  "label": "FURNITURE FACTORY IN INDONESIA"
+                },
+                "order": 1
+              },
+              {
+                "block_type": "text",
+                "title": "In practice: ANALYSIS",
+                "payload": {
+                  "html": "<p>Strengths included: well-made products, a balanced mix of products, effective use of raw materials, having access to locally produced ‘green’ hardwood, well-trained staff, and a good location for exporting abroad.\nWeaknesses: insufficient marketing strategy and marketing capacity; the business lacked its own design unit, making it dependent on clients’ designs. Relatively high staff expenses, and potential customers did not know the company sufficiently.</p>",
+                  "kind": "practice",
+                  "label": "ANALYSIS"
+                },
+                "order": 2
+              },
+              {
+                "block_type": "text",
+                "title": "In practice: ADVICE",
+                "payload": {
+                  "html": "<p>DEFINE A MARKETING STRATEGY Appoint a marketing manager to set up an international network of customers, including hotels, firms of architects and resellers of decorative items.</p>",
+                  "kind": "practice",
+                  "label": "ADVICE"
+                },
+                "order": 3
+              },
+              {
+                "block_type": "text",
+                "title": "Self-check: CHECK",
+                "payload": {
+                  "html": "<p>• Do I have a mission and a vision?• Delegate • Write a business plan• Steer the right course • Prioritise. Check progress• Coordinate and communicate with • Think smartereveryone involved in your business • Work together with parties outside of your • Reward talent corporation• Let go and prepare to leave on time</p>",
+                  "kind": "checklist",
+                  "label": "CHECK"
+                },
+                "order": 4
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "02. Marketing & Sales",
+    "description": "<p>Marketing is an essential ingredient for business success. It is the process through which you find and keep your customers. In order to do so you need to continuously focus on your customers and have constant insight into their needs.\nAlthough principles of marketing are universal, one should distinguish between Business to Business (B2B) and Business to Consumer (B2C) marketing.\nBoth types of marketing aim to facilitate the flow of products or services from the initial supplier to the consumer, but take place in different parts of the supply chain. This is exemplified below.\nNo matter whether you are active in the B2B or the B2C market, the following ten tips and hints about marketing may come in handy. Occasionally, separate tips for B2B and B2C are given.</p><p><em>Adapted from &ldquo;Successfully Operating a Business &ndash; The Manual&rdquo;, PUM Netherlands senior experts.</em></p>",
+    "language": "en",
+    "subtitle_languages": [],
+    "program_id": null,
+    "status": "published",
+    "modules": [
+      {
+        "name": "Overview",
+        "description": "",
+        "lessons": [
+          {
+            "name": "01. DEFINE YOUR MARKET, MAP IT OUT",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>When defining your market, take your customers’ needs as the starting point, instead of what you are producing. For instance, a manufacturer of mobile phones is not in the electronic devices market, but in the “connecting &amp; communications” market.\nOr take Kodak, it was not in the market for films, but in the market to “capture memories”.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "02. KNOW YOUR CUSTOMERS",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Before deciding which customers to target, it pays to collect as much information about them as possible. How many of them are there? Are they big, small, or medium-sized? How do they see you, how do they see your competitors and most of all, what are their needs? Find answers to these questions by talking to your current and potential customers or by doing market research.\nDon’t assume anything, don’t take important decisions based purely on assumptions.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "03. KNOW YOUR COMPETITORS",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Besides understanding your customers, it is also key to know plenty about the competition. Why do they exist, where do they offer added value for customers? Which of your customers are attractive to them, what cost structure do they operate, how is their liquidity and how vulnerable are they in relation to their suppliers? What direction are they heading in strategically and how does that affect your position? Why should customers buy from you instead of your competitor? Additionally, it is important to assess which companies might enter your market in the future and what alternatives are available to your product that might fulfil your customers’ needs.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "05. ORGANISE AND TRAIN YOUR STAFF",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Make a standard profile of the general skills staff need and then assess whether there’s a gap between the profile and the skills of the person in question. After that, set up a training schedule to fill the gap. If you want your whole organisation to be customer oriented, then make sure that the sales person is supported by all other staff. As the interface with your customer, the sales person should never be let down by the internal organisation in a face- down with the customer, because the customer’s trust in your organisation is of vital importance. On the other hand, the sales person must always make sure that solutions for the customer are deliverable and realistic. He/she shouldn’t over-promise as this may chase the customer away.\nB2C TIP Staff in a store can be looked at from different angles: as a source of costs as well as a source of income. Normally staff costs amount to 50 to 60% of all costs involved in running a store.\nConsider making use of part-time employees. Every co-worker should be multifunctional so that the output per employee can be maximised.\nB2B TIP The sales staff should be organised in such a way that time can be spent with customers with the highest potential. Make someone internally responsible for supporting the sales person and make him or her a point of contact for customers too. Regularly give feedback to the sales staff about their performance.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "06. YOU ONLY HAVE ONE CHANCE TO MAKE A FIRST IMPRESSION",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Presentation is key. For sales staff this means that they need to dress in line with their customers’ expectations. Your office or store should look representative too. And finally, don’t forget the layout of your products.\nB2C TIP If you run a store, a good display produces four effects. It will immediately increase your sales. It allows you to make better use of space. It contributes to the image of your store, and it increases the average length of visits to your store. If you sell products that people need on a daily basis, you can choose to display them at the far end of your store, so customers become familiar with the rest of your products as well. You may also want to consider extra displays at the check-out, to tempt people to make impulse purchases.\nB2B TIP When giving a slide presentation, make sure you structure your message. Avoid long explanations and use examples, cases and testimonials. Involve your colleagues or friends when drawing up the presentation; they will help you to sharpen your message. Make sure your slides are visually interesting and relevant; this takes a little more creativity than just typing in some bullet points. If you take the above into account, you will find that the slides complement what you say, helping you to get your message across and reach your goal.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "07. MAKE THE SALE",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Before you enter into sales talks with a prospect or customer, you must know everything, or at least as much as possible, about this person. What are his needs, which problems play a role, does he have a current solution? If so, who is he buying this from, for what reason and at what price? Try to dig down to the facts and the person’s real needs and then sell him the advantages of your proposal.\nB2C TIP Getting customers to buy from you is all about temptation. The process that leads to a sale tends to go in phases, and is known as the AIDA model. It starts with Attention: a customer contacts you, looks at what you are offering and sees something that catches his or her Interest.\nThis can then turn into Desire to actually own the product. If the price and other aspects of the product fit the bill, the next step is Action: buying.\nB2B TIP Assess how much time you’ve been allotted by your contact and try to establish a good balance between listening and talking. Be punctual and present yourself carefully during the sales talk. A sales person who raves on and on about his product and who does not take the time to listen to his potential customer will never be successful.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "08. MONITOR CUSTOMER SATISFACTION",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>The process doesn’t end when the sale has been clinched. Make sure your customers are satisfied and troubleshoot any issues that raise customer concern. Only then will customers continue to buy from you and tell others about their positive experience. It’s a well-known fact that it takes five times as much money and effort to win new customers than to retain existing ones. So keeping them happy and satisfied is of utmost importance.\nB2C TIP Seventy percent of worldwide shoppers are female. They should feel welcome and feel that their desires or complaints are taken seriously.\nMake sure you let them know that in your service and communication.\nB2B TIP A customer is the most important asset of any company. Customers who are content will let others know, but so will those who are not happy with you. Instruct your staff to take a friendly attitude towards customers. Teach them to listen to customers carefully and to observe them closely. They should be properly informed about the products so they can convince your customers. If someone sends a complaint by e-mail or letter, make sure you respond the same day, or as soon as possible.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "09. CONTINUOUSLY IMPROVE",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Use any feedback you receive from your customers to improve your product or service.\nMake sure this is reflected in your marketing mix. If possible, ask your clients to comment on your service on a regular basis.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Product",
+        "description": "",
+        "lessons": [
+          {
+            "name": "04. DEVELOP YOUR MARKETING MIX",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Combine what you know about your market, your customers and your competitors to fine-tune your marketing mix. This mix consists of the following elements (the so-called 4 Ps): product, price, promotion and place.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              },
+              {
+                "block_type": "text",
+                "title": "In practice: PRODUCT",
+                "payload": {
+                  "html": "<p>Start with formulating an offering that brings value to your customers. Think about the quality, features and style the product needs to have. Consider branding and packaging too. Both can add considerable value to your product. When you sell a range of products, think about how the products meet your customers’ needs. Should your range be wide (meeting a number of different customer needs) or deep (offering the customer a choice within their needs)? Always keep a close watch on the performance of your products: which sell well, and which don’t? Your core range of products should be recognisable and always available: ‘out of stock is the ultimate disservice’.\nB2C TIP Shelf space is precious, so use it well. Maintain a clear profile: your core range of products should remain stable and recognisable. Also make sure that your products are well in sight, and that you place the products you want to sell most eagerly at the customers’ eye level.\nB2B TIP You are the product expert and potential customers expect you to know how your product will benefit them. Make sure you can answer all their questions. If you feel you lack the answers to some questions – you’re not ready.</p>",
+                  "kind": "practice",
+                  "label": "PRODUCT"
+                },
+                "order": 1
+              },
+              {
+                "block_type": "text",
+                "title": "In practice: PRICE",
+                "payload": {
+                  "html": "<p>When setting your price you need to consider various factors. Start with your customers. Your price should reflect their perception of the value of the product. When a customer feels the price is too high in relation to the value of the product, he will simply not buy it.\nTake a close look at your cost structure as well. Pricing a product too cheaply is dangerous as it will not allow you to make a profit.\nB2C TIP Low prices may be an effective tool to quickly attract a large number of customers but they may affect your profitability in the longer run. To avoid this risk, make sure you closely watch the effect of price changes on your margins, possibly starting with some pilot products before applying a new price strategy to your entire range of products.\nB2B TIP Depending on the market you’re in, providing something for free may help you sell your product. Think about free samples, trials, or demonstrations.</p>",
+                  "kind": "practice",
+                  "label": "PRICE"
+                },
+                "order": 2
+              },
+              {
+                "block_type": "text",
+                "title": "In practice: PROMOTION",
+                "payload": {
+                  "html": "<p>Once you have defined your product and set your price you need to consider how to communicate the value of the product to your customers. Depending on the type of customers you sell to, you need to take decisions about advertising, sales promotion, public relations, personal selling and direct marketing.\nB2C TIP Media are always looking for a new story, a different angle and a fresh approach. Developing a good relationship with local media will help you reach potential customers and establish your reputation. And the good thing is, this type of promotion is free.\nB2B TIP Personal selling may be a good tool if you sell complicated products that need personal explanation. Use advertising when customers are already familiar with the type of product you sell.</p>",
+                  "kind": "practice",
+                  "label": "PROMOTION"
+                },
+                "order": 3
+              },
+              {
+                "block_type": "text",
+                "title": "In practice: PLACE",
+                "payload": {
+                  "html": "<p>When you map out your market, it pays to define which channels are available from the supplier to the end consumer, how they develop over time and which factors influence the final decision process. Try to define which trade channels are most suitable for your situation. For example, if you produce bars of soap, think about where the end customer would like to purchase the soap: at a shop or maybe online? If the answer is the shop, you need to think about how to get your bars of soap into the shop. Do you need a wholesaler who will supply your products to the stores, or will you establish direct contacts with the shops yourself? In case of online sales you may wish to have your orders sent from a distribution house, helping you to minimise stock levels.\nB2C TIP Take the following golden rule into account: retail=detail=local. This means that you need to keep detailed track of who can be found in the neighbourhood of your shop. When you adjust to their needs, they will become your customers.\nB2B TIP If you decide to work with distribution partners, make sure you select them well. Does the partner sell to the right target group? Does the partner have a good track record and reputation? Check with others in the business to find out.</p>",
+                  "kind": "practice",
+                  "label": "PLACE"
+                },
+                "order": 4
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Finally",
+        "description": "",
+        "lessons": [
+          {
+            "name": "10. SET CLEAR TARGETS AND FORMULATE A PLAN OF ACTION",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>It is important to set clear targets so you can translate your strategy into action. Use the SMART principle, making each target Specific, Measurable, Achievable, Realistic and constrained to a specific Time period. When drawing up the action plan, think about ‘who is doing what and when?’ It is advisable to list the financial consequences of the activities mentioned as well.\nThe Plan of Action should be predominantly based on the next 12 months, but should also contain some primary issues in the strategy for the next two to three years.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              },
+              {
+                "block_type": "text",
+                "title": "In practice: FINALLY",
+                "payload": {
+                  "html": "<p>‘The beauty of not planning lies in the fact that failure comes as a total surprise, not preceded by a period of worrying and depression’. In other words: ‘failing to plan, is planning to fail.’</p>",
+                  "kind": "practice",
+                  "label": "FINALLY"
+                },
+                "order": 1
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "03. Finances & Financing",
+    "description": "<p>For an enterprise to be successful, at least three things are needed: good results, a healthy balance between debtors and creditors and a positive cash flow. It all starts, however, with a simple cashbook. Ten hints and tips for a strong financial foundation.</p><p><em>Adapted from &ldquo;Successfully Operating a Business &ndash; The Manual&rdquo;, PUM Netherlands senior experts.</em></p>",
+    "language": "en",
+    "subtitle_languages": [],
+    "program_id": null,
+    "status": "published",
+    "modules": [
+      {
+        "name": "Core advice",
+        "description": "",
+        "lessons": [
+          {
+            "name": "01. START OUT WITH A GOOD CASHBOOK",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Keep your bookkeeping as simple as possible. Start with a good cashbook: the amount of daily cash in, the amount of daily cash out and the balance. A cashbook is the mother of bookkeeping.\nIf you like, you can add satellite systems, to save for new machinery or general reserves, for instance. Put that money on a bank account or stash it in separate compartments. If you operate a small company, keep your personal expenses and business expenses strictly separate. Good cash management demands daily discipline in the recording of expenses, income and commitments.\nIf you keep track daily, you will spot things right away.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "02. BOOKKEEPING IS THE BASIS FOR DECISION MAKING",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Buy a simple computerised bookkeeping system as soon as accounting becomes more complex and train a trustworthy person to oversee it. A ledger account keeps track of supplies, production and sales. Bookkeeping will provide you with information required for tax returns, for instance, but also for strategic decisions that involve the future of the company. Is there a base for growth, what commitments have you taken on, is it realistic to invest in technology and development? The financial data coming from your bookkeeping system will partly shape your decisions regarding the future of the company. These are the cornerstone of your enterprise’s business plan.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "03. WATCH YOUR DEBTORS",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>You naturally want to harvest the fruits of your labours. If clients are unable to pay, your company will go bankrupt. You have to be on your toes, when a customer doesn’t pay on time. It’s best to let a new customer pay cash the first time. A customer has to earn credit; you shouldn’t let others take advantage of you. Don’t give a customer more credit than your suppliers give you, otherwise it will cost you. Invest in good relationships and mutual trust.\nSending in the bailiffs should be your last option, as that will result in losing that client forever.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "04. LIST ALL YOUR ASSETS",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>As an entrepreneur you might own a building, machines and supplies. They represent a certain value. Proper maintenance keeps that value high and is therefore very important. Make sure your building and factory grounds look tidy and well kept; supplies should be well stored. That is also beneficial when it comes to the safety of your staff. Keeping a close score of supplies prevents loss or theft.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "05. WRITE A HANDBOOK ON HOW YOUR BUSINESS IS RUN",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Make sure you are aware of all the important issues within your company. You can delegate many things, but you are the one with ultimate responsibility. Good bookkeeping and proper reporting will keep you well informed. Make sure your company doesn’t commit to promises it can’t deliver, don’t sell more than you can produce. If that happens, you – as a manager – have insufficient control of what’s happening. It might help to write down a few rules in a handbook on how things should go in your business.\nWhen you delegate tasks, your staff will know how to operate and what to watch. That will help you develop a standard routine and culture that is easier to maintain and will lead to better results.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Applied practice",
+        "description": "",
+        "lessons": [
+          {
+            "name": "06. MAKE SURE YOU HAVE THE RIGHT DOCUMENTS",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>An enterprise usually starts out small and does not always have the right documents and permits. That becomes increasingly important as your company grows. Company growth also means paying more taxes and interacting more with government and/or supervisors. Not having the right, legal permits might make you susceptible to blackmail or harm your position of strength in other ways. Invest in good relationships with the authorities.\nMake sure you have the right documents so everything you do is perfectly legal.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "07. DON'T GROW TOO FAST",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>If you want your company to grow, let it happen responsibly. You cannot double your turnover at once, but you can aim for a 10% increase in turnover next year. To assess what responsible growth means in your case, you’ll have to gain an insight into the trends of the past years and quarters. By closely examining the results you can detect how your company is doing, whether there might be problems in certain areas and you’ll find out seasonal changes in performance. Make your targets part of the business plan and then make sure they can be realised. An increase in production might require more staff or machines. You have to anticipate this, including the costs, and take them into account in your budget.\nYou can only make commitments if you can pay for them on time.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "08. TAKE CARE OF THE NECESSARY INSURANCES",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Buy insurance that will protect you and your staff in case of fire, theft and disability. The insurance will require you to take measurements to prevent fire, theft and industrial accidents. This implies you and your staff will have to pay attention to safety and protection. Doing so will benefit your way of operating, your staff’s health and safety as well as your company’s results. A good reputation in this area can also lead to new customers and possibly new employees as well.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "09. FIND TRUSTWORTHY, CAPABLE STAFF MEMBERS",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Besides having reliable staff, they also should be well trained.\nAs your company grows, you’ll have to delegate more yet keep an overview at the same time. Prevent divisions turning into islands and operating on their own terms.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "10. GOOD BOOKKEEPING HAS NO SECRETS",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Bookkeeping is a profession with its own jargon. It’s important you understand that language so that bookkeeping is not a mystery to you.\nYou should be able to trust your bookkeeping and your accountant, otherwise it’ll cost you sleepless nights. Bookkeeping isn’t rocket science, with unexpected outcomes. It should be a reflection of the facts and figures of your company, providing you with information on which to base decisions for the future.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              },
+              {
+                "block_type": "text",
+                "title": "Self-check: CHECK",
+                "payload": {
+                  "html": "<p>• Is there an accounting/bookkeeping • Is there a correct relationship with system at all? Who runs it? Does it give government authorities, tax authorities, good information for decision-making permits etc? purposes? Are computer systems being • Are there budgets for the short term and used properly or even at all? business plans for the long term? • Is there a good cash management system?• Is there adequate insurance for buildings and • Is there a good debt management system?inventories against fire and theft? • Is there a good asset management system?• Are reliable people involved in running the • Are there good management control tools?financial systems? • Where can we get additional financing?</p>",
+                  "kind": "checklist",
+                  "label": "CHECK"
+                },
+                "order": 1
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "04. Efficiency & Logistics",
+    "description": "<p>Efficiency and logistics are not difficult. It’s a question of fine-tuning all segments and making sure everything works. The end result is that every staff member knows exactly what he or she should do.\nRunning a company is a matter of making clear agreements, of good timing and doing things in the right order. If your company is inefficient and a problem arises, a domino effect is set in motion and things will go wrong in other parts of the process. In this chapter we’ll offer ten hints and tips for better logistics and more efficiency.</p><p><em>Adapted from &ldquo;Successfully Operating a Business &ndash; The Manual&rdquo;, PUM Netherlands senior experts.</em></p>",
+    "language": "en",
+    "subtitle_languages": [],
+    "program_id": null,
+    "status": "published",
+    "modules": [
+      {
+        "name": "Core advice",
+        "description": "",
+        "lessons": [
+          {
+            "name": "01. IT STARTS WITH ASKING THE RIGHT QUESTIONS",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Good logistics arise from proper fine-tuning among all staff members and divisions: sales, purchasing, development and production.\nIn order to get there you have to know what exactly you want your company to achieve. What is your vision for the future? Which clients and market segments do you want to supply? Are you planning for a larger market share? How about exporting or merging? You will have to take all this into account when it comes to logistics.\nDon’t forget external factors, such as inflation. In countries with low inflation it is expensive to keep inventory levels up. In countries with high inflation, on the other hand, it might be quite beneficial to keep inventory levels up. You should have a vision that answers these questions. The next step is to transform that vision into actual facts and figures. What do you want to offer, at what price and conditions? How important is it for you to be trustworthy? How long can the supply period be? What are the details of warranty contracts? Fully-fledged warranty contracts demand a high level of efficient logistics.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "02. KNOW MORE THAN YOUR COMPETITORS",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Take a close look at the cost price of your products and find out which parts could be purchased more cheaply or could be manufactured more efficiently. You should be aware of what your competition is doing in this regard, what they pay for raw materials or products and what price their end products fetch. Find out any differences between the various suppliers who compete for your business. Being the best informed, including about the power of the competition, gives you the best credentials for winning the game.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "03. KEEP CONTROL OF ALL PARAMETERS",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Good logistics dictate that every group of workers or division does what it has to, be it marketing, sales, purchasing or production.\nMake agreements, set targets and check that everyone sticks to them, in terms of planning, budget and turnover. That will give you the chance to make changes in good time, if necessary.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "04. EVERY STAFF MEMBER SHOULD HAVE HIS OR HER OWN RESPONSIBILITY",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>A clear organisational structure helps people to do their job. Give people a specific task of their own and make them responsible for it. Motivate your staff members to use creativity and experience to constantly improve processes and products.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "05. MAKE SIMPLE, CLEAR REPORTS",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Draw up regular reports of your company’s performance. Keep them as simple as possible. Compare your performance with that of other companies. Analyse your strengths and weaknesses and compare them with your competitors. Look for the strongest competitors in your field and measure yourself against them; you’ll quickly find out where you can improve.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Applied practice",
+        "description": "",
+        "lessons": [
+          {
+            "name": "06. MEASURING MAKES YOU SMARTER",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Good logistics is a matter of measuring and knowing. How much has been produced, what has been sold, how are your inventory levels, what do raw materials cost and how have you performed so far? Draw up a monthly overview and compare this with the outcomes of earlier months, so you know what the figures stand for and whether you should take action.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "07. KEEP A CLOSE WATCH ON YOUR INVENTORY LEVELS",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Develop a system for closely monitoring your inventory levels, so you know how much is in store in your warehouse on any given day. Low inventory levels imply good logistics; a shortage means failures in the system. It is of utter importance that the sales division can keep its promises to the customer.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "08. GOOD BUYERS ARE WORTH THEIR WEIGHT IN GOLD",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>The cost price of products is often determined by a number of precious components. Hire buyers who are knowledgeable or train people to know everything about those components and their trade. Motivate them to arrive at a lower cost: this brings in cash for your company. Make sure they speak the language of the country where these components or raw materials come from.\nTrain them to become good negotiators.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "09. WE'RE ALL EACH OTHERS' CUSTOMERS AND SUPPLIERS",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Staff members are any company’s ultimate asset. People are key.\nOnly humans are able to think in terms of improvement. People can use their knowledge, experience and creativity to improve processes and products and thus arrive at higher efficiency levels.\nIt is essential that employees enjoy their work, know what they are doing and are given room to think of how things can be improved. If you have lots of people calling in sick, you should take a good look at your managerial style and see what can be improved. Cooperation is everything.\nEmployees and divisions are dependent on other employees and divisions, so make sure your people function well, enjoy their jobs and cooperate with others.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "10. EVERY EMPLOYEE DESERVES PROPER TRAINING AND REWARDS",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Every employee, whether it’s the doorkeeper, warehouse assistant or accountant has his/her own task and should be trained appropriately. They should all know what to look out for and they should be clear about their contribution to the bigger picture.\nJust as important, they should be rewarded fairly for their work.\nA system of fair pay is a key element in the bigger system of your organisational structure. A well-functioning system will support your company at all levels and make it stronger. Any doubts about fairness will lead to jealousy and unrest and will in the end hurt your company’s performance.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              },
+              {
+                "block_type": "text",
+                "title": "Self-check: CHECK",
+                "payload": {
+                  "html": "<p>• Logistics starts with asking questions• Measuring makes you smart • Make sure you’re better informed than the • Keep a close watch on your inventory levels competition• Good buyers are worth their weight in gold • Keep control of all parameters • We’re all each others’ customers and • Give every employee his/her own suppliers responsibility• Every employee deserves proper training • Write clear, good reports and rewards</p>",
+                  "kind": "checklist",
+                  "label": "CHECK"
+                },
+                "order": 1
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "05. HRM & Training",
+    "description": "<p>Nowadays, technology is for sale everywhere and is usually quite accessible. Motivated staff however, is not. As an employer you can do quite a bit to keep your staff motivated. People are increasingly becoming the key factor for any company’s success. It is what gives your enterprise the cutting edge. Every entrepreneur will get the staff he or she deserves. Here are ten hints and tips for good human resources management (HRM).</p><p><em>Adapted from &ldquo;Successfully Operating a Business &ndash; The Manual&rdquo;, PUM Netherlands senior experts.</em></p>",
+    "language": "en",
+    "subtitle_languages": [],
+    "program_id": null,
+    "status": "published",
+    "modules": [
+      {
+        "name": "Overview",
+        "description": "",
+        "lessons": [
+          {
+            "name": "01. BE CLEAR ABOUT WHAT YOU EXPECT OF YOUR EMPLOYEES",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Uncertainty makes people insecure. If expectations are not clear, employees don’t know what they will be assessed on. This will make them avoid risk and react defensively.\nWrite down realistic targets, in close consultation with your staff.\nYou can then expect them to be committed, since they have had their say and have agreed that the targets can actually be met.\nThis approach will give you the managerial power to aim for specific goals, also known as management by objectives.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "02. ELIMINATE MIND-NUMBING AND REPETITIVE WORK AS MUCH AS YOU CAN",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Try to find a fair balance between your employees’ skills and your expectations of them.\nIf work is simple and repetitive, combine various tasks. When it comes to planning, execution and final results, variety and more responsibility are motivating forces. Research shows that the nature of a job is the most important factor when it comes to motivating an employee. Mind-numbing work will kill enthusiasm, resulting in a total lack of responsibility for the ultimate result.\nBe honest, you wouldn’t react any differently.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "03. CREATE A SUPPORTIVE WORK ENVIRONMENT",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>A supportive work environment depends directly on the managerial style and the way it is carried out within a company or organisation. Fear and mistrust have an effect on performance.\nManagement has a key role in creating a supportive environment.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "04. ENGAGE EMPLOYEES IN THE DAILY ROUTINE OF RUNNING YOUR BUSINESS",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>This will make them feel they are taken seriously. That and respect and appreciation are the basis of commitment. Most people are creative and want to take the initiative themselves.\nGive them some scope to do so and let people grow. Create a supportive environment where people are willing to experiment and can learn from mistakes.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "06. OFFER FAIR PAYMENT",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Rewards are not the most important when it comes to motivating your staff, but rewarding should be done fairly. It will be positively appreciated. What is fair depends on the social and economic context of where your business is operating. People want to see a causal relationship between performance and reward.\nHaving a reward system that is open and simple will increase your image as a fair employer. Ask yourself if you want to promote competition or cooperation within your company. This will determine whether you give individual rewards or you reward the performance of groups or divisions within your company. What’s best for you depends on your company culture and the product you are producing. Some companies invest in teambuilding, besides pushing for growth in turnover, sales and acquisition.\nOthers motivate individual staff members to peak performances.\nWhat is important is that people like what they are doing and that they want to commit themselves to your company.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "07. IT'S OKAY TO MAKE MISTAKES, ENCOURAGE TAKING INITIATIVES",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Fear and risk avoidance don’t belong in a climate where initiatives and entrepreneurship flourish. Management should therefore make it clear that it’s okay to make mistakes. This is not the traditional way of doing things: we usually punish those who make mistakes. As a consequence, staff members tend to stick to procedures and react defensively. This kills innovation. Successful corporations allow mistakes to be made, as long as they lead to lessons learned. It takes courage for management to set the right example and be willing to discuss mistakes they made themselves.\nWhy not organise a Friday afternoon session; discuss what went right, what could have gone better and what the lessons are for your company?</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "08. MAKE YOUR ORGANISATION LESS BUREAUCRATIC AND HIERARCHICAL AND MORE FLEXIBLE",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Flat organisations – with only one or very few management layers – give people more personal responsibility than those with multi- layered hierarchical structures. Keep the number of managerial staff low, but also bear in mind that managers need to be able to spend time with their employees. The span of control should not be overstretched. Keep job descriptions short: one page will do.\nDescribe the job’s goal and most important tasks, but keep the details of work as flexible as possible. This makes people available for various tasks. Flat, flexible corporations that foster initiatives are more likely to succeed in fast changing, dynamic economies than traditional corporations that rely on hierarchical structures.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "10. PRACTISE GIVING BAD NEWS ABOUT REDUNDANCY",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Many entrepreneurs dread redundancy talks, but sometimes there’s no alternative. If you have to give bad news: keep it short.\nDon’t start telling them how difficult it is for you and don’t defend yourself. Just say: I have to let you go, I’m sorry. Would you like me to tell you now about the reasons why, or take some time for yourself first? Give your employee time to deal with the bad news. Dismissal might be the best solution for the person in question personally, but it might take a while before he or she is able to see it that way.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              },
+              {
+                "block_type": "text",
+                "title": "Self-check: CHECK",
+                "payload": {
+                  "html": "<p>• Be clear about your expectations towards • Offer fair payment your employees• It’s okay to make mistakes, encourage • Eliminate mind-numbing, repetitive work initiative as much as you can• Make your organisation less bureaucratic • Create a supportive work environmentand more flexible • Engage employees in the daily routine of • Keep in touch with those who deliver running your businesstomorrow’s staff • Take the personal and professional growth • Practise giving the bad news about of your staff seriouslyredundancy</p>",
+                  "kind": "checklist",
+                  "label": "CHECK"
+                },
+                "order": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Recommendation",
+        "description": "",
+        "lessons": [
+          {
+            "name": "05. TAKE THE PERSONAL AND PROFESSIONAL GROWTH OF YOUR STAFF SERIOUSLY",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Your staff is your company’s most important asset. They will decide how well your company will perform over time. They are your strongest weapon when it comes to beating the competition.\nIt pays to spend time, money and attention on your staff members’ development. Talk to them. Ask people about their plans and ambitions, and how they see their personal development. It is one of the most important factors in raising motivation.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              },
+              {
+                "block_type": "text",
+                "title": "Case study: FACTORY PRODUCING PACKAGING MATERIAL IN CHINA CASE",
+                "payload": {
+                  "html": "<p>Employees in many Asian factories work long hours. Even though the physical conditions are far from perfect, many people work 14 to 16 hours a day.\nManagement allows this, because many employees prefer to work long hours in order to generate more income.\nThis was also the case in a Chinese factory producing packaging material. Most workers were dead tired at the end of the day, but nonetheless stayed longer to make more money. Some didn’t even return home, but retired to the warehouse for a few hours of sleep.\nThe quality of the production was bad. Productivity slowed down as the day went on and there was substantial production loss. The owner wanted change.</p>",
+                  "kind": "case",
+                  "label": "FACTORY PRODUCING PACKAGING MATERIAL IN CHINA CASE"
+                },
+                "order": 1
+              },
+              {
+                "block_type": "text",
+                "title": "In practice: RECOMMENDATION",
+                "payload": {
+                  "html": "<p>The main reason for the low efficiency in production had to do with the long working hours, which caused serious fatigue among employees.\nProduction went down dramatically during the afternoon and evening, while production losses increased seriously. The recommendation was a daring one: cap the maximum hours at 11 instead of 14 and raise wages by 25 percent.</p>",
+                  "kind": "practice",
+                  "label": "RECOMMENDATION"
+                },
+                "order": 2
+              },
+              {
+                "block_type": "text",
+                "title": "In practice: OUTCOME",
+                "payload": {
+                  "html": "<p>Management was brave enough to adopt the recommendation. The employees initially reacted with distrust but the result was astounding; production during the shorter working hours – per capita and per hour – increased considerably and production loss decreased dramatically.\nAnd, maybe just as important: news spread like wildfire in the region, the factory’s image got a boost and was able to attract better staff. Since then, working hours in this factory have been reduced to 10 a day, 6 days a week.</p>",
+                  "kind": "practice",
+                  "label": "OUTCOME"
+                },
+                "order": 3
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Training",
+        "description": "",
+        "lessons": [
+          {
+            "name": "09. KEEP IN TOUCH WITH THOSE WHO DELIVER TOMORROW'S STAFF",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Schools are a great source when it comes to finding talented new staff. Make sure your image here is as good as it can be, so the best of the class will find you when they are ready. Offer students internships; present yourself at schools during informational workshops and think of ways to make yourself attractive to new employees.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              },
+              {
+                "block_type": "text",
+                "title": "Case study: CHANGE MANAGEMENT WORKSHOP IN CASE",
+                "payload": {
+                  "html": "<p>The transition from a planned economy to a market economy in Eastern Europe means a change of culture for many corporations. However, people dislike change and it raises resistance. This is a universal problem. Many entrepreneurs in Eastern European countries are wondering how they can get their staff to change.\nHow does one teach employees a new way of thinking and operating? And how can you stimulate that?</p>",
+                  "kind": "case",
+                  "label": "CHANGE MANAGEMENT WORKSHOP IN CASE"
+                },
+                "order": 1
+              },
+              {
+                "block_type": "text",
+                "title": "In practice: TRAINING",
+                "payload": {
+                  "html": "<p>It is important that managers understand where resistance to change comes from.\nThey got a chance to practice this in a workshop. The trainer asked the managers to trust him and to participate. The whole thing wouldn’t take more than 15 minutes. He then asked everyone to take a seat on the tables, instead of at them. Several people did so, with crossed legs, some remained sitting at their tables – feeling a bit awkward. The majority participated more or less: sitting half on the table or leaning against it. Most felt uncomfortable, because this was new territory for them. And this was the point the trainer wanted to make. The participants experienced hands on what it takes for people to accept change, or to accept it to some degree, and how one expresses these feelings.</p>",
+                  "kind": "practice",
+                  "label": "TRAINING"
+                },
+                "order": 2
+              },
+              {
+                "block_type": "text",
+                "title": "In practice: RESULTS",
+                "payload": {
+                  "html": "<p>All the participants experienced personal resistance. Some couldn’t deal with it, others could and most of them did ‘sort of’. They took a position in the middle, where they didn’t really participate but also didn’t really show resistance. The whole experiment took less than 15 minutes, including discussion afterwards, and clarified much about resistance to change. By experiencing this hands on, the participants came to better understand the roots of resistance. They learned how resistance can be decreased, how it manifests itself and how you can help people to deal with it effectively.</p>",
+                  "kind": "practice",
+                  "label": "RESULTS"
+                },
+                "order": 3
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "06. Technology & Quality",
+    "description": "<p>This chapter contains ten tips and hints for achieving the highest possible quality in your business, with the support of your employees.</p><p><em>Adapted from &ldquo;Successfully Operating a Business &ndash; The Manual&rdquo;, PUM Netherlands senior experts.</em></p>",
+    "language": "en",
+    "subtitle_languages": [],
+    "program_id": null,
+    "status": "published",
+    "modules": [
+      {
+        "name": "Overview",
+        "description": "",
+        "lessons": [
+          {
+            "name": "01. IMPROVE QUALITY, PREFERABLY STEP BY STEP",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Improvement works best when achieved in small steps, preferably involving your employees. Japanese quality philosophy has a word for this: ‘Kaizen’, which means making things better one step at a time. The famous Japanese quality guru, Masaaki Imai, once said, “Problems are the keys to a mountain of treasure”. In other words: many small improvements lead to a phenomenal improvement in quality overall. It therefore pays to make use of a concept such as the ‘Deming Circle’ named after the American, Dr. W. Edwards Deming: Plan, Do, Check, Act (P-D-C-A).\nPLAN: Select an improvement goal and think of appropriate action to achieve it.\nDO: Implement the action in stages.\nCHECK: Evaluate these stages and the results.\nACT: If the quality can be improved further, start the cycle all over again.\nThe more your employees are part of the improvement process, the more successful you’ll be. Don’t try to cover up problems, but talk about them openly instead and encourage people to come up with solutions. One way is to organise quality teams of employees who can come up with improvements and solutions themselves.\nEncourage teamwork as a means of producing ideas for improvements and make sure you don’t just use your workers’ hands but also their heads! One basic golden rule in this context is to keep “waste” to a minimum, whether it is due to overproduction, waiting, transport or defects. An all-out effort to keep unnecessary waste to a minimum will lead to a major reduction in costs.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "02. CUSTOMERS COME FIRST",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>A business can only exist because of its customers. It is therefore crucial that your clients are happy about the quality of the products or services you supply to them. You’d be wise to regularly check what your customers think of your products and services and take appropriate action accordingly. Are you easy to reach if they have questions or complaints, do you deliver on time and as agreed? Do you fulfil your customers’ needs fast enough or can you even deliver more than they expect? Maybe there are ways to develop new products in cooperation with your clients.\nA company not only has external customers, but also internal clients. Within a business, employees and divisions are each others’ customers. One depends on the work of the other. It is important that your employees are aware of this and that they make every effort to cooperate in the best way possible.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "03. MEASURING GIVES KNOWLEDGE",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>If you don’t measure the level of quality, no one knows what’s needed to improve that quality. So measure, make your measurements visible and plan actions for improvement. Take a close look at all aspects of the production process: the percentage of defective products, the percentage of employees calling in sick, the amount of rubbish around, turnaround time, levels of stock and repairs needed. All these represent aspects of the “Cost of Quality”.\nMake use of graphics, so you can compare your quality levels with an accepted norm, or with those of your competitors. This will help you to visualise changes, so your employees are aware of results right away.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "04. STANDARDISE WORK PROCESSES",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Every employee should know the instructions for the work he or she is assigned to. It’s crucial that they are followed at all times to attain the highest quality standards. Document all tasks in standard procedures and train your staff accordingly. Aim to do things right, immediately, without errors. This demands a high level of discipline. The work floor should be kept clean and tidy at all times. All materials should have a designated place so everyone can find them easily. Any improvements to the standard procedure must be carried through to process descriptions and training sessions.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "05. RUBBISH IN = RUBBISH OUT",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>To a considerable degree, the quality of materials and services supplied to your business defines the quality of products that you produce yourself. This is why all products and services that are supplied to you must comply with specified quality norms.\nThis implies that you should be highly selective when it comes to choosing suppliers. Visit them often to see how they operate.\nMake documented demands in terms of reliability, delivery and quality. Check that they are keeping their word. Give feedback on the quality of products and services provided and help your suppliers to improve. Encourage improvements by offering a reward. Make sure you don’t rely on one single supplier. You need to have a back up in case your regular supplier can’t deliver.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "06. KNOW YOUR COMPETITION, BEAT THEM",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>A good entrepreneur knows his most important competitors and their market share. You can learn a lot from your competitors.\nWhat are their strongest points, what is it that they do exactly? Who are their customers? How is the quality of their products and how are they priced? If you are able to find answers to these questions, you can plan to beat the competition in these areas.\nYou also need to be well aware of what your own business excels in and how you can elaborate on those points. Comparing yourself to your competitors can be of enormous value.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "07. HANDLE COMPLAINTS PROPERLY",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>There will always be complaints from customers who are not satisfied, but every customer counts. Make sure you respond right away according to a well-defined procedure. Complaints can relate to quality issues, but also to delivery time, service, invoice or product information. It is important to document complaints and your response to these in detail. Someone should be made responsible for the process. Check afterwards to see if the customer has been treated properly. This subject should feature regularly on the management team’s agenda. Make it a priority to handle complaints professionally; you’ll keep your customers this way.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "08. GO FOR TOTAL QUALITY MANAGEMENT",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Quality control is essential when you are in the pioneering phase of your business. Customers should know what to expect and actually get it! When you are expanding, all divisions should know they have a stake in the quality of the final product and should contribute to it. This concept is called Total Quality Management (TQM), and includes organisational issues that influence the quality of your products and services. The management team defines overall goals and then pinpoints goals and points to be improved for each division. Every division manager regularly reports on progress of the improvement efforts.\nA quality system such as ISO 9000 can help you to achieve TQM.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "09. PEOPLE “CREATE” QUALITY",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Your employees determine the quality of your products and services. Each of them plays an important role in the production process. Make sure they don’t feel left out when it comes to making improvements; use competition or rewards to achieve certain quality goals.\nYou might be surprised what they come up with. Make sure your staff is kept happy about their salary and work conditions. Keep them informed about how the business is performing. Motivated staff will perform better and produce the best results. Check regularly how motivated your employees are and take action if necessary. Train them well and acknowledge and reward their work.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "A Tool For Managing Improvement Projects Effectively Introduction",
+        "description": "",
+        "lessons": [
+          {
+            "name": "10. LEADERS SET AN INSPIRING EXAMPLE",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>As a leader you should act as you preach, including when it comes to quality issues. Pay attention to good management policies, measurable objectives, training and development and a continuous process of improvement. If the size of your business allows, hire a quality manager. Motivate your staff to contribute to ongoing quality improvement.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              },
+              {
+                "block_type": "text",
+                "title": "In practice: A TOOL FOR MANAGING IMPROVEMENT PROJECTS EFFECTIVELY INTRODUCTION",
+                "payload": {
+                  "html": "<p>Although some simple improvements can be implemented immediately by “just doing” it on the spot, many others require more time, involvement from different staff, specific resources and probably some investment too. These improvements have to be planned, documented and managed as Improvement Projects. A tool called Improvement Project Planning Sheet can be very helpful as a means of managing these kinds of projects.</p>",
+                  "kind": "practice",
+                  "label": "A TOOL FOR MANAGING IMPROVEMENT PROJECTS EFFECTIVELY INTRODUCTION"
+                },
+                "order": 1
+              },
+              {
+                "block_type": "text",
+                "title": "Worksheet: IMPROVEMENT PROJECT PLANNING SHEET",
+                "payload": {
+                  "html": "<p>In order to produce a list of selected Improvement Projects, the following aspects need adequate attention: Prioritisation, Definition and Structure, Planning and Regular Progress Reviews.</p>",
+                  "kind": "worksheet",
+                  "label": "IMPROVEMENT PROJECT PLANNING SHEET"
+                },
+                "order": 2
+              },
+              {
+                "block_type": "text",
+                "title": "In practice: A SHORT EXPLANATION OF EACH OF THESE ASPECTS",
+                "payload": {
+                  "html": "<p>PRIORITISATION The time and resources that can be spent in any company on Improvement Projects is limited and therefore priorities have to be set.\nThe criteria against which priorities are set will differ from company to company. The need for priority may be linked to the needs and demands of customers, cost benefits, labour conditions, through-put time, cost control, etc. Such criteria can be used to classify a list of potential Improvement Projects into High, Medium or Low priority.\nDEFINITION AND STRUCTURE Each Improvement Project needs to be identified by a short name.\nThe improvement goal to be reached should then be defined, as should quantifiable target(s). Finally, it is of major importance that someone is appointed who will be responsible for managing, coordinating and regularly reporting on the progress of the Improvement Projects.\nPLANNING A start and finish date needs to be scheduled in consultation with the people responsible for the project and the staff involved. The planned projects have to be carefully scheduled over a longer period, e.g. six months or a year, so that progress is not hampered by an “improvement overload”.\nREGULAR PROGRESS REVIEW MEETING This is perhaps the most important aspect of all! On a regular basis, each week, fortnight or month, the Management Team should review the progress of Improvement Projects in terms of schedule and targets. Delays must be discussed openly and actions to be taken agreed upon. Decisions and actions should be concisely documented and followed up at the next review meeting. This is the way to “close” the P-D-C-A loop! MANAGEMENT OF IMPROVEMENT All the above aspects can be conveniently captured and reviewed in a simple tool called Improvement Project Planning Sheet (see example).\nThis management tool is based on the famous Deming Circle of Plan-Do- Check-Act and has proven to be a very powerful mechanism for managing Improvement Projects effectively for many top quality companies around the world! IMPROVEMENT PROJECT PLANNING SHEET SEQUENCE/NAME OF MAIN OBJECTIVE(S) PEOPLE START DATEFINISH DATEREMARKSON PRIORITY IMPROVEMENT ACTIONS TO AND/OR RESPONSIBLEPROGRESS NUMBERPROJECTBE TAKENTARGET(S) (Example Improvement Project Planning Sheet)</p>",
+                  "kind": "practice",
+                  "label": "A SHORT EXPLANATION OF EACH OF THESE ASPECTS:"
+                },
+                "order": 3
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "07. ICT & Information Supply",
+    "description": "<p>Computers offer great opportunities, but also strong temptations. It’s crucial that you are in control of your computer system and not the other way around. Here are ten hints and tips to successfully integrate information and communication technology (ICT) into your business.</p><p><em>Adapted from &ldquo;Successfully Operating a Business &ndash; The Manual&rdquo;, PUM Netherlands senior experts.</em></p>",
+    "language": "en",
+    "subtitle_languages": [],
+    "program_id": null,
+    "status": "published",
+    "modules": [
+      {
+        "name": "Core advice",
+        "description": "",
+        "lessons": [
+          {
+            "name": "01. ICT IS NO MAGIC FORMULA",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Often computer lingo has an aura of mystery, a secret language that many people do not understand. And yet, ICT is just an instrument to keep your business up and running, not unlike any other technology. Don’t let ICT become a mystery. Keep it simple.\nDon’t let your ICT team become a world of its own. Someone should be able to explain how a specific software program works within four minutes. If not, don’t buy it.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "02. KEEP IT SIMPLE",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Don’t build complex systems, but keep it simple and transparent, with as few components as possible. Don’t be an early ICT adopter, unless you expect to earn a lot of money that way.\nLet others try out new things and only follow when the initial bugs have all been removed.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "03. GO FOR ADDED VALUE",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Ask yourself how ICT can benefit your business: what is the added value where the computer could make a difference? Only implement if you think a certain improvement will earn you money. How will new hardware and software contribute to your enterprise?</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "04. MAKE SURE SOFTWARE SOLVES YOUR PROBLEM",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>There’s plenty of software and even more possibilities, but don’t be lead astray by offers from various software providers. Define what you need and ask the provider if he can solve that specific problem.\nThere should be a sound match between what you purchase and what you want to solve. That’s what it’s all about. New software should support your business, not the other way around.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "05. PUT TRANSPARENCY AND DISCIPLINE FIRST – RIGHT FROM THE START",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Working with computers demands discipline. Keep control over what’s happening. Keep track of versions and data, so everything can be traced back. Make this way of working a matter of routine throughout your enterprise.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Applied practice",
+        "description": "",
+        "lessons": [
+          {
+            "name": "06. TEST, TEST, TEST – BEFORE YOU IMPLEMENT A NEW SYSTEM",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Before you implement a new system, make sure it’s tested extensively. Create a safe environment where you can do these tests, first by your own ICT people, then by people in the target group. If you don’t do this, you’ll have to do it after the launch, which is extremely stressful.\nAfter launching a new program, don’t forget to withdraw all passwords used by the supplier. It’s unnecessary and even undesirable for your supplier to still be able to access your system after launch.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "07. TRUST YOURSELF",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Don’t become dependent on others. Keep control over your own ICT infrastructure. Don’t make it more complex than it needs to be. You should be able to understand what your computer does.\nICT should not become the private domain of specialists who are unable to explain what they are doing.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "08. HAVE A VIEW OF THE COMPLETE PICTURE",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>If you take a first step, you should know where that road will take you. When buying a certain software package, you should know what the consequences are for other programs you use. How long will the contract you’re about to sign last? What will it cost you? What else do you need? Get a clear view of the complete picture.\nNever act on impulse. And: test, test, test.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "09. THE INTERNET IS YOUR FRIEND. OR ENEMY",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>The internet can be your friend, or your enemy. It could be your enemy if you don’t protect your computers from unwanted visitors. It will be your friend if you make sure your computers are secure and hacking is impossible. Use up-to-date virus software and firewalls. If you work professionally with computers, you have to pay attention to professional computer security.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "10. STAY IN CONTROL",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>It’s better to start with small steps and grow gradually when it comes to ICT. This way you can keep up with developments and you will stay in control.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "08. Innovation",
+    "description": "<p>An enterprise is like a living creature; it grows, it shrinks, it changes. You have to innovate your business regularly: to adapt your enterprise to changing circumstances - or to conquer new skills. Here are eight tips and hints for innovation.</p><p><em>Adapted from &ldquo;Successfully Operating a Business &ndash; The Manual&rdquo;, PUM Netherlands senior experts.</em></p>",
+    "language": "en",
+    "subtitle_languages": [],
+    "program_id": null,
+    "status": "published",
+    "modules": [
+      {
+        "name": "Overview",
+        "description": "",
+        "lessons": [
+          {
+            "name": "01. FOCUS",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Make a plan, decide what exactly you want to sell and write that down. This will not only create a clear impression in your mind but will also stop you from losing yourself in all kinds of side issues. Structure is essential for any enterprise. What do you want to achieve, what do you need and how much will it cost you? Writing a business plan will force you to focus on your business, costs and revenues.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "02. COMMITTED STAFF IS A KEY SUCCESS FACTOR",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>The success of a business depends on its staff. A friendly, loyal atmosphere creates the conditions where products and processes can improve and innovation can prosper. Goodwill, enthusiasm and commitment pave the way to successful innovations.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "04. CREATE A GENERAL FEELING OF CURIOSITY",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>As the entrepreneur you play a crucial role in your company’s innovation. If you are continuously looking for improvements and innovations, your staff will do so too. You can generate enthusiasm for innovations; create an atmosphere where change is possible and appreciated. If you yourself don’t want to change anything, everything will remain the same and there can never be any innovative improvement.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "05. INNOVATION DEMANDS DISCIPLINE",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Innovation does not happen by itself. It is important that one or more employees are encouraged to spend a substantial part of their time working systematically on innovation. This is the case even when, or rather especially when, your business is doing well.\nYou have to stay alert, so you can react in time to changes in the market. You might be successful now in supplying seat covers for a certain make of car, but in three months time the production of that type might be cancelled. It’s important to think ahead.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "06. DARE TO TAKE RISKS",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Enterpreneurship means taking risks. The same goes for innovation. Ideas for innovation are more likely to prosper when they are in line with the wishes of potential customers. Try to get a sense of what the market wants. Position yourself in your customers’ mindset, think of what they need, what will give them the advantage they are looking for.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "07. LOOK FOR A SPARRING PARTNER YOU CAN TRUST",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Find someone with whom you can discuss your ideas, whom you can use as a sparring partner, someone who is not tied in with your business. Someone knowledgeable, who is able to ask the right questions and can help you make progress. You call the shots, but if you are open to questions and advice, your innovative actions will become more effective. It will make you stronger.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "08. BE RELIABLE – STAND OUT FROM THE REST",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Keep your word when it comes to promises to clients. This is crucial. Being reliable will benefit you and make you less prone to suffer from a downward price spiral. A competitor might supply a product that is comparable to yours, but you distinguish yourself because you deliver on time and your services and products are of a constant high quality. This creates a solid base for your business.\nYou need that to keep improving your products.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Solution",
+        "description": "",
+        "lessons": [
+          {
+            "name": "03. BE PROUD OF WHAT YOU PRODUCE",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>If you and your staff create products that make you proud, you will be more successful in sales. This requires focusing attention and care on production. Products gain in quality when the production environment is clean and orderly, when employees work safely.\nThis might require a change of mindset on the work floor. In a machine shop, this means that machines are operated safely and properly. Sharp edges are rounded, for instance, and seams are welded in a streamlined fashion. The result will be improvement in your products and a better motivated workforce. People will be proud of what they are producing.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              },
+              {
+                "block_type": "text",
+                "title": "Case study: PRIMUS STOVE TO BURN VEGETABLE OIL IN INDIA CASE",
+                "payload": {
+                  "html": "<p>An entrepreneur with idealistic motives in India wanted to develop an affordable primus stove that would burn vegetable oil instead of kerosene. The stove would offer an alternative for the poor in India. Kerosene is expensive, but oil is readily available wherever people can press oil from seeds and nuts. The concept was clear, but the technical execution complex, since oil and kerosene have totally different burning characteristics. The company was insufficiently equipped for the necessary tests. A PUM expert was called in to help.</p>",
+                  "kind": "case",
+                  "label": "PRIMUS STOVE TO BURN VEGETABLE OIL IN INDIA CASE"
+                },
+                "order": 1
+              },
+              {
+                "block_type": "text",
+                "title": "In practice: SOLUTION",
+                "payload": {
+                  "html": "<p>With the help of Delft University of Technology in the Netherlands, a burner was developed that heats oil to the point of evaporation. The vapour slowly drips onto the flame and consequently heats the pan. To keep production costs for the burner to a minimum, the developers looked for materials that were locally available or could be produced in the vicinity.\nThe development process is still ongoing, with active input from actual users. After all, innovation means that the product will satisfy the needs of existing as well as potential new customers. In this case, this input means that the burner can be used and cleaned without additional costs.</p>",
+                  "kind": "practice",
+                  "label": "SOLUTION"
+                },
+                "order": 2
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "09. Exporting",
+    "description": "<p>Just as marketing, bookkeeping, budgeting, writing a business plan etc., are just systems, a way of thinking and doing, so is exporting.\nIt doesn’t matter what you produce, the rules of exporting apply to all branches and all products.\nOnly start thinking about exporting when you have overcapacity in your production.\nNever invest in exporting before you are well established in your own, original markets.\nSee it as an “extra” for the time being.\nYou will only have a chance of success if you can offer products more cheaply than the products produced in or imported into the foreign market, or if you can offer something special, something of far better quality or design than the foreign products. In that case, focus on niche markets, where margins are better. You can then afford to be expensive because you will need sufficient budget for marketing. Do not forget that whoever pays the cost of shipping, insurance and advertising, it will all become part of the overall costs in the end.\nHere are some practice-proven rules for export.</p><p><em>Adapted from &ldquo;Successfully Operating a Business &ndash; The Manual&rdquo;, PUM Netherlands senior experts.</em></p>",
+    "language": "en",
+    "subtitle_languages": [],
+    "program_id": null,
+    "status": "published",
+    "modules": [
+      {
+        "name": "Overview",
+        "description": "",
+        "lessons": [
+          {
+            "name": "01. FIRST, DO YOUR HOMEWORK",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>• What exactly do you have to offer? Which markets or countries do you want to export to and is there a need for it? Do some market research in the literature and on the internet and always ask yourself the question: can I produce what foreign markets want? In the end, the consumer will decide whether you will be a success or a failure.\n• How much can you supply? Do you have enough capacity and time to produce upcoming orders? Be careful with accumulating stocks! Only produce “on order” to start with.\nHow fast can you deliver? Or, better, can you deliver the required numbers at the agreed time? Are your suppliers reliable? • Can you always guarantee the same quality as you agreed with your foreign business partner?</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "02. NEVER START UNLESS THERE IS MUTUAL TRUST",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>The selection of your counterpart, your business partner, is very important. Who will import and distribute your goods? Spend time and money selecting the right person or company. Do you trust him and does he trust you? Be transparent and demand the same attitude from your importer or agent. Always work with a contract in which everything concerning products, packaging and labelling, terms of shipment and payment, quality control, etc. is written down.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "04. NEVER FORGET YOU ARE JUST A PART OF THE SUPPLY CHAIN",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>• Customer service: organise your front and back office in time and make sure there’s at least one person in your company who can read and speak English, as this is the most important language used in export. Shipping department, use the right terms. Use the INCO terms (International Commercial Terms) for shipping as agreed upon by your importer. Supply the right export documents and the required import documents.\n• Invoicing &amp; receiving: be clear regarding terms of payment.\nThis should also form part of your contract with your importer or agent. Be alert about receiving your money at the contractual time. The game is: you deliver on time and they pay on time.\n• Data control: keep an updated record of names and addresses, shipping and payment terms, names of people you deal with, etc.\n• And: always aim to communicate clearly and on time!</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Quality Clothing Of Pure Camel Hair In Mongolia",
+        "description": "",
+        "lessons": [
+          {
+            "name": "03. NEVER FORGET THAT YOUR EXPORT PRODUCT IS ANOTHER'S IMPORT",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>• Do I have the right brand? Has the brand been registered in the chosen market by someone else; does anyone else hold the copyright? Can consumers pronounce the brand name? Are there no negative connotations? • Do I have the right packaging? There might be special legal rules, but it’s something to think about from a commercial perspective too. Your counterpart will tell you.\nLabelling: do your labels conform to all legal and commercial requirements? • Think about the EAN (European Article Numbering) barcode for your product and its packaging.\nUse the EAN 128 code for shipping and warehousing: remember, exporting is also all about logistics!</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              },
+              {
+                "block_type": "text",
+                "title": "In practice: QUALITY CLOTHING OF PURE CAMEL HAIR IN MONGOLIA",
+                "payload": {
+                  "html": "<p>There was a company in Mongolia that had specialised in producing clothes and garments from pure camel hair. The quality of the products was average and mainly sold in a few shops to tourists. However, the owner of the company was a skilful designer and wanted to expand his business. The home market was flooded by a great number of producers, so to make more money, the idea of exporting came up.\nThe owner of the company familiarised himself with “the rules of export” and started to do the necessary homework. Studying European glossies and fashion magazines, he started to form an idea of the requirements of customers at the high-end of the market. He learned that apart from offering a good quality product, the design and ‘feel’ should also appeal to prospective buyers. He consequently started to experiment with producing items of better quality with a “Western” design. Before exports took off, the company luckily found a niche market for this type of product in its own home market, so extra money started to come in right away.\nWith the help of the Netherlands Chamber of Commerce, the owner searched for and established contacts with a potential agent/importer in the Netherlands. In the communication between the potential agent and the owner, a lot of details passed the review, so both parties knew exactly what the other party wanted and could do. The result was a small range of cloth and some other items, such as plaids, to be produced for export.\nThe contract was drawn up and the first order accepted. The first order was a small one, because it was a trial in order to see whether the market would accept this type of product. Payment had been organised by letter of credit, so the buying party could be sure that the right products would be delivered and the selling party was sure it would receive the money.\nThe first trial order turned out to be a great success and the importer, who also had done his homework, was able to reduce his stocks reasonably fast. Both parties were happy.\nIn the meantime, exporting has turned into a regular business, but will always remain relatively small. The company focused on a niche market of high quality camel hair where the margins are very good. Ultimately, that’s what counts: after all, the name of the game is money!</p>",
+                  "kind": "practice",
+                  "label": "QUALITY CLOTHING OF PURE CAMEL HAIR IN MONGOLIA"
+                },
+                "order": 1
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "10. Corporate Social Responsibility",
+    "description": "<p>Regardless of the size of your company, you are responsible for what you do: • with respect to your employees • with respect to the natural environment • (resources, pollution, waste) • with respect to authorities, other businesses, and other stakeholders Taken together, this is known as corporate social responsibility and is officially defined as: Corporate Social Responsibility (CSR) is the continuing commitment by business to behave ethically and contribute to economic development while improving the quality of life of the workforce and their families as well as of the local community, society at large and the environment.\nThis definition is from the World Business Council for Sustainable Development. CSR is an abstract concept, similar to “people, planet, profit” that also links your activities to the consequences they may have for your environment, while allowing them to be profitable too. CSR requires considerable attention and commitment, but its rewards can be great too.\nIdeas and issues you should consider when addressing CSR to help you manage the main difficulties and avoid pitfalls are given below.\nMany of the topics are not easy and need your full attention. PUM can assist you with most of the issues mentioned.\nThe attention and care developed societies focus on nature and the environment has decreased over the centuries. Of late, a notion has been gaining ground that we should take care of our people and our planet while making a profit at the same time; and that this is the answer to our quest for responsible entrepreneurship. In many less developed countries the situation is different, and straightforwardly imitating the CSR examples is not recommended. But if you learn from our experience and don’t make our mistakes, you can jump ahead in this respect. Entrepreneurs can look for advantages for their individual businesses while looking at their own company through “CSR” spectacles. The main issues our experts observe when consulting our clients, regard labour conditions (safety, health, labour rights), the environment (waste, energy) and governance (corruption). Below, we provide some guidelines to avoid problems in these areas (employment, environment, business relations).\nBelow we describe briefly which circumstances prevail and which measures can be taken. Project these onto your own circumstances and you will see that this might bring you advantages.</p><p><em>Adapted from &ldquo;Successfully Operating a Business &ndash; The Manual&rdquo;, PUM Netherlands senior experts.</em></p>",
+    "language": "en",
+    "subtitle_languages": [],
+    "program_id": null,
+    "status": "published",
+    "modules": [
+      {
+        "name": "Overview",
+        "description": "",
+        "lessons": [
+          {
+            "name": "01. PREVENTION IS CHEAPER THAN CURE",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>A clean way of producing can be economic in the long run. It will save you the cost of cleaning up. “Going green” may make sense for your enterprise. Look at your production (and all the other relevant) processes and find out where savings can be made.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "02. KNOW THE RULES",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Almost all nations have strong environmental laws nowadays.\nBut this doesn’t mean the laws are always enforced and sometimes regulation lacks proficiency, but businesses are still required to stick to these rules. Not adhering to them could pose a risk to your enterprise. Although environmental measures might cost you initially, they may be a wiser choice in the long run and will – in the end – make you operate more economically. Environmentally sound entrepreneurship makes people aware and helps them focus. This leads to more efficient operations within your business, to better quality and more emphasis on innovation.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "03. TAKE NOTE OF SPECIFIC NATURAL CONDITIONS",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Laws do not always take the specific natural conditions of various areas into account.\nThis is especially true when these laws are copied from abroad.\nOne region has more heavy metals in its soil; another one will have more ions floating in the air. Take note of the specific environmental traits of your company’s surroundings and decide what you can do to maintain or even improve the natural environment as an element of your production environment.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "04. SUSTAINABLE ENTREPRENEURSHIP IS A STATE OF MIND",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Sustainability is more than following the rules or technical procedures. It’s a state of mind and is usually engrained in your culture. To make it work for your company, you have to start with the boss. He sets an example for his employees; he can encourage them to care for nature and the environment. The future is at stake. Create conditions where people become aware of the effects of their actions.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "05. LEARN FROM THE MISTAKES OTHERS HAVE MADE",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>An enterprise can learn from mistakes that other businesses have made. You don’t have to make them yourself. You can purchase state-of-the-art techniques that have had their bugs eliminated and jump ahead of the competition this way. If you aim for less waste and prevent waste from the start of the production process, it will lead to smaller treatment installations, more specific designs and more efficient procedures.\nYou will produce more cleanly and cheaply and this will save you a lot of money later on. Raw materials which are cheap to import now, might be much more expensive ten years from now. These costs and those of energy tend to rise, so take that into account when you’re planning ahead. Use the opportunities and chances provided by your own environment.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "06. ENCOURAGE STAFF INPUT ABOUT THE ENVIRONMENT",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>The environment is not limited to specialists; everyone can pitch in. Solutions should be part of the regular processes in the organisation. How does a problem arise, how can it be prevented, how can waste be recycled? If all employees (and divisions) constantly ask themselves these questions, you can achieve considerable reduction in waste and pollution.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "07. PRODUCTION PROCESS: KEEP IT AS CLEAN AS YOU CAN",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Design your production processes in such a way that there are no environmental problems or that there are acceptable solutions for waste. Waste includes emissions into water, air and soil. Waste management doesn’t start with the collection and processing of waste but with preventing it, sorting waste streams and reducing and recycling waste. Processing and its final destination are at the end of the line.\nClean, sustainable production is the heart of your enterprise’s success. Opt for simple but clean processes where possible.\nAssess all the potential risks and come up with answers.\nIt will have a positive impact on your employees’ work environment.\nYou can also work together with other entrepreneurs to solve environmental issues. That will reduce costs and maintain a level playing field for you and your competitors.\nA next step could be that you create a new business from specific environmental circumstances. Some examples will clarify this: Collect plastic bottles, cups and bags that are lying around everywhere and reprocess them. They can be used to make new products like packaging and household materials; Combine water management and cattle raising with horticulture; save and/or treat the available water, collect and process the dung and make fertilizer. Irrigate and fertilise your land for producing vegetables and fruits.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "08. THE WELLBEING OF YOUR EMPLOYEES INCREASES SATISFACTION AND THUS PRODUCTIVITY",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>The working environment should be safe and secure. It might be important to wear safety shoes or a helmet. Whatever the situation, the boss should set the example. It will benefit your employees and consequently your business operations.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "09. TAKE ADVICE FROM INSIDERS",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Look for experts in your domain who can advise you. Insiders are your best choice to prevent health and safety problems. Take a walk with a colleague and see where your factory or business area can improve in terms of health and safety.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Environment",
+        "description": "",
+        "lessons": [
+          {
+            "name": "EMPLOYMENT",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>In general, you know that if your employees are happy and loyal, they will stay with you and save you the cost of hiring and training new people over and over again. If employees are committed and motivated they will work harder and your productivity will increase; higher productivity will bring you more profit.\nLook at the wages and salaries you pay and see if you can improve in this area. Better pay makes people stay and work with more commitment.\nLook at the working conditions; providing uniforms, taking care of safety (helmets, safety shoes, safety gloves etc.) might prevent accidents and save you money. Sufficient fresh air and light at the workplace also aids productivity.\nLook at the reasons for absence due to ill health; if you can decrease absence due to illness, your productivity will increase.\nShow your staff that you care about them; they will repay you with commitment.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              },
+              {
+                "block_type": "text",
+                "title": "In practice: ENVIRONMENT",
+                "payload": {
+                  "html": "<p>Your country most probably has strict laws on protecting the environment, which might influence your way of working and doing business in one way or another. Try to look at such laws as an opportunity to profit from the situation. Some examples: • Re-using waste from your production plant (for energy or other purposes) may reduce your production costs and increase your profit; • Switching to cleaner production (with cleaner raw materials, less water consumption, less waste) might reduce your costs and increase your profit; • Using less energy decreases your cost price and contributes to energy saving campaigns in your country.</p>",
+                  "kind": "practice",
+                  "label": "ENVIRONMENT"
+                },
+                "order": 1
+              },
+              {
+                "block_type": "text",
+                "title": "In practice: BUSINESS RELATIONS",
+                "payload": {
+                  "html": "<p>Acting responsibly according to recognized business ethics sounds logical, but is not always possible. You may sometimes or often have to pay to get a contract, a license or an assignment for your work.\nThis is usually referred to as “corruption”. There are no rules about how to counteract corruption except “walk away from it”, but you will not usually be in a position to do that. Situations are often so different that no general rules apply to counteract corruption. In the long term, corruption is bad for nearly everybody and for the development of a region or even a country.</p>",
+                  "kind": "practice",
+                  "label": "BUSINESS RELATIONS"
+                },
+                "order": 2
+              },
+              {
+                "block_type": "text",
+                "title": "Self-check: CSR CHECKLIST",
+                "payload": {
+                  "html": "<p>The following might be of use when looking at the environment, employment and business relations relevant to your business.</p>",
+                  "kind": "checklist",
+                  "label": "CSR CHECKLIST"
+                },
+                "order": 3
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "If You Encounter Corruption, Ask For Advice, Involve Others Whenever Possible",
+        "description": "",
+        "lessons": [
+          {
+            "name": "10. INTERNATIONAL LABOUR RULES DO EXIST",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>If you want to deal with international companies, be aware that they are bound to international rules with regard to child labour, forced labour, freedom of association, discrimination etc.: rules that may not yet be well developed in your country. Public pressure in the home countries forces them to behave according to those international rules. Arm yourself with information so that you are prepared. The international contact will be more than happy to assist you in improving your employment climate.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              },
+              {
+                "block_type": "text",
+                "title": "In practice: IF YOU ENCOUNTER CORRUPTION, ASK FOR ADVICE, INVOLVE OTHERS WHENEVER POSSIBLE",
+                "payload": {
+                  "html": "<p>Ask for advice from a trusted person close to you if you don’t know what to do and corruption is bothering you. Look for colleagues who have experienced the same situation and try to see if you can act together to prevent it the next time. Involving the press might sometimes help.</p>",
+                  "kind": "practice",
+                  "label": "IF YOU ENCOUNTER CORRUPTION, ASK FOR ADVICE, INVOLVE OTHERS WHENEVER POSSIBLE"
+                },
+                "order": 1
+              },
+              {
+                "block_type": "text",
+                "title": "In practice: PREVENT “LOSS OF FACE” WITH CORRUPTION",
+                "payload": {
+                  "html": "<p>Find solutions so that the other party can still achieve something without loss of face and you can still achieve your objectives.</p>",
+                  "kind": "practice",
+                  "label": "PREVENT “LOSS OF FACE” WITH CORRUPTION"
+                },
+                "order": 2
+              },
+              {
+                "block_type": "text",
+                "title": "In practice: AVOID PAYING FOR CORRUPTION13",
+                "payload": {
+                  "html": "<p>Bear in mind that if you once pay for corruption, you will have to keep on doing so. There is often no way back and the situation can become worse over time.</p>",
+                  "kind": "practice",
+                  "label": "AVOID PAYING FOR CORRUPTION13"
+                },
+                "order": 3
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "11. The Business Plan",
+    "description": "<p>An army and a business operation have more in common than you might expect. Both require preparations and focus. An army works with an operational plan, a business with a business plan. The goal is the same in both cases: to win.\nHere are ten hints and tips on how to make a business plan.</p><p><em>Adapted from &ldquo;Successfully Operating a Business &ndash; The Manual&rdquo;, PUM Netherlands senior experts.</em></p>",
+    "language": "en",
+    "subtitle_languages": [],
+    "program_id": null,
+    "status": "published",
+    "modules": [
+      {
+        "name": "Core advice",
+        "description": "",
+        "lessons": [
+          {
+            "name": "FROM INTUITION TO STRUCTURE IN KYRGYZSTAN",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>A company in Kyrgyzstan produced milk-based drinks for the national market, mineral water in various forms of packaging and products made from horse milk, for the local market. The company consisted of 22 divisions and employed a staff of 130, rising to 500 at peak times. Although it had been in existence for a few years, structure was lacking. Executives and managers reported directly to the CEO.\nManagers at various levels were not or insufficiently trained for their work and trusted their intuition when decisions had to be made. This was all fine during communism when there was no competition. Although the company did fairly well, this had more to do with the entrepreneurship of its owner than with strategic policies. There was room for improvement and a PUM expert was called in. The idea was to train people to deal with issues based on a structural thought pattern and to translate this into a business plan.\nThe PUM expert organised a training course for 15 managers and executives and taught them the ins and outs of making a business plan; how it evolves in various phases and how elements such as marketing, budgeting, financial reporting and personnel can be dealt with. A SWOT analysis was done, focussing on strengths, weaknesses, opportunities and threats for the company – an eye-opener for the managers.\nStrengths included the large market share and the entrepreneurial spirit and energy of the owner. The big problem was the overall organisational structure. Managers of 22 divisions reported directly to the owner, thus making his ‘span of control’ too wide.\nThe recommendation was that the organisation should be transformed with four line managers for production, sales, logistics and household and three staff managers for finances, human resources and quality – all reporting directly to the CEO. This flat pyramid structure, with an optimal reporting system upwards would create transparency in the organisation and make it easier to manage. Six months later, all the recommendations had been adopted and implemented. The company now has a business plan and works with financial reporting, budgets and a plan for investments. Most important: its profit has doubled. Things are done less on intuition and more based on the business plan that dictates direction.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "01. THINK LIKE AN ARMY GENERAL",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>An army uses operational plans to prepare for war or peace missions. As a rule they consist of five elements: • Current situation regarding the enemy and own means • Mission • Operation • Logistics • Commands and connections In the army everything is about discipline. It’s one of its core qualities.\nEntrepreneurs can learn a lot from this. The business world uses business plans. Their main function is to make the mission transparent, assess the market, set goals and beat the competition.\nThe core elements of a military operational plan can also be found in a business plan. Intelligence about the enemy can be compared to an analysis of the market and competition. Giving commands and making connections are similar to daily business management.\nDiscipline is also of the utmost importance in the business world.\nManufacturing enterprises depend on the just-in-time principle and it’s also essential to meet deadlines and agreements in other businesses. Employees should be trained in this.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "02. PREVENT FAILURE",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Many small and medium-sized enterprises fail because they lack a long-term vision for their enterprise. Goals are not clear, clients’ wishes are unknown or misinterpreted.\nFailure might also occur because the competition has been underestimated, or financial planning and turnover are not monitored closely enough. Because of a lack of vision, evaluation and checks, ineffective and inconsistent procedures and systems sometimes remain in operation. A lack of essential skills can also be a problem. The staff is insufficiently qualified and management cannot change the situation. In all these cases there usually is also a lack of leadership.\nA transparent business plan can do wonders. All the relevant issues are addressed and improvements can be made. It’s essential to get employees involved, as this will create support for the plan.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "03. DON'T LOOK TOO FAR AHEAD",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>A business plan contains plans for the next five years and is adjusted every three years. Three years is a manageable timeframe.\nBeyond that, things get murky. The entrepreneur should periodically evaluate whether the plans are on schedule. Checks should be carried out every year to see whether the goals need to be adjusted in line with the actual situation. Then, after three years, the entrepreneur evaluates whether the goals have been achieved and whether the plan needs adjustments. This is a way of keeping the business sharply focussed. A business plan can only be successful if it is supported throughout the entire corporation.\nThis is why it’s essential to involve key boardroom staff right from the start when drawing up the plan. The business plan contains a number of fixed elements: from mission and strategy to conclusions and recommendations.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              },
+              {
+                "block_type": "text",
+                "title": "Case study: CONCENTRATE ON THE CORE IN BOSNIA",
+                "payload": {
+                  "html": "<p>A business in Bosnia planned to operate a cold storage warehouse. The company wanted to freeze fruits such as blackberries, raspberries and strawberries. Several cooperatives in the vicinity would supply the harvest; the cold storage warehouse would do the rest. PUM was asked to give advice in setting up the warehouse. It turned out quickly that the company had neither knowledge nor insight in how to process these kind of products. It had not even computed costs or retail prices.\nThe new activity bore no relationship to the other activities of the business: a factory producing flour, an industrial bread bakery, a supermarket, a factory producing household kitchens, a hardware retailer with four branches in cities far apart and a transport logistics division operating 18 trucks. All these activities were very different from each other and none of them had to do with growing berries.\nThe PUM expert started out with a business plan in order to create structure that way. Because of the multitude of activities, this evolved into a rather unorthodox, complex story.\nExperience shows that in general it’s wise for Small and Medium-sized Enterprises (SMEs) to focus on four different activities at the most. Too much variety has a negative impact on managerial effectiveness, because the span of control simply becomes too wide. It’s impossible to focus on everything at the same time. The Bosnian corporation arrived at the same conclusion after the training sessions. After thorough calculations, it became obvious that there was no way, given the cost price of the products, that any profits could be generated. Even a positive cash-flow was not feasible. The company simply didn’t have the needed insight in the market and the production process. This convinced the company that the cold storage warehouse plans were unrealistic and that its other activities should be restrained.\nIt consequently outsourced the logistics division, sold the supermarket and decided to concentrate on the remaining factories and the hardware retailing business. Operation of the cold storage warehouse was offered to a competitor. In this case, the simple act of writing a business plan had rather far-reaching consequences.</p>",
+                  "kind": "case",
+                  "label": "CONCENTRATE ON THE CORE IN BOSNIA"
+                },
+                "order": 1
+              }
+            ]
+          },
+          {
+            "name": "04. START WITH A MISSION AND STRATEGY",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>A business plan starts with a mission statement and strategy.\nThe mission statement, these days also referred to as business definition, is a summary of what the enterprise wants to achieve.\nIn other words, how it wants to win the war. The enterprise’s mission is timeless and describes its goal for years to come.\nThis prevents focus from drifting. A sharp profile is the result and customers know exactly why they should choose a particular business. This is why it is essential to involve not only key people right from the start, but also the employees ranking lowest in the company. Information bottom-up and top-down is a basic requirement, because everybody has to be conscious of the company strategy and work for it. A mission might be to become the number one in one’s field; it should be known by everybody in or outside the company and could be used as a marketing tool.\nThe mission is subsequently elaborated into a strategy, with a number of specific goals for the next five years. For instance, being the best in one’s field might require aiming for the highest quality in your products, the highest customer rating or best environmental record. These goals are specified in detailed terms for the next five years. The first chapter also contains a short segment on the history and background of the company.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Applied practice",
+        "description": "",
+        "lessons": [
+          {
+            "name": "05. KNOW YOUR CUSTOMERS – AND YOUR COMPETITORS!",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>The second chapter of the business plan describes the market in which the company operates. In military lingo: enemy intelligence. It starts out with two lists: major clients, including the percentage of turnover they bring in and major competitors.\nThe second list might be the most important, since it offers the opportunity to analyse your business’ competitiveness. How are competitors doing compared to you? What are their strengths and weaknesses? Criteria such as location, price, quality, capacity, reliability and customer friendliness are taken into account here.\nYou and your competitors are awarded scores for each criterion.\nAfter that, a certain value is attributed to each criterion. Quality might be more important than reliability, for instance. Or vice versa, depending on market circumstances. Quality might be attributed twice as much value as reliability. All the scores are then multiplied by the value factor assigned and then added up.\nThe outcome gives an indication of which company is performing best and what position your enterprise occupies in the list of competitors. This analysis helps to define specific goals for your company. For instance, you might focus on improving quality or reliability.\nThe market analysis ends with a SWOT-analysis: an analysis of the Strengths, Weaknesses, Opportunities and Threats your company is facing. The former two are within your company, the latter two come from outside. All this might help to tackle the weak points and improve the strong points within your business.\nThreats can often not be excluded, but a company can aim to control them as much as possible. Obviously the opportunities are most important, as they offer scope for new goals.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "06. ASSESS HOW YOUR COMPANY IS DOING",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>The third chapter of the business plan gives a detailed account of the production means of the business: buildings, machines and other assets and their production capacity.\nThe chapter also describes how many people work in the various divisions or branches. It’s important to have reliable information here, since this represents the backbone of your business.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "07. GAIN AN INSIGHT INTO YOUR FINANCIAL RESULTS",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>When your business has been active for more than a year, the fourth chapter of the business plan will give an overview of the financial results of the previous year and earlier ones if applicable.\nResults will be given for each branch or division, if possible. The figures show which divisions are profitable or loss-making and which are the best performing ones.\nWhen planning, make three scenario’s, supported – as much as possible – by figures: a worst-case scenario, a realistic scenario and an optimistic scenario. Monitor your finances. Check figures every quarter, so you know your business’ strengths, weaknesses and opportunities. Make sure you’re not only focussing on cash flow (current income and expenses), but also on the results and solvability (credit rating) in the mid-term and long run. This is important when it comes to making investments. Keep a list of the most important rates for buying and selling products and raw materials. An overview of all these figures will translate into the goals for the years to come.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "08. ASSESS MARKET POTENTIAL FOR EACH PRODUCT",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>The fifth chapter of the business plan deals with the market opportunities for the various products. Which products or services are suitable for which markets, where are the opportunities and who are the target customers? Make an assessment for each product, if possible. Combinations with the most potential are given the highest priority. This will serve as the basis for an acquisition plan. This plan might consist of a mail shot targeting new, potential customers, doing follow-up calls and visiting these potential clients. Maintaining a database of customers deserves your keen attention. This is why customer relationship management is mentioned here (CRM). It’s important to keep good relations with your customers, to find out whether they are satisfied about the level of service. What are their wishes? Is your business customer-friendly? If anything can be improved, that is a new goal to aim for. Minor irritations might add up to major dissatisfaction, after all.\nThe challenge is to keep existing customers happy.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "09. DEFINE TARGETS IN TERMS OF RESULTS AND INVESTMENTS",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>Besides pinpointing and prioritising product/market combinations, the fifth chapter of the business plan deals with planning. Specific targets are defined in terms of results and investments. Future investments, in machines or housing for instance, should be part of the business plan. Actual investments depend on results achieved. By planning these results, you get an insight into your investment options. Planning, both in terms of results and investments, forces a company to make choices. What has priority; what can be hired, what needs to be purchased? Once faced with these kinds of questions, employees will start thinking about which choices to make.\nPlanning can also extend to personnel; how big should your workforce be in the next three years, what kind of people do you need, how about training? This personnel plan touches on quality issues and might result in a separate quality plan, defining steps to achieve improvements in this area.\nA procurement plan describes who is allowed to make company purchases, in what areas and to what extent. This way, only major buying decisions have to be discussed with the manager.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "10. LIST THE GOALS AND REQUIRED ACTION STEPS",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>The final chapter of the Business Plan brings all the loose ends together. In short: concise conclusions, all the facts, figures and challenges are summarised and strategic goals defined. A list of recommendations gives suggestions on how to achieve all this.\nProfit can be generated by controlling expenses, offering a unique product or service and keeping your focus limited to one target group initially. This brings us back to the first chapter of the business plan: mission and vision of the company.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              },
+              {
+                "block_type": "text",
+                "title": "Self-check: CHECK",
+                "payload": {
+                  "html": "<p>• Think like an army general• Assess how your company is doing • Prevent failure• Gain insights into your financial results • Don’t look too far ahead• Find out the market potential of every • Start out with a mission and a strategyproduct you offer • Know your customers – and your • Plan results and investments competitors• List goals and steps required</p>",
+                  "kind": "checklist",
+                  "label": "CHECK"
+                },
+                "order": 1
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "12. Family Businesses",
+    "description": "<p>The majority of business all over the world are family businesses (estimates suggest more than 70%). In particular, nearly all smaller firms are family-owned. However, less than half of them survive to see the next generation take over, and even less companies make it to the second (15%) and third generation (5%).\nSo, what is the difference between family businesses that survive and those that do not? Well, extensive research has gone in this subject and some of the most important findings are presented below.\nThe differences between family-owned businesses and other businesses:</p><p><em>Adapted from &ldquo;Successfully Operating a Business &ndash; The Manual&rdquo;, PUM Netherlands senior experts.</em></p>",
+    "language": "en",
+    "subtitle_languages": [],
+    "program_id": null,
+    "status": "published",
+    "modules": [
+      {
+        "name": "Core advice",
+        "description": "",
+        "lessons": [
+          {
+            "name": "POSITIVE DIFFERENCES",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>• A higher degree of commitment and passion goes into their work • Continuity is more important than short term profit • The family name is the brand and a source of pride • Family values form a strong basis for the company culture</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Applied practice",
+        "description": "",
+        "lessons": [
+          {
+            "name": "NEGATIVE DIFFERENCES",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>• Less critical towards family members • The father (mother)/boss/owner does not accept criticism and does not delegate (enough) • Family members need less requirements for positions than external people do, resulting in underperformance</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "RULES TO IMPROVE THE PERFORMANCE OF A FAMILY BUSINESS",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>YOUR ROLE Distinguish between your role as parent, boss and owner.\nThe parent nurtures family members, preserves harmony and transmits (family) values. The boss manages employees, motivates the team to work and develops strategies and operational systems.\nThe owner enhances the value of the company’s assets, protects its business values and acts on behalf of all shareholders.\nENGAGING FAMILY MEMBERS • Try to let the younger family members gain some experience elsewhere for a couple of years before entering the family business.\n• Find a position that suits the qualities of that particular family member; e.g. don’t give the oldest child the highest position simply because he/she is the eldest. Divide roles and responsibilities.\n• Establish clear communication between familiy members; leave ‘shop talk’ as much as possible for within the company.\nMixing business, personal and family life will eventually become a volatile mixture.\n• Big decisions can be made together, but avoid talking over each and every detail. Establish a regular business meeting with familiy members for this. Write down decisions and agreements and keep a good record of what has been agreed between familiy members.\n• Treat family members fairly, which is the same as any other good employee; avoid favoritism; don’t set standards higher or lower for family members than for others.\n• If you want to start a business with family members, or if you want to give shares of ownership to family members, make sure you are clear about what they will get out of it and put it down in writing.\nSUCCESSION • Draw up a succession plan long before you, as owner, plan to retire.\n• Such a plan should answer questions like: who will run the business, how will ownership be divided, who will make decisions, the exact relationship of the various siblings within the firm.\n• Realise that there is a difference between ownership and management. Having shares of the company does not necessarily mean that you should have a management position in the company.\n• Hire an outside facilitator to discuss the succession plans, especially if you expect that things will get tricky. Such an outsider will be able to settle differences because they have no other motive than solving the issues; they are objective and will be gone when everything is arranged. PUM Netherlands senior experts can provide such experts.\n• Set a clear plan for when you will actually retire and leave all decisions to your successor(s). Don’t take too much time for the hand-over.\nFamily businesses can be very strong when they abide by the above rules. Outside experts – like PUM Netherlands senior experts – can help to enforce these rules and make your business thrive.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "13. Anatomy of the good entrepreneur",
+    "description": "<p>To become a good entrepreneur, one needs to look no further than to one’s own body for guidance.</p><p><em>Adapted from &ldquo;Successfully Operating a Business &ndash; The Manual&rdquo;, PUM Netherlands senior experts.</em></p>",
+    "language": "en",
+    "subtitle_languages": [],
+    "program_id": null,
+    "status": "published",
+    "modules": [
+      {
+        "name": "Core advice",
+        "description": "",
+        "lessons": [
+          {
+            "name": "HEADWORK",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>The head generates innovative ideas, plans for the future, and renewal through self-corrective growth. This is the motor of progress, the essence and the mission of all true entrepreneurship.\nIt is that which generates renewal, value, and the permission ‘to be’.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "FOOTWORK",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>The limbs (feet &amp; hands) represent action: realising ideas in practice; making things concrete; running a company (legally defined as ‘operating an enterprise at one’s own risk, and to one’s own benefit’). In practice, ‘footwork’ consists in coping with that which tends to take up most of one’s time, namely, simple day- to-day concerns.\nIt is mistaken to think that running a company is the same as being an entrepreneur. Managing an enterprise is but a fragment of the whole entrepreneurial picture. The challenge is to effectively coordinate ‘headwork’ with ‘footwork’.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Applied practice",
+        "description": "",
+        "lessons": [
+          {
+            "name": "THE BALANCE BETWEEN ‘HEADWORK' AND ‘FOOTWORK'",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>• Too much ‘footwork’, with too little ‘headwork’, ends up derailing the progressive cycle: constantly struggling to catch up with developments; always having to reinvent the wheel; persistent inadequacy in accessing one’s inherent adeptness in opposition to the ever-present cutthroat competition; ongoing stress due to worrying; the seemingly endless waste of capital resources. Or be it the converse: too much ‘headwork’, with too little ‘footwork’, leading to diminishment of one’s own character through excessive egoism leading inevitably to the exploitation of others, to overestimating one’s resources, to misleading consumers, and all for nothing save short-term profits.\n• Too much headwork can also result in making promises one cannot keep, in unrealistic strategies which are brilliant only on paper, in pies in the sky, in megalomania, in speculative bubbles, in confusion and frustration, and in the wasting of money and creativity. A surplus of idealism and altruism, bereft of commercial common sense, can also lead to disaster, found inevitably at the end of roads paved with the best of intentions.\nBe ever vigilant in maintaining the proper balance between ‘headwork’ and ‘footwork’.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          },
+          {
+            "name": "THE CONNECTION FOR BALANCE",
+            "description": "",
+            "blocks": [
+              {
+                "block_type": "text",
+                "title": "",
+                "payload": {
+                  "html": "<p>The true entrepreneur is to be found between the ‘abdomen’ and the ‘heart’.\n• From the heart comes the ‘drive’, the passion, the ‘wherefore’ and the ‘whither’, linking ideals to activity. Without ‘passion of the heart’, any true desire to achieve is impossible.\n• From the abdomen is derived values and moral boundaries, the sense for that which is ‘decent’.\nOne strives always to translate drive and motives into goals and policy. One strives always to translate values into one’s ethical standards upon which to base one’s choices and actions.</p>",
+                  "kind": "body"
+                },
+                "order": 0
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
