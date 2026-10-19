@@ -35,7 +35,6 @@ export default function Login() {
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </label>
         <button className="btn primary" disabled={busy}>{busy ? 'Signing in…' : 'Sign in'}</button>
-        <p className="muted sm">Demo: admin@finnpact.jo / Admin123! · investments@finnpact.jo / Admin123!</p>
       </form>
     </div>
   )
