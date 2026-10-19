@@ -243,7 +243,7 @@ export default function Disbursements() {
             header: 'Payout (EUR / JOD)',
             render: (r) => {
               const eurAmt = r.total_amount_eur != null ? r.total_amount_eur : (r.total_amount || 0)
-              const rate = Number(r.exchange_rate || 0.76)
+              const rate = Number(r.effective_rate || r.exchange_rate || 0.76)
               const jodAmt = r.total_amount_jod != null ? r.total_amount_jod : (eurAmt * rate)
               return (
                 <div>

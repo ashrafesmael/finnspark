@@ -58,6 +58,9 @@ def batch_ser(b: DisbursementBatch, db: Session, include_items: bool = True) -> 
     _rate = float(getattr(b, "exchange_rate", None) if getattr(b, "exchange_rate", None) is not None else 0.76)
     data["total_amount_eur"] = _eur
     data["total_amount_jod"] = _jod if _jod else round(_eur * _rate, 3)
+    # the rate the batch actually paid at: the item-weighted average, since
+    # items can carry their own FX rates and the header rate may be stale
+    data["effective_rate"] = round(_jod / _eur, 4) if (_eur and _jod) else _rate
     if include_items:
         batch_rate = float(getattr(b, "exchange_rate", None) if getattr(b, "exchange_rate", None) is not None else 0.76)
         data["items"] = [
