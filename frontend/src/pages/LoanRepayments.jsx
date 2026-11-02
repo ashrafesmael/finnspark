@@ -17,7 +17,10 @@ function MoneyTile({ label, eur, jod, sub }) {
       <div className="stat-label">{label}</div>
       <div className="money-pair">
         <span className="stat-value">{fE(eur)}</span>
-        <span className="money-jod">{fJ(jod)}</span>
+        {/* no JOD equivalent until conversion actually happens: approved-but-
+            undisbursed amounts only exist in EUR, each disbursed loan converts
+            at its own rate */}
+        {jod != null && <span className="money-jod">{fJ(jod)}</span>}
       </div>
       {sub && <div className="muted xs">{sub}</div>}
     </div>
@@ -170,10 +173,17 @@ export default function LoanRepayments() {
       {/* KPI Stats Section */}
       <div className="tiles-row grid-4">
         <MoneyTile
-          label="Loans Approved (EUR) / Disbursed (JOD)"
+          label="Loans Approved (EUR)"
           eur={summary.total_approved_eur}
+          sub={`approved per grant letters — converted to JOD at each loan's rate on disbursement`}
+        />
+        <MoneyTile
+          label="Loans Disbursed"
+          eur={summary.total_disbursed_eur}
           jod={summary.total_disbursed_jod}
-          sub={`approved per grant letters · disbursed in JOD at each loan's rate`}
+          sub={summary.total_disbursed_eur < summary.total_approved_eur
+            ? `${(summary.total_approved_eur - summary.total_disbursed_eur).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} approved but not yet disbursed (conditions pending)`
+            : `disbursed in JOD at each loan's rate`}
         />
         <MoneyTile
           label="Collected to Date"
@@ -460,9 +470,9 @@ export default function LoanRepayments() {
                       <span className="link-strong" style={{display:"block"}}>
                         €{(b.loan_approved_eur || 0).toLocaleString('en-US', { minimumFractionDigits: 2 })}
                       </span>
-                      <span className="muted xs">
-                        {(b.loan_approved_jod || 0).toLocaleString('en-US', { minimumFractionDigits: 3 })} JOD
-                      </span>
+                      {(b.loan_approved_eur || 0) > (b.disbursed_eur || 0)
+                        ? <span className="muted xs">€{((b.loan_approved_eur || 0) - (b.disbursed_eur || 0)).toLocaleString('en-US', { minimumFractionDigits: 2 })} not yet disbursed</span>
+                        : <span className="muted xs">fully disbursed</span>}
                     </div>
                   ),
                 },
@@ -484,10 +494,11 @@ export default function LoanRepayments() {
                   render: (b) => (
                     <div>
                       <span className="warn-text strong" style={{display: "block"}}>
-                        €{(b.outstanding_balance_eur || 0).toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                        €{(b.outstanding_principal_eur || 0).toLocaleString('en-US', { minimumFractionDigits: 2 })}
                       </span>
                       <span className="warn-text xs">
-                        {(b.outstanding_balance_jod || 0).toLocaleString('en-US', { minimumFractionDigits: 3 })} JOD
+                        {(b.outstanding_principal_jod || 0).toLocaleString('en-US', { minimumFractionDigits: 3 })} JOD
+                        · incl. int/fees €{(b.outstanding_incl_charges_eur || 0).toLocaleString('en-US', { minimumFractionDigits: 2 })}
                       </span>
                     </div>
                   ),
@@ -813,7 +824,8 @@ function HeroStat({ label, eur, jod, tone, note }) {
       <span className="hero-stat-label">{label}</span>
       <div className="hero-stat-pair">
         <span className="hero-stat-eur" style={{ color: tone }}>{fE(eur)}</span>
-        <span className="hero-stat-jod">{fJ(jod)}</span>
+        {/* JOD only where conversion actually happened (disbursement) */}
+        {jod != null && <span className="hero-stat-jod">{fJ(jod)}</span>}
       </div>
       {note && <span className="hero-stat-note">{note}</span>}
     </div>
@@ -880,7 +892,10 @@ function StartupStatementModal({ branchId, businessId, onClose, onRecordPay }) {
 
           <div className="grid-3 stat-strip">
             <HeroStat label="Loan approved (EUR)" eur={ledger.loan_approved_eur}
-                      jod={ledger.loan_approved_jod} tone="#ffffff" />
+                      tone="#ffffff"
+                      note={ledger.loan_approved_eur > ledger.disbursed_loan_eur
+                        ? `${(ledger.loan_approved_eur - ledger.disbursed_loan_eur).toLocaleString('en-US', { minimumFractionDigits: 2 })} approved not yet disbursed`
+                        : undefined} />
             <HeroStat label="Principal disbursed (Track II)" eur={ledger.disbursed_loan_eur}
                       jod={ledger.disbursed_loan_jod} tone="#7cc3e8"
                       note={grantNote} />

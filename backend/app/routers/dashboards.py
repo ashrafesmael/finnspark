@@ -6,7 +6,7 @@ from ..database import get_db
 from ..deps import require_branch_access
 from ..models import (
     Applicant, Business, BusinessFounder, BusinessIndustry, BusinessType, Country, District,
-    Gender, Province, DisbursementBatch, Program,
+    Gender, Province, DisbursementBatch, DisbursementItem, Program,
 )
 
 router = APIRouter(tags=["dashboards"])
@@ -89,6 +89,20 @@ def dashboard_program(request: Request, ctx=Depends(require_branch_access())):
     programs_map = {p.id: p.name for p in db.query(Program).filter(Program.branch_id == branch_id).all()}
     disb_by_program: dict[int, dict] = {}
 
+    # the amounts a batch actually carries live on its included items --
+    # batch-level totals can go stale when items are added/removed/excluded,
+    # so the dashboard must agree with the disbursement module (item-based)
+    from sqlalchemy import func as _func
+    _item_rows = db.query(
+        DisbursementItem.batch_id,
+        _func.coalesce(_func.sum(DisbursementItem.amount), 0.0),
+        _func.coalesce(_func.sum(DisbursementItem.amount_jod), 0.0),
+    ).filter(
+        DisbursementItem.batch_id.in_([b.id for b in batches]),
+        DisbursementItem.is_included == True,   # noqa: E712
+    ).group_by(DisbursementItem.batch_id).all() if batches else []
+    _item_sums = {bid: (float(eur), float(jod)) for bid, eur, jod in _item_rows}
+
     for b in batches:
         pid = b.program_id
         pname = programs_map.get(pid, f"Programme {pid}")
@@ -111,9 +125,8 @@ def dashboard_program(request: Request, ctx=Depends(require_branch_access())):
                 "disbursement_currency": getattr(b, "disbursement_currency", None) or "JOD",
                 "exchange_rate": float(getattr(b, "exchange_rate", None) if getattr(b, "exchange_rate", None) is not None else 0.76),
             }
-        amt_eur = float(b.total_amount or 0.0)
+        amt_eur, amt_jod = _item_sums.get(b.id, (0.0, 0.0))
         rate = float(getattr(b, "exchange_rate", None) if getattr(b, "exchange_rate", None) is not None else 0.76)
-        amt_jod = float(getattr(b, "total_amount_jod", None) if getattr(b, "total_amount_jod", None) is not None else round(amt_eur * rate, 3))
 
         disb_by_program[pid]["batches_count"] += 1
         disb_by_program[pid]["total_amount"] += amt_eur

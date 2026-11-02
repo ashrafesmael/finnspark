@@ -896,8 +896,9 @@ export function PublicApply() {
   return (
     <div className="login-wrap">
       <div className="card login-card wide-form">
-        <h2>{form?.name || 'Application form'}</h2>
-        <p className="muted">{form?.form_description}</p>
+        <img src="/logo.svg" alt="Finnspark" style={{ height: 44, margin: '0 auto 12px', display: 'block' }} />
+        <h2 style={{ textAlign: 'center' }}>{form?.name || 'Application form'}</h2>
+        <p className="muted" style={{ textAlign: 'center' }}>{form?.form_description}</p>
         {error && <div className="alert">{error}</div>}
         {form && (
           <>
