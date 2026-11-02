@@ -43,6 +43,15 @@ def dashboard_program(request: Request, ctx=Depends(require_branch_access())):
     biz_q = db.query(Business).filter(Business.branch_id == branch_id)
     if params.get("program"):
         biz_q = biz_q.filter(Business.program_id == int(params["program"]))
+    if v := params.get("year"):
+        # "Selected" means a business that came out of the applicant pool of
+        # that year — follow the applicant link; imports without one fall back
+        # to their own creation year
+        biz_q = biz_q.outerjoin(
+            Applicant, Business.applicant_id == Applicant.id).filter(
+            func.strftime("%Y",
+                          func.coalesce(Applicant.application_date,
+                                        Business.created_at)) == str(v))
     businesses = biz_q.all()
     founder_rows = []
     if businesses:
@@ -84,6 +93,8 @@ def dashboard_program(request: Request, ctx=Depends(require_branch_access())):
     disb_q = db.query(DisbursementBatch).filter(DisbursementBatch.branch_id == branch_id)
     if params.get("program"):
         disb_q = disb_q.filter(DisbursementBatch.program_id == int(params["program"]))
+    if v := params.get("year"):
+        disb_q = disb_q.filter(func.strftime("%Y", DisbursementBatch.payment_date) == str(v))
     batches = disb_q.all()
 
     programs_map = {p.id: p.name for p in db.query(Program).filter(Program.branch_id == branch_id).all()}
@@ -283,6 +294,14 @@ def dashboard_businesses(request: Request, ctx=Depends(require_branch_access()))
     biz_q = db.query(Business).filter(Business.branch_id == branch_id)
     if params.get("program"):
         biz_q = biz_q.filter(Business.program_id == int(params["program"]))
+    if v := params.get("year"):
+        # same selection-year semantics as the program dashboard: follow the
+        # applicant link, fall back to the business's own creation year
+        biz_q = biz_q.outerjoin(
+            Applicant, Business.applicant_id == Applicant.id).filter(
+            func.strftime("%Y",
+                          func.coalesce(Applicant.application_date,
+                                        Business.created_at)) == str(v))
     businesses = biz_q.all()
 
     cases = db.query(InvestmentCase).filter(InvestmentCase.branch_id == branch_id).all()
