@@ -114,22 +114,6 @@ def dashboard_program(request: Request, ctx=Depends(require_branch_access())):
         disb_q = disb_q.filter(func.strftime("%Y", DisbursementBatch.payment_date) == str(v))
     batches = disb_q.all()
 
-    # sibling-programme batches may mix cohorts (shared "Cohorts 1 & 2"), so
-    # re-scope their item sums to businesses of the selected cohort only
-    if program_filter:
-        _sib_ids = [b.id for b in batches if b.program_id != int(program_filter)]
-        if _sib_ids:
-            for bid, eur, jod in db.query(
-                    DisbursementItem.batch_id,
-                    func.coalesce(func.sum(DisbursementItem.amount), 0.0),
-                    func.coalesce(func.sum(DisbursementItem.amount_jod), 0.0),
-            ).join(Business, DisbursementItem.business_id == Business.id).filter(
-                    DisbursementItem.batch_id.in_(_sib_ids),
-                    DisbursementItem.is_included == True,   # noqa: E712
-                    Business.program_id == int(program_filter),
-            ).group_by(DisbursementItem.batch_id).all():
-                _item_sums[bid] = (float(eur), float(jod))
-
     programs_map = {p.id: p.name for p in db.query(Program).filter(Program.branch_id == branch_id).all()}
     disb_by_program: dict[int, dict] = {}
 
@@ -146,6 +130,22 @@ def dashboard_program(request: Request, ctx=Depends(require_branch_access())):
         DisbursementItem.is_included == True,   # noqa: E712
     ).group_by(DisbursementItem.batch_id).all() if batches else []
     _item_sums = {bid: (float(eur), float(jod)) for bid, eur, jod in _item_rows}
+
+    # sibling-programme batches may mix cohorts (shared "Cohorts 1 & 2"), so
+    # re-scope their item sums to businesses of the selected cohort only
+    if program_filter:
+        _sib_ids = [b.id for b in batches if b.program_id != int(program_filter)]
+        if _sib_ids:
+            for bid, eur, jod in db.query(
+                    DisbursementItem.batch_id,
+                    _func.coalesce(_func.sum(DisbursementItem.amount), 0.0),
+                    _func.coalesce(_func.sum(DisbursementItem.amount_jod), 0.0),
+            ).join(Business, DisbursementItem.business_id == Business.id).filter(
+                    DisbursementItem.batch_id.in_(_sib_ids),
+                    DisbursementItem.is_included == True,   # noqa: E712
+                    Business.program_id == int(program_filter),
+            ).group_by(DisbursementItem.batch_id).all():
+                _item_sums[bid] = (float(eur), float(jod))
 
     for b in batches:
         # when a cohort programme is selected, its Track II sibling batches
