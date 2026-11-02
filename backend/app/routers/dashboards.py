@@ -1,3 +1,5 @@
+import re
+
 from fastapi import APIRouter, Depends, Request
 from sqlalchemy import func
 from sqlalchemy.orm import Session
@@ -89,10 +91,23 @@ def dashboard_program(request: Request, ctx=Depends(require_branch_access())):
         if c:
             age_counts[band] = c
 
-    # Disbursements aggregation per cohort / programme
+    # Disbursements aggregation per cohort / programme. Track II cohorts live
+    # in separate programmes ("OCIF - Track II - Cohort 3"), so when filtering
+    # by a cohort programme, pull in its Track II sibling batches too — the
+    # cohort's loan money belongs in the same story.
     disb_q = db.query(DisbursementBatch).filter(DisbursementBatch.branch_id == branch_id)
-    if params.get("program"):
-        disb_q = disb_q.filter(DisbursementBatch.program_id == int(params["program"]))
+    program_filter = params.get("program")
+    if program_filter:
+        pid = int(program_filter)
+        pname = db.get(Program, pid).name if db.get(Program, pid) else ""
+        program_ids = [pid]
+        if "track ii" not in pname.lower():
+            m = re.search(r"cohort\s*(\d+)", pname.lower())
+            if m:
+                program_ids += [p.id for p in db.query(Program).filter(
+                    Program.branch_id == branch_id, Program.id != pid,
+                    Program.name.ilike(f"%track ii%cohort {m.group(1)}%")).all()]
+        disb_q = disb_q.filter(DisbursementBatch.program_id.in_(program_ids))
     if v := params.get("year"):
         disb_q = disb_q.filter(func.strftime("%Y", DisbursementBatch.payment_date) == str(v))
     batches = disb_q.all()
@@ -115,7 +130,9 @@ def dashboard_program(request: Request, ctx=Depends(require_branch_access())):
     _item_sums = {bid: (float(eur), float(jod)) for bid, eur, jod in _item_rows}
 
     for b in batches:
-        pid = b.program_id
+        # when a cohort programme is selected, its Track II sibling batches
+        # roll up under the same row — one bar, one story
+        pid = int(program_filter) if program_filter else b.program_id
         pname = programs_map.get(pid, f"Programme {pid}")
         if pid not in disb_by_program:
             disb_by_program[pid] = {
@@ -178,6 +195,37 @@ def dashboard_program(request: Request, ctx=Depends(require_branch_access())):
     total_cohort_disbursements_eur = sum(x["total_amount_eur"] for x in disbursements_list)
     total_cohort_disbursements_jod = sum(x["total_amount_jod"] for x in disbursements_list)
 
+    # headline disbursement tiles for the dashboard home — same classification
+    # and item-based sums as the disbursements module's summary endpoint,
+    # restricted to the current program/year filters
+    from .repayments import _classify_disbursement
+    by_track = {
+        "grant_I": {"eur": 0.0, "jod": 0.0, "batches": 0},
+        "loan_II": {"eur": 0.0, "jod": 0.0, "batches": 0},
+        "grant_II": {"eur": 0.0, "jod": 0.0, "batches": 0},
+    }
+    processed_eur = processed_jod = 0.0
+    draft_batches = 0
+    for b in batches:
+        eur, jod = _item_sums.get(b.id, (0.0, 0.0))
+        if b.status != "processed":
+            draft_batches += 1
+            continue
+        processed_eur += eur
+        processed_jod += jod
+        kind, track = _classify_disbursement(b.title)
+        key = f"{kind}_{track}"
+        if key in by_track:
+            by_track[key]["eur"] += eur
+            by_track[key]["jod"] += jod
+            by_track[key]["batches"] += 1
+    disbursement_summary = {
+        "processed_eur": round(processed_eur, 2),
+        "disbursed_jod": round(processed_jod, 3),
+        "draft_batches": draft_batches,
+        "by_track": by_track,
+    }
+
     return {
         "funnel": {"applied": applied, "selected": selected, "graduated": graduated},
         "tiles": {
@@ -191,6 +239,7 @@ def dashboard_program(request: Request, ctx=Depends(require_branch_access())):
             "currency": "EUR",
             "disbursement_currency": "JOD",
         },
+        "disbursement_summary": disbursement_summary,
         "disbursements": disbursements_list,
         "distributions": {
             "gender": genders,
