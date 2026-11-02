@@ -3878,7 +3878,8 @@ def run_import(db: Session, branch_id: int = 1):
         elif "cohort 4" in p.name.lower():
             programs_by_cohort[4] = p
 
-    # Ensure Program 1 is Cohort 3
+    # Ensure Program 1 is Cohort 3 (onboarded 3 Aug 2025)
+    cohort3_date = datetime(2025, 8, 3)
     if 3 not in programs_by_cohort:
         p1 = db.get(Program, 1)
         if p1:
@@ -3888,18 +3889,20 @@ def run_import(db: Session, branch_id: int = 1):
             p3 = Program(
                 branch_id=branch_id, program_type_id=prog_type.id,
                 name="OCIF Cohort 3", status_id=prog_status.id if prog_status else None,
-                creation_date=datetime(2025, 8, 1)
+                creation_date=cohort3_date
             )
             db.add(p3)
             db.flush()
             programs_by_cohort[3] = p3
     else:
         programs_by_cohort[3].name = "OCIF Cohort 3"
+        if programs_by_cohort[3].creation_date != cohort3_date:
+            programs_by_cohort[3].creation_date = cohort3_date
 
     # Ensure Cohort 1, 2, 4 programs
     cohort_meta = {
         1: ("OCIF Cohort 1", datetime(2024, 7, 1)),
-        2: ("OCIF Cohort 2", datetime(2025, 1, 15)),
+        2: ("OCIF Cohort 2", datetime(2024, 9, 19)),  # onboarded 19 Sep 2024
         4: ("OCIF Cohort 4", datetime(2026, 2, 1)),
     }
     for c_num, (p_name, c_date) in cohort_meta.items():
@@ -3913,6 +3916,10 @@ def run_import(db: Session, branch_id: int = 1):
             db.flush()
             programs_by_cohort[c_num] = prg
             print(f"Created Program: {p_name} (id={prg.id})")
+        elif programs_by_cohort[c_num].creation_date != c_date:
+            # correct stale onboard dates from earlier runs
+            programs_by_ = programs_by_cohort[c_num]
+            programs_by_.creation_date = c_date
         else:
             programs_by_cohort[c_num].name = p_name
 
