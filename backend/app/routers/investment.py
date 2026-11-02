@@ -2,6 +2,7 @@ from datetime import datetime
 
 from fastapi import APIRouter, Depends, HTTPException, Request
 from pydantic import BaseModel
+from sqlalchemy import func
 from sqlalchemy.orm import Session
 
 from ..database import get_db
@@ -9,6 +10,7 @@ from ..deps import require_branch_access, require_perm
 from ..models import (
     Business, BusinessIndustry, BusinessType, CommitteeDecision, CommitteeLevel, InvestmentCase,
     InvestmentStage, InvestmentStatus, InvestmentTier, InvestmentRound, Program,
+    DisbursementItem,
 )
 from ..utils import paginate, parse_page
 
@@ -29,6 +31,7 @@ def case_ser(c: InvestmentCase) -> dict:
         "owner_id": c.owner_id,
         "currency": c.currency,
         "amount_requested": c.amount_requested,
+        "disbursement_amount": c.disbursement_amount,
         "investment_amount": c.investment_amount,
         "co_financing_amount": c.co_financing_amount,
         "collateral_description": c.collateral_description,
@@ -70,7 +73,22 @@ def dealflow_list(branch_id: int, request: Request, ctx=Depends(require_perm("de
     page, size = parse_page(request)
     q = _apply_filters(_case_query(db, branch_id), request.query_params)
     q = q.order_by(InvestmentCase.created_at.desc())
-    return paginate(q, page, size, case_ser)
+    # all-in amount actually disbursed to each business via the disbursement
+    # module (stipends, vouchers, loans, grant tranches) — included items only
+    paid = dict(db.query(
+        DisbursementItem.business_id,
+        func.coalesce(func.sum(DisbursementItem.amount), 0.0),
+    ).join(Business, DisbursementItem.business_id == Business.id).filter(
+        DisbursementItem.is_included == True,   # noqa: E712
+        Business.branch_id == branch_id,
+    ).group_by(DisbursementItem.business_id).all())
+
+    def ser_with_disbursed(c: InvestmentCase) -> dict:
+        data = case_ser(c)
+        data["disbursed_total"] = round(float(paid.get(c.business_id, 0.0)), 2)
+        return data
+
+    return paginate(q, page, size, ser_with_disbursed)
 
 
 class CaseIn(BaseModel):

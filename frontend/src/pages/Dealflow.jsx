@@ -83,6 +83,8 @@ export default function Dealflow() {
           { header: 'Status', render: (r) => r.status && <StatusPill {...r.status} /> },
           { header: 'Requested', render: (r) =>
               `${r.amount_requested?.toLocaleString()} ${r.currency}` },
+          { header: 'Disbursed', align: 'right', render: (r) =>
+              `€${Number(r.disbursed_total ?? 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` },
           { header: '', render: () => <ApprovalLink /> },
         ]}
         rows={list.data?.results || []}
