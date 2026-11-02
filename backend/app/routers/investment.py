@@ -10,7 +10,7 @@ from ..deps import require_branch_access, require_perm
 from ..models import (
     Business, BusinessIndustry, BusinessType, CommitteeDecision, CommitteeLevel, InvestmentCase,
     InvestmentStage, InvestmentStatus, InvestmentTier, InvestmentRound, Program,
-    DisbursementItem,
+    DisbursementItem, DisbursementBatch,
 )
 from ..utils import paginate, parse_page
 
@@ -73,15 +73,24 @@ def dealflow_list(branch_id: int, request: Request, ctx=Depends(require_perm("de
     page, size = parse_page(request)
     q = _apply_filters(_case_query(db, branch_id), request.query_params)
     q = q.order_by(InvestmentCase.created_at.desc())
-    # all-in amount actually disbursed to each business via the disbursement
-    # module (stipends, vouchers, loans, grant tranches) — included items only
-    paid = dict(db.query(
+    # Track II-only amount disbursed to each business: items whose parent
+    # batch classifies as Track II (loan tranches + co-financing grants).
+    # Track I stipends/vouchers are not repayable and stay out of the deal view.
+    from .repayments import _classify_disbursement
+    batch_track = {b.id: _classify_disbursement(b.title)[1] for b in
+                   db.query(DisbursementBatch).filter(
+                       DisbursementBatch.branch_id == branch_id).all()}
+    paid = {}
+    for biz_id, bid, amt in db.query(
         DisbursementItem.business_id,
+        DisbursementItem.batch_id,
         func.coalesce(func.sum(DisbursementItem.amount), 0.0),
     ).join(Business, DisbursementItem.business_id == Business.id).filter(
         DisbursementItem.is_included == True,   # noqa: E712
         Business.branch_id == branch_id,
-    ).group_by(DisbursementItem.business_id).all())
+    ).group_by(DisbursementItem.business_id, DisbursementItem.batch_id).all():
+        if batch_track.get(bid) == "II":
+            paid[biz_id] = paid.get(biz_id, 0.0) + float(amt)
 
     def ser_with_disbursed(c: InvestmentCase) -> dict:
         data = case_ser(c)
