@@ -107,10 +107,10 @@ export function Portfolio() {
       <DataTable
         columns={[
           { header: 'Company', key: 'company_name' },
-          { header: 'Invested', render: (r) =>
-              `${(r.investment_amount || 0).toLocaleString()} ${r.currency}` },
-          { header: 'Co-financing', render: (r) =>
-              `${(r.co_financing_amount || 0).toLocaleString()} ${r.currency}` },
+          { header: 'Loan Amount', align: 'right', render: (r) =>
+              `${(r.disbursement_amount || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${r.currency}` },
+          { header: 'Grant Amount', align: 'right', render: (r) =>
+              `${(r.co_financing_amount || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${r.currency}` },
           { header: 'Equity %', render: (r) => r.equity_offered_pct ?? '—' },
           { header: '', render: (r) => (
             <span className="row gap">
@@ -184,8 +184,8 @@ function PortfolioDetailModal({ branchId, row, onClose }) {
         <div>
           <h4>Investment overview</h4>
           <table className="kv"><tbody>
-            <tr><th>Investment amount</th><td>{Number(d.investment_amount).toLocaleString()} {d.currency}</td></tr>
-            <tr><th>Co-financing</th><td>{Number(d.co_financing_amount).toLocaleString()}</td></tr>
+            <tr><th>Loan disbursed</th><td>{Number(d.disbursement_amount ?? 0).toLocaleString()} {d.currency}</td></tr>
+            <tr><th>Grant amount</th><td>{Number(d.co_financing_amount).toLocaleString()}</td></tr>
             <tr><th>Equity offered</th><td>{d.equity_offered_pct}%</td></tr>
             <tr><th>Collateral</th><td>{d.collateral_description || '—'}</td></tr>
             <tr><th>Sustainability</th><td>{d.sustainability_notes || '—'}</td></tr>
