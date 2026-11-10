@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>finnspark — The Accelerator Operating System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Roboto+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --teal: #174950;
+      --teal-deep: #0b2f35;
+      --teal-ink: #062226;
+      --card: rgba(23, 73, 80, 0.55);
+      --card-solid: #123c43;
+      --border: rgba(140, 210, 169, 0.22);
+      --green: #52bc7e;
+      --green-soft: #9fe3bd;
+      --amber: #f6b352;
+      --text: #f2fbf6;
+      --muted: #9cc4bb;
+      --grad-green: linear-gradient(135deg, #52bc7e, #8cd2a9);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background:
+        radial-gradient(900px 500px at 85% -5%, rgba(82,188,126,0.16), transparent 60%),
+        radial-gradient(700px 420px at 0% 30%, rgba(240,163,82,0.07), transparent 55%),
+        var(--teal-deep);
+      color: var(--text);
+      font-family: 'Outfit', sans-serif;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ---------- chrome ---------- */
+    .topbar {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 14px 32px;
+      background: rgba(11, 47, 53, 0.88); backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; }
+    .brand .wm-accent { color: var(--green); }
+    .topbar .tag { color: var(--muted); font-size: 12.5px; display: none; }
+    @media (min-width: 760px) { .topbar .tag { display: block; } }
+    .print-btn {
+      background: var(--grad-green); color: #0a2e21;
+      font-weight: 800; border: none; padding: 10px 22px; border-radius: 999px;
+      cursor: pointer; font-size: 13.5px; letter-spacing: 0.2px;
+      box-shadow: 0 6px 22px rgba(82, 188, 126, 0.35);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .print-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 26px rgba(82,188,126,0.45); }
+
+    .wrap { max-width: 1140px; margin: 0 auto; padding: 0 28px; }
+
+    /* ---------- hero ---------- */
+    .hero { text-align: center; padding: 96px 0 40px; position: relative; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid var(--border); border-radius: 999px;
+      padding: 7px 18px; font-size: 12.5px; font-weight: 600;
+      color: var(--green-soft); letter-spacing: 1.4px; text-transform: uppercase;
+      background: rgba(18, 60, 67, 0.65);
+    }
+    .hero-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 12px var(--green); }
+    .hero h1 {
+      margin: 26px auto 0; font-size: clamp(44px, 7vw, 78px); font-weight: 900;
+      letter-spacing: -2.5px; line-height: 1.04;
+    }
+    .hero h1 .grad {
+      background: var(--grad-green);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .hero .sub {
+      margin: 22px auto 0; max-width: 720px; font-size: 19px; font-weight: 300;
+      color: var(--muted);
+    }
+    .hero .sub b { color: var(--text); font-weight: 600; }
+    .hero-ctas { margin-top: 34px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .cta {
+      padding: 13px 30px; border-radius: 999px; font-size: 15px; font-weight: 700;
+      text-decoration: none; transition: transform .15s ease;
+    }
+    .cta:hover { transform: translateY(-2px); }
+    .cta.primary { background: var(--grad-green); color: #0a2e21; box-shadow: 0 8px 30px rgba(82,188,126,0.35); }
+    .cta.ghost { border: 1px solid var(--border); color: var(--green-soft); background: rgba(18,60,67,0.4); }
+
+    /* ---------- stat band ---------- */
+    .stats {
+      margin: 64px 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      border: 1px solid var(--border); border-radius: 20px; overflow: hidden;
+      background: linear-gradient(180deg, rgba(18,60,67,0.55), rgba(18,60,67,0.25));
+    }
+    .stat { padding: 26px 14px; text-align: center; border-right: 1px solid var(--border); }
+    .stat:last-child { border-right: none; }
+    .stat .n {
+      font-size: 34px; font-weight: 900; letter-spacing: -1px;
+      background: var(--grad-green); -webkit-background-clip: text; background-clip: text; color: transparent;
+      font-family: 'Roboto Mono', monospace;
+    }
+    .stat .l { margin-top: 4px; font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+
+    /* ---------- sections ---------- */
+    section { padding: 84px 0 10px; }
+    .eyebrow {
+      color: var(--green); font-size: 12.5px; font-weight: 700; letter-spacing: 2.6px;
+      text-transform: uppercase; margin-bottom: 12px; display: flex; align-items: center; gap: 10px;
+    }
+    .eyebrow::before { content: ""; width: 26px; height: 2px; background: var(--grad-green); border-radius: 2px; }
+    h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 800; letter-spacing: -1px; line-height: 1.15; max-width: 780px; }
+    h2 .soft { color: var(--green-soft); }
+    .sec-sub { margin-top: 14px; color: var(--muted); font-size: 16.5px; max-width: 760px; }
+    .sec-sub b { color: var(--text); font-weight: 600; }
+
+    .card {
+      background: linear-gradient(180deg, rgba(23,73,80,0.6), rgba(15,52,58,0.85));
+      border: 1px solid var(--border); border-radius: 18px; padding: 28px;
+      transition: transform .18s ease, border-color .18s ease;
+    }
+    .card:hover { transform: translateY(-3px); border-color: rgba(140,210,169,0.45); }
+    .card h3 { font-size: 17px; font-weight: 700; margin: 14px 0 8px; }
+    .card p { font-size: 13.8px; color: var(--muted); }
+    .card p b { color: var(--text); font-weight: 600; }
+    .icon-tile {
+      width: 46px; height: 46px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, rgba(82,188,126,0.25), rgba(82,188,126,0.08));
+      border: 1px solid rgba(140,210,169,0.3);
+    }
+    .icon-tile svg { width: 22px; height: 22px; stroke: var(--green-soft); fill: none; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 38px; }
+    .grid.g2 { grid-template-columns: 1fr 1fr; }
+    @media (max-width: 900px) { .grid, .grid.g2 { grid-template-columns: 1fr; } }
+
+    /* ---------- lifecycle ---------- */
+    .lifecycle { margin-top: 40px; }
+    .stage-card {
+      background: linear-gradient(180deg, rgba(23,73,80,0.7), rgba(13,47,53,0.9));
+      border: 1px solid var(--border); border-radius: 16px; padding: 22px 20px;
+      position: relative; overflow: hidden;
+    }
+    .stage-card .step {
+      position: absolute; top: 14px; right: 18px; font-family: 'Roboto Mono', monospace;
+      font-size: 42px; font-weight: 600; color: rgba(140,210,169,0.14); line-height: 1;
+    }
+    .stage-card b { color: var(--green-soft); font-size: 15px; }
+    .stage-card p { font-size: 12.8px; color: var(--muted); margin-top: 6px; }
+    .stage-card::after {
+      content: "→"; position: absolute; right: -14px; top: 50%; transform: translateY(-50%);
+      color: var(--green); font-size: 20px; font-weight: 800; z-index: 2;
+    }
+    .stage-card:last-child::after { display: none; }
+
+    /* ---------- quote ---------- */
+    .bigquote {
+      margin-top: 38px; border-radius: 20px; padding: 36px 40px;
+      background:
+        radial-gradient(600px 200px at 90% 0%, rgba(82,188,126,0.14), transparent),
+        linear-gradient(120deg, rgba(23,73,80,0.9), rgba(13,47,53,0.7));
+      border: 1px solid var(--border);
+      font-size: 20px; font-weight: 300; line-height: 1.6; color: var(--text);
+    }
+    .bigquote b { color: var(--green-soft); font-weight: 700; }
+
+    /* ---------- comparison ---------- */
+    .cmp-wrap { margin-top: 40px; border: 1px solid var(--border); border-radius: 20px; overflow: hidden; }
+    .cmp-wrap .card { border-radius: 0; border: none; padding: 0; }
+    table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+    th, td { padding: 14px 18px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+    thead th {
+      background: rgba(11, 40, 45, 0.9); color: var(--green-soft);
+      font-size: 11.5px; text-transform: uppercase; letter-spacing: 1.2px; font-weight: 700;
+    }
+    thead th.us { color: #ffffff; }
+    tbody tr:nth-child(odd) { background: rgba(23, 73, 80, 0.28); }
+    tbody tr:hover { background: rgba(82, 188, 126, 0.08); }
+    td b { color: var(--green-soft); }
+    td.dim { color: var(--muted); }
+    .yes { color: var(--green); font-weight: 800; }
+    .no { color: #d77; font-weight: 600; }
+    .part { color: var(--amber); font-weight: 600; }
+
+    /* ---------- CTA ---------- */
+    .cta-band {
+      margin: 90px 0 0; border-radius: 24px; padding: 52px 48px; text-align: center;
+      background:
+        radial-gradient(700px 300px at 50% -40%, rgba(82,188,126,0.3), transparent),
+        linear-gradient(160deg, #164a52, #0b2f35);
+      border: 1px solid var(--border);
+    }
+    .cta-band h2 { margin: 0 auto; }
+    .cta-band p { color: var(--muted); margin: 14px auto 0; max-width: 640px; font-size: 16px; }
+    .cta-band .hero-ctas { margin-top: 28px; }
+    .cta-band .url { display: block; margin-top: 22px; color: var(--green-soft); font-family: 'Roboto Mono', monospace; font-size: 13.5px; }
+
+    footer {
+      margin-top: 60px; padding: 26px 0 46px; text-align: center;
+      color: var(--muted); font-size: 12px;
+    }
+
+    /* ---------- print ---------- */
+    @media print {
+      .topbar { display: none; }
+      body { background: #0b2f35; }
+      section { padding: 44px 0 8px; }
+      .hero { padding-top: 48px; }
+      .card, .stage-card, .stats, .bigquote, .cta-band, .cmp-wrap { break-inside: avoid; }
+      h2 { break-after: avoid; }
+      .cta-band { padding: 34px; }
+      * { animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    <svg viewBox="0 0 64 64" width="30" height="30" xmlns="http://www.w3.org/2000/svg">
+      <rect width="64" height="64" rx="8" fill="#174950" stroke="#1f5d67" stroke-width="1"/>
+      <polygon points="35 7 11 36 33 36 30 55 54 26 33 26" fill="#52bc7e"/>
+      <circle cx="51.5" cy="12" r="3.2" fill="#8cd2a9"/>
+      <circle cx="56" cy="19.5" r="1.8" fill="#8cd2a9" opacity="0.7"/>
+    </svg>
+    <span>finn<span class="wm-accent">spark</span></span>
+  </div>
+  <div class="tag">Accelerator &amp; Investment Management Platform · accelerate.finnpact.com</div>
+  <button class="print-btn" onclick="window.print()">⎙ &nbsp;Print / Save as PDF</button>
+</div>
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-badge"><span class="dot"></span> Accelerator Operating System</div>
+    <h1>From first application<br/>to <span class="grad">final repayment.</span></h1>
+    <p class="sub">
+      finnspark is the single platform accelerators run on — <b>selection, learning, disbursement
+      and capital recovery</b> — replacing spreadsheets, email threads and gut feel with one
+      governed, bilingual, audit-ready system.
+    </p>
+    <div class="hero-ctas">
+      <a class="cta primary" href="#pillars">Explore the platform</a>
+      <a class="cta ghost" href="#compare">Why finnspark</a>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="n">9</div><div class="l">Platform pillars</div></div>
+      <div class="stat"><div class="n">2</div><div class="l">Entities · one deployment</div></div>
+      <div class="stat"><div class="n">2</div><div class="l">Languages · EN / العربية</div></div>
+      <div class="stat"><div class="n">2</div><div class="l">Currencies · EUR / JOD</div></div>
+      <div class="stat"><div class="n">15+</div><div class="l">Institutional report views</div></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- ================= SUMMARY ================= -->
+<section>
+  <div class="eyebrow">Executive summary</div>
+  <h2>One system of record for every programme stage — <span class="soft">and every euro of it.</span></h2>
+  <p class="sec-sub">
+    Acceleration programmes are run on goodwill and spreadsheets: applications lost in inboxes,
+    scores in side files, stipends paid from memory, repayments reconciled by hand at quarter-end.
+    <b>finnspark</b> replaces that with a governed pipeline: public application forms, an
+    evaluator-scored selection board, cohort and learning management, a dual-currency disbursement
+    engine for grants and repayable loans, a reconciled loan book — and an institutional reporting
+    pack your board and donors can rely on. Every workflow is permission-guarded, auditable and
+    bilingual, built for teams that answer to investment committees, not just to calendars.
+  </p>
+</section>
+
+<!-- ================= PILLARS ================= -->
+<section id="pillars">
+  <div class="eyebrow">Platform capabilities</div>
+  <h2>Nine pillars, <span class="soft">zero spreadsheets.</span></h2>
+
+  <div class="grid">
+    <div class="card">
+      <div class="icon-tile"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h5"/><circle cx="17" cy="17" r="3"/></svg></div>
+      <h3>Form builders &amp; public intake</h3>
+      <p>Branded public apply pages plus a full builder suite — <b>application forms with 10 field
+      types</b>, weighted scoring forms and investment forms, all multilingual. Applications never
+      touch an inbox again.</p>
+    </div>
+    <div class="card">
+      <div class="icon-tile"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="9" r="2.4"/><path d="M4 19c0-3 2.2-5 5-5s5 2 5 5"/><path d="M14.5 15.5c.8-.7 1.7-1 2.7-1 1.9 0 3.3 1.3 3.6 3.5"/></svg></div>
+      <h3>Selection board</h3>
+      <p>Configurable stages — Application → Evaluation → Pitching → Selection — with statuses,
+      filters and <b>weighted evaluator scoring averaged per applicant</b>, then one-click
+      invite-to-register.</p>
+    </div>
+    <div class="card">
+      <div class="icon-tile"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v5M16 4v5"/><path d="M10 14l1.6 1.6L15 12"/></svg></div>
+      <h3>Cohort &amp; programme management</h3>
+      <p>Programmes, cohorts and enrolled businesses with graduation tracking, mentor assignment,
+      course-progress visibility and Excel exports — the operating picture of every cohort.</p>
+    </div>
+    <div class="card">
+      <div class="icon-tile"><svg viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h13v18H6a2 2 0 0 1-2-2z"/><path d="M9 7h7M9 11h7"/></svg></div>
+      <h3>Learning management</h3>
+      <p>The SME Business Manual as <b>13 structured courses</b> — modules, lessons, video, file
+      and quiz blocks — with per-founder progress tied to graduation criteria.</p>
+    </div>
+    <div class="card">
+      <div class="icon-tile"><svg viewBox="0 0 24 24"><path d="M12 3v18M7 7c0-2 2.2-3 5-3s5 1 5 3-2 3-5 3-5 1-5 3 2.2 3 5 3 5-1 5-3"/></svg></div>
+      <h3>Disbursement engine</h3>
+      <p><b>Track I grants</b> (stipends, prototype vouchers) and <b>Track II loans with
+      co-financing grant tranches</b>. Batch payments with per-item FX (EUR base / JOD payout),
+      exact dates, automatic narratives, confirm/reopen governance.</p>
+    </div>
+    <div class="card">
+      <div class="icon-tile"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h4"/></svg></div>
+      <h3>Loan book &amp; repayments</h3>
+      <p>Import the loan book, record repayments in batches, reconcile every instalment against
+      bank extracts. <b>Principal vs interest, dual-currency balances</b>, recovery rates per cohort.</p>
+    </div>
+    <div class="card">
+      <div class="icon-tile"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-8M20 20H2"/></svg></div>
+      <h3>Dealflow, committees &amp; portfolio</h3>
+      <p>Investment cases across stages, tiers and rounds; <b>multi-level committee decisions</b>;
+      portfolio financials with loan/grant amounts, disbursed-to-date and payment schedules.</p>
+    </div>
+    <div class="card">
+      <div class="icon-tile"><svg viewBox="0 0 24 24"><path d="M4 7c0-2 4-3 8-3s8 1 8 3-4 3-8 3-8-1-8-3z"/><path d="M4 7v10c0 2 4 3 8 3s8-1 8-3V7"/><path d="M4 12c0 2 4 3 8 3s8-1 8-3"/></svg></div>
+      <h3>Document library</h3>
+      <p>A <b>branch-, programme- and business-scoped repository</b> for onboarding packs, signed
+      agreements and programme documents — controlled, findable, always current.</p>
+    </div>
+    <div class="card">
+      <div class="icon-tile"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 1 1-4-6.9"/><path d="M21 4v5h-5"/><path d="M8 13c.8-1.6 2.3-2.6 4-2.6 2.6 0 4.7 2.1 4.7 4.7"/></svg></div>
+      <h3>Collaboration &amp; governance</h3>
+      <p>Announcements with reactions, shared calendar, team chat and a notifications bell — on top
+      of <b>granular RBAC enforced on every endpoint</b> and an immutable audit trail.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= LIFECYCLE ================= -->
+<section>
+  <div class="eyebrow">The lifecycle</div>
+  <h2>Closed-loop capital governance, <span class="soft">stage by stage.</span></h2>
+
+  <div class="grid" style="grid-template-columns:repeat(3,1fr);">
+    <div class="stage-card"><span class="step">01</span><b>Apply</b><p>Founders apply through branded public forms — every field structured, bilingual, scored.</p></div>
+    <div class="stage-card"><span class="step">02</span><b>Select</b><p>Evaluator scoring feeds committee-grade pipeline decisions. Winners become businesses.</p></div>
+    <div class="stage-card"><span class="step">03</span><b>Onboard &amp; learn</b><p>Cohorts onboard with mentors, document packs and the SME Business Manual.</p></div>
+    <div class="stage-card"><span class="step">04</span><b>Disburse</b><p>Track I stipends and vouchers, Track II loans and co-financing grants — batched, FX'd, narrated.</p></div>
+    <div class="stage-card"><span class="step">05</span><b>Recover</b><p>Repayment instalments land in batches, verified against bank extracts, principal tracked.</p></div>
+    <div class="stage-card"><span class="step">06</span><b>Report</b><p>The board sees one reconciled picture — per cohort, per year, per currency.</p></div>
+  </div>
+
+  <div class="bigquote">
+    Every stage feeds the next: applications become businesses, businesses receive structured
+    finance, repayments flow back into the ledger — <b>and the money story stays reconciled from
+    the first application form to the last repaid euro.</b>
+  </div>
+</section>
+
+<!-- ================= DASHBOARDS ================= -->
+<section>
+  <div class="eyebrow">Reporting</div>
+  <h2>Institutional reporting, <span class="soft">on demand.</span></h2>
+  <p class="sec-sub">
+    Four dedicated dashboards — <b>Businesses/Projects, Investment, Learning and Team</b> — plus a
+    programme funnel with cohort/year filtering that cascades across every tile and chart, and
+    drill-down tables behind every number.
+  </p>
+
+  <div class="grid" style="margin-top:36px;">
+    <div class="card">
+      <h3>Portfolio snapshot</h3>
+      <p>Portfolio companies, total invested, average ticket, invested by industry — the 10-second view for a board meeting.</p>
+    </div>
+    <div class="card">
+      <h3>Payments schedule &amp; aging</h3>
+      <p>Every scheduled instalment, paid vs due, and outstanding balances by aging bucket — recovery risk before it becomes a surprise.</p>
+    </div>
+    <div class="card">
+      <h3>Detailed information pack</h3>
+      <p>11 sections — financial timeline, investment metrics, collateral, co-financing summary, CEO profile, sustainability, equity and more — paginated with one-click <b>Excel export</b>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= COMPARE ================= -->
+<section id="compare">
+  <div class="eyebrow">Why finnspark</div>
+  <h2>Built for accelerators. <span class="soft">Not adapted to them.</span></h2>
+
+  <div class="cmp-wrap">
+    <div class="card">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:24%">Capability</th>
+          <th class="us">finnspark</th>
+          <th>Spreadsheets + email</th>
+          <th>Generic accelerator SaaS</th>
+          <th>Generic CRM</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>Selection pipeline</b></td>
+          <td><span class="yes">✓</span> Public apply, weighted scoring, committee-grade flow</td>
+          <td class="dim">Manual, error-prone</td>
+          <td><span class="part">◐</span> Common</td>
+          <td class="dim">Heavy customisation</td>
+        </tr>
+        <tr>
+          <td><b>Dual-currency disbursements</b></td>
+          <td><span class="yes">✓</span> EUR base / JOD payout, per-item FX, batch governance</td>
+          <td class="dim"><span class="no">✗</span> Manual calculation</td>
+          <td class="dim"><span class="no">✗</span> Rarely supported</td>
+          <td class="dim"><span class="no">✗</span> Not supported</td>
+        </tr>
+        <tr>
+          <td><b>Repayable loans &amp; recovery</b></td>
+          <td><span class="yes">✓</span> Loan book import, repayment batches, reconciled ledger</td>
+          <td class="dim"><span class="no">✗</span> Hand reconciliation</td>
+          <td class="dim"><span class="no">✗</span> Grant-centric</td>
+          <td class="dim"><span class="no">✗</span> Not designed for it</td>
+        </tr>
+        <tr>
+          <td><b>Learning management</b></td>
+          <td><span class="yes">✓</span> Structured SME curriculum with progress tracking</td>
+          <td class="dim"><span class="no">✗</span> Detached tools</td>
+          <td class="dim"><span class="part">◐</span> Basic content hosting</td>
+          <td class="dim"><span class="no">✗</span> Not supported</td>
+        </tr>
+        <tr>
+          <td><b>Institutional reporting</b></td>
+          <td><span class="yes">✓</span> 15+ views, Excel export, drill-downs</td>
+          <td class="dim"><span class="no">✗</span> Hand-built each cycle</td>
+          <td class="dim"><span class="part">◐</span> Generic exports</td>
+          <td class="dim"><span class="part">◐</span> Custom dashboards</td>
+        </tr>
+        <tr>
+          <td><b>Bilingual operations</b></td>
+          <td><span class="yes">✓</span> English + العربية with full RTL</td>
+          <td class="dim"><span class="no">✗</span> Partial, manual</td>
+          <td class="dim"><span class="part">◐</span> Varies</td>
+          <td class="dim"><span class="part">◐</span> Varies</td>
+        </tr>
+        <tr>
+          <td><b>Data sovereignty</b></td>
+          <td><span class="yes">✓</span> 100% self-hosted on sovereign infrastructure</td>
+          <td class="dim">N/A</td>
+          <td class="dim"><span class="no">✗</span> Multi-tenant cloud</td>
+          <td class="dim"><span class="no">✗</span> Multi-tenant cloud</td>
+        </tr>
+        <tr>
+          <td><b>Licensing</b></td>
+          <td><span class="yes">✓</span> No per-seat or per-startup penalties</td>
+          <td class="dim">N/A</td>
+          <td class="dim"><span class="no">✗</span> Recurring per-seat fees</td>
+          <td class="dim"><span class="no">✗</span> Recurring per-seat fees</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+<!-- ================= BUILT FOR ================= -->
+<section>
+  <div class="eyebrow">Built for</div>
+  <h2>Teams that answer to founders, <span class="soft">committees and boards.</span></h2>
+  <div class="grid g2">
+    <div class="card">
+      <h3>Acceleration programmes</h3>
+      <p>Cohort-based accelerators running structured intake, training and grant funding cycles, year after year.</p>
+    </div>
+    <div class="card">
+      <h3>Impact &amp; blended-finance funds</h3>
+      <p>Funds blending grants with repayable loans that must report capital recovery to investors and lenders.</p>
+    </div>
+    <div class="card">
+      <h3>Corporate innovation programmes</h3>
+      <p>Corporate schemes with committee governance, mentor networks and measurable portfolio outcomes.</p>
+    </div>
+    <div class="card">
+      <h3>Donor-funded initiatives</h3>
+      <p>Donor-backed programmes needing bilingual operations, auditable spending and reconciled reporting.</p>
+    </div>
+  </div>
+
+  <div class="bigquote">
+    <b>Deployment:</b> finnspark runs self-hosted on sovereign infrastructure — systemd + nginx,
+    FastAPI backend, React frontend — with JWT auth, refresh-token cookies and server-enforced
+    role-based access. <b>Your founders' data never leaves your infrastructure.</b>
+  </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<div class="cta-band">
+  <h2>Ready to spark your <span class="soft">next cohort?</span></h2>
+  <p>See finnspark running on real programme data — selection, disbursements, repayments and the full reporting pack, in one demo session.</p>
+  <div class="hero-ctas">
+    <a class="cta primary" href="https://accelerate.finnpact.com">Open the platform</a>
+    <a class="cta ghost" href="https://accelerate.finnpact.com/brochure.html">View this brochure online</a>
+  </div>
+  <span class="url">accelerate.finnpact.com</span>
+</div>
+
+<footer>
+  finnspark Accelerator &amp; Investment Management · Confidential Product Brief · Version 1.1 · finnpact
+</footer>
+
+</main>
+
+</body>
+</html>

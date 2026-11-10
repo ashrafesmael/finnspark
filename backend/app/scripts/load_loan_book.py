@@ -31,6 +31,7 @@ from app.database import SessionLocal  # noqa: E402
 from app.models import (  # noqa: E402
     Business, InvestmentCase, LoanRepayment, PaymentScheduleEntry,
     DisbursementBatch, DisbursementItem, Program,
+    InvestmentStatus, InvestmentRound, InvestmentTier, InvestmentStage,
 )
 
 DEFAULT_WB = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(
@@ -204,9 +205,21 @@ def main():
         else:
             warnings.append(f"created case for {biz.name} with co-financing 0 - grant amount not in the loan book")
         if apply:
+            # mirror the manual cases: Pre-seed round, Tier 1, approved stage +
+            # status, requested = loan approved + co-financing
+            st_approved = db.query(InvestmentStatus).filter_by(code_name="approved").first()
+            rnd = db.query(InvestmentRound).filter_by(name="Pre-seed").first()
+            tier = db.query(InvestmentTier).filter_by(name="Tier 1").first()
+            stg = db.query(InvestmentStage).filter_by(name="Approved").first()
             case = InvestmentCase(
                 branch_id=biz.branch_id, business_id=biz.id, company_name=biz.name,
+                industry_id=biz.industry_id, type_id=biz.type_id,
                 investment_amount=approved, co_financing_amount=cofin,
+                amount_requested=round(approved + cofin, 2),
+                status_id=st_approved.id if st_approved else None,
+                round_id=rnd.id if rnd else None,
+                tier_id=tier.id if tier else None,
+                stage_id=stg.id if stg else None,
                 forex_rate=round(rate_by_biz.get(biz.id) or 0.816, 4),
                 disbursement_amount=num(loan.get("Approved loan (EUR)")),
                 disbursement_amount_jod=num(loan.get("Principal disbursed")),

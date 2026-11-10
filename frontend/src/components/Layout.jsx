@@ -92,9 +92,12 @@ export default function Layout({ children }) {
               const b = branches.find((x) => x.id === Number(e.target.value))
               if (b) switchBranch(b)
             }}>
-              {branches.map((b) => (
-                <option key={b.id} value={b.id}>{b.organization?.name} — {b.name}</option>
-              ))}
+              {branches.map((b) => {
+                const org = b.organization?.name || ''
+                // branch names often already repeat the org ("Finnpact — Jordan")
+                const label = org && !b.name.includes(org) ? `${org} — ${b.name}` : b.name
+                return <option key={b.id} value={b.id}>{label}</option>
+              })}
             </select>
           </div>
           <div className="spacer" />

@@ -116,6 +116,52 @@ export default function Dashboard() {
             />
           </div>
 
+          {prog.disbursement_summary && (() => {
+            const s = prog.disbursement_summary
+            const fE = (v) => `€${(v || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+            const fJ = (v) => (v || 0).toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })
+            const batchesProcessed = ['grant_I', 'loan_II', 'grant_II']
+              .reduce((a, k) => a + (s.by_track?.[k]?.batches || 0), 0)
+            return (
+              <>
+                <div className="grid-3 tiles-row" style={{ marginTop: 12 }}>
+                  <StatTile
+                    label="Total Base Processed (EUR)"
+                    value={fE(s.processed_eur)}
+                    sub={`${batchesProcessed} processed batches${(year || program) ? ' (filtered)' : ' across all cohorts'}`}
+                  />
+                  <StatTile
+                    label="Total Equivalent Disbursed (JOD)"
+                    value={`${fJ(s.disbursed_jod)} JOD`}
+                    sub="Per-batch items at their own exchange rates"
+                  />
+                  <StatTile
+                    label="Pending / Draft Batches"
+                    value={s.draft_batches || 0}
+                    sub="Awaiting final confirmation"
+                  />
+                </div>
+                <div className="grid-3 tiles-row" style={{ marginTop: 12 }}>
+                  <StatTile
+                    label="Track I — Grants"
+                    value={fE(s.by_track?.grant_I?.eur)}
+                    sub={`${fJ(s.by_track?.grant_I?.jod)} JOD · stipends & vouchers, not repayable`}
+                  />
+                  <StatTile
+                    label="Track II — Loans"
+                    value={fE(s.by_track?.loan_II?.eur)}
+                    sub={`${fJ(s.by_track?.loan_II?.jod)} JOD · repayable principal`}
+                  />
+                  <StatTile
+                    label="Track II — Grants"
+                    value={fE(s.by_track?.grant_II?.eur)}
+                    sub={`${fJ(s.by_track?.grant_II?.jod)} JOD · co-financing halves, not repayable`}
+                  />
+                </div>
+              </>
+            )
+          })()}
+
           <div className="grid-2">
             <div className="card chart-card">
               <div className="row spread wrap gap">

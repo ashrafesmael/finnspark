@@ -51,12 +51,12 @@ def section_rows(section: str, db: Session, branch_id: int) -> tuple[list[str], 
 
     if section == "overview":
         return build(
-            ["Company", "Industry", "Type", "Round", "Amount invested", "Co-financing"],
+            ["Company", "Industry", "Type", "Round", "Loan amount", "Grant amount"],
             lambda r: {
                 "Company": r["case"].company_name, "Industry": r["industry"], "Type": r["type"],
                 "Round": r["case"].round.name if r["case"].round else "",
-                "Amount invested": r["case"].investment_amount or 0,
-                "Co-financing": r["case"].co_financing_amount or 0})
+                "Loan amount": r["case"].disbursement_amount or 0,
+                "Grant amount": r["case"].co_financing_amount or 0})
     if section == "financial-timeline":
         entries = []
         for c in _approved_cases(db, branch_id):
