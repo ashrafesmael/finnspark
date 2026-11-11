@@ -389,6 +389,7 @@ function CreateBatchModal({ branchId, programs, onClose, onCreated }) {
           name: b.name,
           founders: b.founders || [],
           percentage: 100,
+          custom_amount: null,
           is_included: true,
           disbursement_date: paymentDate,
           exchange_rate: exchangeRate,
@@ -412,7 +413,7 @@ function CreateBatchModal({ branchId, programs, onClose, onCreated }) {
   }
 
   const setAllPercentages = (pct) => {
-    setStartups((prev) => prev.map((s) => ({ ...s, percentage: pct })))
+    setStartups((prev) => prev.map((s) => ({ ...s, percentage: pct, custom_amount: null })))
   }
 
   const setAllIncluded = (inc) => {
@@ -423,22 +424,29 @@ function CreateBatchModal({ branchId, programs, onClose, onCreated }) {
     setStartups((prev) => {
       const next = [...prev]
       next[idx] = { ...next[idx], [field]: value }
+      // changing the percentage resets a custom amount back to base x pct
+      if (field === 'percentage') next[idx].custom_amount = null
       return next
     })
+  }
+
+  // effective per-item EUR amount: a custom override if the user typed one,
+  // otherwise derived from the base rate x payment percentage
+  const effEur = (s) => {
+    if (s.custom_amount != null && s.custom_amount !== '') return Number(s.custom_amount)
+    return Math.round(Number(baseAmount || 0) * (Number(s.percentage || 0) / 100) * 100) / 100
   }
 
   // Calculate live totals in Base (EUR) and Disbursed (JOD)
   const calculatedTotalEur = startups.reduce((acc, s) => {
     if (!s.is_included) return acc
-    const amt = Number(baseAmount || 0) * (Number(s.percentage || 0) / 100)
-    return acc + amt
+    return acc + effEur(s)
   }, 0)
 
   const calculatedTotalJod = startups.reduce((acc, s) => {
     if (!s.is_included) return acc
-    const amtEur = Number(baseAmount || 0) * (Number(s.percentage || 0) / 100)
     const rate = Number(s.exchange_rate || exchangeRate || 0.76)
-    return acc + (amtEur * rate)
+    return acc + (effEur(s) * rate)
   }, 0)
 
   const handleCreate = async (e) => {
@@ -450,7 +458,7 @@ function CreateBatchModal({ branchId, programs, onClose, onCreated }) {
     setLoading(true)
     try {
       const itemsPayload = startups.map((s) => {
-        const eur = Math.round(Number(baseAmount || 0) * (Number(s.percentage || 0) / 100) * 100) / 100
+        const eur = effEur(s)
         const rate = Number(s.exchange_rate || exchangeRate || 0.76)
         const jod = Math.round(eur * rate * 1000) / 1000
         return {
@@ -646,7 +654,7 @@ function CreateBatchModal({ branchId, programs, onClose, onCreated }) {
                   <th>Founders</th>
                   <th>Disbursement Date</th>
                   <th>Payment %</th>
-                  <th>Base ({currency})</th>
+                  <th title="Editable per startup — defaults to Base Monthly Rate × payment %">Amount ({currency}) ✎</th>
                   <th>FX Rate</th>
                   <th>Disbursed ({disbursementCurrency})</th>
                   <th>Remarks</th>
@@ -654,7 +662,7 @@ function CreateBatchModal({ branchId, programs, onClose, onCreated }) {
               </thead>
               <tbody>
                 {startups.map((s, idx) => {
-                  const itemEur = Number(baseAmount || 0) * (Number(s.percentage || 0) / 100)
+                  const itemEur = effEur(s)
                   const itemRate = Number(s.exchange_rate || exchangeRate || 0.76)
                   const itemJod = itemEur * itemRate
 
@@ -705,7 +713,17 @@ function CreateBatchModal({ branchId, programs, onClose, onCreated }) {
                         </div>
                       </td>
                       <td>
-                        <b>{s.is_included ? itemEur.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '0.00'}</b>
+                        <input
+                          type="number"
+                          step="0.01"
+                          min="0"
+                          title="Editable — defaults to Base Monthly Rate × payment %"
+                          value={s.custom_amount != null && s.custom_amount !== ''
+                            ? s.custom_amount
+                            : (Math.round(Number(baseAmount || 0) * (Number(s.percentage || 0) / 100) * 100) / 100)}
+                          onChange={(e) => updateStartup(idx, 'custom_amount', e.target.value)}
+                          style={{ width: '84px', padding: '3px 4px', fontSize: '12px', textAlign: 'right' }}
+                        />
                       </td>
                       <td>
                         <input
