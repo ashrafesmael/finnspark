@@ -1,0 +1,4653 @@
+[
+ {
+  "name": "EJ 01 — The entrepreneur's mindset",
+  "description": "Part: Foundations. Success in a startup comes from two habits: run the business as efficiently as possible, and beat competitors by being better and different. This module explains why new businesses fail and how to think like a founder who survives.",
+  "language": "en",
+  "subtitle_languages": [],
+  "status": "published",
+  "modules": [
+   {
+    "name": "Introduction",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Module 1 — The entrepreneur's mindset",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Success in a startup comes from two habits: run the business as efficiently as possible, and beat competitors by being better and different. This module explains why new businesses fail and how to think like a founder who survives.</p>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Key ideas",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Why startups fail",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Common causes are running out of cash, weak marketing, too little starting capital, poor pricing, and gaps in the founder&#x27;s knowledge. When a business fails, the damage spreads: suppliers go unpaid, customers lose deposits, staff lose jobs.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Small business versus entrepreneurial business",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>A small business is independently owned, run for profit and not dominant in its market. An entrepreneurial business does something different, not just something better. A new café in a busy street is a small business. A café that rethinks how coffee is ordered and delivered is entrepreneurial. You can start as one and become the other.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "The business life cycle",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Every business moves through predictable stages, and each needs different priorities:</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>1. Formation: turning an idea into a viable business, raising capital and launching. Priority: validate demand before spending heavily. 2. Early growth: the business is trading but its future is uncertain. Priority: cash flow, performance and a basic structure. 3. Established: revenue starts to level off and competition increases. Priority: decide whether to consolidate or expand, and put proper controls in place. 4. Mature: the business is stable and efficient. Priority: protect market position and keep innovating.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "The three pillars of success",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Every successful small business stands on three pillars at once:</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>Pillar                                                         Standard to aim for</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 2,
+        "payload": {
+         "html": "<p>Marketing (sales, promotion, public relations)                 Hit the mark every time</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 3,
+        "payload": {
+         "html": "<p>Product or service                                             Be the best available to your customer</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 4,
+        "payload": {
+         "html": "<p>Integrity and credibility                                      Beyond question</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "A simple route to opportunity",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>find an underserved market, learn exactly what it needs, then meet that need with your product or service.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Proactive versus reactive decisions",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Proactive decisions build on strengths, chase untapped opportunities, test new offerings, track industry trends and remove threats early. Reactive decisions respond to weaknesses, quality failures, unhappy customers,</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>low staff morale, competitor moves or a crisis. Every business makes both. The aim is to spend most of your time on the first list.</p>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Ask yourself",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Ask yourself",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Test your business against:</p><ul><li>What problem does my business solve, and for whom? What makes my business different from competitors, not just better? Which life cycle stage am I in, and what should my priorities be right now? Of the decisions I made last month, how many were proactive and how many were firefighting?</li></ul>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Founder tips",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Founder tips",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Practical advice:</p><ul><li>Step away from daily operations for a few hours each week to look at the business as a whole. You cannot see the forest while you are counting trees. Do not put problems &quot;on the back burner&quot;. Postponing a decision is not a solution. Success is not a moment; it is a continuous process. Customers, staff, suppliers and competitors keep changing, and so must you.</li></ul>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Action checklist",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Action checklist",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Before moving on, complete:</p><ul><li>Write a one-paragraph description of the problem you solve and your target customer List three ways your business is different from its nearest competitors Identify your current life cycle stage and your top three priorities for it Block a recurring weekly slot to review the business away from daily tasks</li></ul>"
+        }
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "name": "EJ 02 — Choosing a legal structure",
+  "description": "Part: Foundations. Your legal structure decides who is liable for the business's debts, how profits are taxed, and how easily you can bring in investors. Choose it deliberately at the start, because changing later costs time and money.",
+  "language": "en",
+  "subtitle_languages": [],
+  "status": "published",
+  "modules": [
+   {
+    "name": "Introduction",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Module 2 — Choosing a legal structure",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Your legal structure decides who is liable for the business&#x27;s debts, how profits are taxed, and how easily you can bring in investors. Choose it deliberately at the start, because changing later costs time and money.</p>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Key ideas",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Overview",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Names and rules differ from country to country, but most legal systems offer versions of these five structures:</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>Structure                        Owners                         Personal          Raising          Admin       Best suited to liability         investment       burden</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 2,
+        "payload": {
+         "html": "<p>Sole trader (sole                One person                     Unlimited:        Difficult        Low         Testing an idea, proprietorship)                                                 personal                                       freelancers, very assets at risk                                 small ventures</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 3,
+        "payload": {
+         "html": "<p>General                          Two or more                    Unlimited and     Difficult        Low to      Professional partnership                      partners                       shared: each                       medium      practices, partner can be                                 trusted co- liable for the                                 founders others&#x27; actions</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 4,
+        "payload": {
+         "html": "<p>Limited                          General partners               Unlimited for     Moderate         Medium      Property and partnership                      plus passive                   general                                        investment limited partners               partners;                                      vehicles limited for passive investors</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 5,
+        "payload": {
+         "html": "<p>Private limited                  Shareholders                   Limited to the    Easier: shares   Higher:     Startups company                                                         amount            can be issued    filings,    planning to grow invested          to investors     accounts,   or raise equity board</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 6,
+        "payload": {
+         "html": "<p>Limited liability                Members                        Limited           Moderate         Medium      Small businesses company or similar                                                                                             wanting liability hybrid (where                                                                                                  protection with available)                                                                                                     flexibility</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Limited liability is not total protection",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Banks often ask founders for personal guarantees, and directors can be personally liable for fraud, unpaid taxes or trading while insolvent.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Partnerships need a written agreement",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Set out each partner&#x27;s contribution, profit share, decision rights, and what happens if a partner wants to leave, dies or falls out with the others.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Investor readiness",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>If you plan to raise equity from angel investors, impact funds or venture capital, a company with shares is usually expected. A clean share register and a shareholders&#x27; agreement make due diligence faster.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Country focus",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Jordan In Jordan, most startups choose between an individual establishment and a limited liability company (LLC). finnpact generally recommends the LLC. Once a partner has paid their share of capital in full, they are not personally liable for the company&#x27;s debts.</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>Form                               Legal                       Owner liability   Minimum    Notes personality                                   capital</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Individual                         None",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>the                   Unlimited: all    None       Registered with the establishment                      business and                personal                     Commercial Registry; owner are one               assets at risk               quick and cheap, but the owner carries every debt</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>General or                         Separate                    Unlimited for     None set   Not recommended: limited                                                        general (joint)              joint partners partnership                                                    partners                     become traders and are personally liable</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 2,
+        "payload": {
+         "html": "<p>Limited liability                  Separate                    Limited to        JOD 1      Most common; can company                                                        each partner&#x27;s               borrow, bid for share                        tenders, and convert to a shareholding company later; 50% of capital paid at registration, the rest within two years</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 3,
+        "payload": {
+         "html": "<p>Private                            Separate                    Limited           JOD        Suits startups shareholding                                                                     50,000     planning structured company                                                                                     equity rounds with several investors</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Compliance obligations for an LLC",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Missing these can bring fines, suspension or an arbitrary tax assessment:</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>Keep the required commercial books (journal, correspondence book, inventory and balance sheet book) and retain them for ten years. Appoint a licensed auditor and file approved annual financial statements with the Companies Control Department. Submit an income tax self-assessment within four months of the year end.</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 2,
+        "payload": {
+         "html": "<p>Register for general sales tax once revenue over 12 consecutive months reaches JOD 30,000 (services) or JOD 75,000 (trade and industry). File the beneficial owner form. Obtain a vocational licence from the municipality before trading. Enrol all employees in social security, whatever the headcount. With five or more employees, submit internal work regulations to the Ministry of Labour. Appoint a legal adviser if capital exceeds JOD 20,000.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Thresholds and fees change",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Confirm current rules with the Companies Control Department or a lawyer before registering.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Governance from day one",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Even a two-founder LLC benefits from basic governance: a clear manager or board, minutes of key decisions, partners&#x27; resolutions filed on time, and directors who do not compete with the company. Good governance is what investors and lenders check first.</p>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Ask yourself",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Ask yourself",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Test your business against:</p><ul><li>How much personal financial risk am I willing to carry? Will I need outside investors in the next two to three years? How will profits be taxed under each option, and how will I pay myself? If I have co-founders, have we agreed in writing who owns what and how decisions are made?</li></ul>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Founder tips",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Founder tips",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Practical advice:</p><ul><li>Keep business and personal money completely separate from day one, whatever structure you choose. Mixing funds is one of the most common and damaging mistakes founders make. Take advice from a local lawyer or accountant before registering. Tax treatment and filing duties vary widely between countries. Founder vesting (shares earned over time) protects the company if a co-founder leaves early.</li></ul>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Action checklist",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Action checklist",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Before moving on, complete:</p><ul><li>Compare at least two structures available in your country on liability, tax and cost Confirm your choice with a qualified local adviser</li><li>Open a dedicated business bank account Sign a founders&#x27; or partnership agreement if you have co-owners</li></ul>"
+        }
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "name": "EJ 03 — Strategy, business planning and SWOT",
+  "description": "Part: Strategy & Market. A business without direction drifts. Start with an honest SWOT analysis, turn it into a strategic plan with measurable objectives, and capture the essentials in a business plan you can show to lenders and investors.",
+  "language": "en",
+  "subtitle_languages": [],
+  "status": "published",
+  "modules": [
+   {
+    "name": "Introduction",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Module 3 — Strategy, business planning and SWOT",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>A business without direction drifts. Start with an honest SWOT analysis, turn it into a strategic plan with measurable objectives, and capture the essentials in a business plan you can show to lenders and investors.</p>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Key ideas",
+    "description": "",
+    "lessons": [
+     {
+      "name": "SWOT analysis is a critical self-examination of your business",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Strengths and weaknesses are internal; opportunities and threats come from outside.</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>Helpful                                    Harmful</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Internal            Strengths",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>specialist skills, good         Weaknesses: skills gaps, poor equipment or premises, talented            location, weak marketing, no clear people, intellectual property, strong      direction, thin finances, high costs, relationships                              narrow product range, few customers or suppliers, weak brand</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "External            Opportunities",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>new geographies,            Threats: cheaper or better competing underserved markets, partnerships,         technology, new rivals, imports, new acquiring a competitor, new products,      taxes or regulations, rising interest hiring talent to open new markets          rates and costs, tight credit, powerful customers squeezing prices</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "A SWOT is only useful if it leads to action",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>For each quadrant:</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>1. Strengths: use them more and build on them. 2. Weaknesses: fix or reduce them, starting with those that cost you customers. 3. Opportunities: decide which to pursue and what resources each needs. 4. Threats: plan how to reduce their impact before they arrive.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Some advisors now add a second T, for Trends",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>the shifts in technology, customer behaviour and regulation that will reshape your market.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "A strategic plan answers three questions",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>where are we going, how will we get there, and what will it take? It sets short-term objectives (this year) and long-term objectives (three to five years), with precise financial targets and a view of your industry&#x27;s outlook. There is</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>no single right strategy. Options include focusing on a niche, competing on price, competing on quality or service, expanding geographically, or adding products.</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 2,
+        "payload": {
+         "html": "<p>Strategic alliances let two or more businesses combine strengths to achieve more than either could alone. Before agreeing, settle how revenue or profit will be shared, who contributes what, who controls what, how risk is split, and who supplies which products or services.</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 3,
+        "payload": {
+         "html": "<p>Vertical integration means moving up the supply chain (making your own inputs) or down it (selling direct to customers). It can cut costs and increase control but ties up capital.</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 4,
+        "payload": {
+         "html": "<p>A business plan is a shorter, outward-facing version of your strategy, usually written at the formation stage. Typical contents:</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 5,
+        "payload": {
+         "html": "<p>1. Cover page and executive summary 2. Business profile: what you do, for whom, and why you are different 3. Market and competition 4. Marketing and sales plan 5. Operations and team 6. Financial information: projections, funding needed and how it will be used 7. Growth plan and milestones 8. Supporting documents</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Execution matters more than the document",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Assign each objective an owner and a deadline, review progress monthly, and update the plan when conditions change.</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>Value proposition, validation and market size State your value proposition in one sentence. Use this formula: For [target customer] who [problem], we offer [solution]. Unlike [alternative], we [proof of difference]. Describe benefits, not features. &quot;Online ordering site with a WhatsApp button&quot; is a feature. &quot;Never miss a lunchtime order again: customers order in 30 seconds&quot; is a benefit.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Validate demand before you spend",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>You can run this four-step loop in about two weeks:</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>1. Listen: read competitors&#x27; reviews and comments in online groups for recurring complaints. 2. Ask: run ten short customer interviews or a quick poll. Ten good conversations beat a 200-person survey. 3. Measure: check search trends and keyword volumes, including seasonality, in the languages your customers use.</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 2,
+        "payload": {
+         "html": "<p>4. Test: launch a one-page offer or waitlist with a small, fixed ad budget, then count sign- ups, chats or pre-orders.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Size your market bottom-up",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Multiply the number of realistic customers by the average revenue per customer per year. Investors trust this more than a top-down claim such as &quot;we will win 1% of a USD 1 billion market&quot;. Use a top-down figure only as a sanity check.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Example",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>4,000 cafés and restaurants in your target cities × USD 600 a year in subscriptions = a USD 2.4 million addressable market. Show this for today and five years ahead, and state every assumption.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Plan expansion in steps",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Start with one product for one customer segment, then sell a second product to the same segment, then take both to a new segment.</p>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Ask yourself",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Ask yourself",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Test your business against:</p><ul><li>What are my three biggest strengths and three most serious weaknesses? Which single opportunity would have the largest impact in the next 12 months? Which threat could put me out of business, and what is my plan for it? Are my objectives specific, measurable and dated?</li></ul>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Founder tips",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Founder tips",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Practical advice:</p><ul><li>Do your SWOT with someone outside the business, such as a mentor or a customer. Founders are often blind to their own weaknesses. Treat the SWOT and plan as living documents. Review them at least every quarter. If your current plan&#x27;s objectives are not being met, ask why before writing new ones.</li></ul>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Action checklist",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Action checklist",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Before moving on, complete:</p><ul><li>Complete a SWOT analysis with at least five points per quadrant Turn the SWOT into three to five strategic objectives with owners and dates Draft or update your business plan using the outline above Schedule a quarterly strategy review</li></ul>"
+        }
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "name": "EJ 04 — Marketing, customers and branding",
+  "description": "Part: Strategy & Market. Marketing works when customers understand that your product delivers a benefit, fulfils a desire or solves a problem, and when that message reaches them consistently. Advertising is only one part of it; marketing covers everything that shapes how customers see and experience your business.",
+  "language": "en",
+  "subtitle_languages": [],
+  "status": "published",
+  "modules": [
+   {
+    "name": "Introduction",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Module 4 — Marketing, customers and branding",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Marketing works when customers understand that your product delivers a benefit, fulfils a desire or solves a problem, and when that message reaches them consistently. Advertising is only one part of it; marketing covers everything that shapes how customers see and experience your business.</p>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Key ideas",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Overview",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Marketing succeeds when it:</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>tells customers clearly what benefit they get delivers its message consistently attracts new customers keeps existing customers buying changes buying behaviour in your favour</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "The basics of a marketing strategy",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Know your core customers in detail. Keep product and service quality consistent. Keep every promise you make. Use several channels at once (online, social media, word of mouth, partnerships, events, direct sales) and adjust them as conditions change.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Market research before spending",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Start cheaply: talk to 20 potential customers, study competitors&#x27; prices and reviews, and look at industry reports. Find out what customers want, how to improve what you already offer, and what would attract new buyers.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Marketing goals",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Every campaign needs a defined scope (who it targets), a focus (one message), a priority (how it ranks against other work), and a measure of success.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Branding is the emotional response people have to your business",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>its name, look, tone and, above all, the experience it delivers. A strong brand is earned through consistent delivery, not designed in a logo.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Customer loyalty is cheaper than winning new customers",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Tools include money-back guarantees, staff trained to serve well, fast and friendly service, loyalty rewards, and following up after each sale.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "See what your customers see",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Walk through your business as a customer: the website, the phone call, the premises, the invoice. Fix every point of friction.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Measure return on marketing spend",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Set a marketing budget as a share of expected revenue, track which channel brought each customer, and move money towards what works.</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>Digital marketing in practice In markets like Jordan and the wider region, almost every customer is online, mobile-first and reachable by video and WhatsApp. The question is not whether to be digital but which channels to run well.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Choose two or three channels you can run every week",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Channel                                           Best for                        Cost</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>Instagram and Facebook                            Consumer brands, food, retail   Low to medium and services, through Reels and Stories</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 2,
+        "payload": {
+         "html": "<p>WhatsApp Business                                 Closing sales, support and      Free app; the business API repeat orders                   charges per template message</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 3,
+        "payload": {
+         "html": "<p>Google Search and Maps                            Customers with high intent      Free to medium (Business Profile)                                looking locally (&quot;near me&quot;)</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 4,
+        "payload": {
+         "html": "<p>LinkedIn                                          B2B services, hiring and        Medium to high investor visibility</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 5,
+        "payload": {
+         "html": "<p>YouTube and Shorts                                Tutorials, demos and            Low to medium storytelling</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 6,
+        "payload": {
+         "html": "<p>Snapchat                                          Under-35 consumers; under-      Low to medium used by local competitors</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 7,
+        "payload": {
+         "html": "<p>Email newsletter or                               Retention and an audience you   Low; consent required WhatsApp Channel                                  own</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Make short video your core format",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Keep it vertical and 15 to 45 seconds, with a hook in the first two seconds and subtitles. Film once and publish everywhere. Faces beat logos. Rotate four content pillars: educate (tips, myths), prove (testimonials, before and after), entertain (behind the scenes) and converse (polls, Q&amp;A).</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Be findable by search engines and AI assistants",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Customers increasingly ask Google&#x27;s AI answers or chat assistants for recommendations. Keep a fast mobile website with clear service and price pages, FAQs written the way customers ask, and a complete Google Business Profile. Use the same name, phone and address everywhere. Ask every satisfied customer for a review and reply to all of them. Never buy or fake reviews.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Make it easy to pay",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Show instant payment options (for example CliQ in Jordan, or mobile wallets) in every ad, catalogue and invoice. A small incentive for paying upfront reduces failed deliveries and speeds up cash flow.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Use AI with guardrails",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>AI tools can draft posts, ads and visuals in minutes. Follow five rules: a person approves everything before it is published; a native speaker checks the Arabic; customer data never goes into public AI tools; no AI-generated testimonials or &quot;customers&quot;; and customers are told when they are chatting with a bot, with a human always available.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Follow the rules",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Jordan&#x27;s Personal Data Protection Law (No. 24 of 2023) requires explicit, recorded consent before you send marketing messages, plus an easy opt-out. Never buy or share contact lists. Advertising claims must be true under consumer protection law. Page owners can be liable for unlawful comments on their pages. In Gulf markets, influencers must be licensed, so ask for the licence before signing.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Measure what matters",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Metric                                          Formula                               Why it matters</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>Click-through rate                              Clicks ÷ impressions                  Is the ad relevant?</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 2,
+        "payload": {
+         "html": "<p>Cost per lead or sale                           Spend ÷ leads (or sales)              The cost of one result</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 3,
+        "payload": {
+         "html": "<p>Conversion rate                                 Sales ÷ leads or chats                Is your follow-up working?</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 4,
+        "payload": {
+         "html": "<p>Customer acquisition                            All sales and marketing costs ÷ new   The true cost of winning cost (CAC)                                      customers                             a customer</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 5,
+        "payload": {
+         "html": "<p>Return on ad spend                              Revenue from ads ÷ ad spend           Do ads pay back?</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 6,
+        "payload": {
+         "html": "<p>Customer lifetime value                         Average order × orders per year ×     What a customer is (LTV)                                           years as a customer                   worth</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 7,
+        "payload": {
+         "html": "<p>Response time                                   Minutes to first reply                Speed closes deals</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Aim for an LTV at least three times your CAC",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Followers and likes are signals, not results.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "A 90-day marketing plan",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>1. Days 1 to 30, foundations: write your persona and value proposition; set up your Business Profile, WhatsApp catalogue and payment details; start collecting contacts with consent; create a baseline metrics sheet.</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>2. Days 31 to 60, test: post three times a week, two of them videos; run one small click- to-WhatsApp campaign with three to five creatives; ask every customer for a review; review cost per lead and response time weekly. 3. Days 61 to 90, scale: double the budget on the best ad; run one creator or partner collaboration; launch a newsletter or WhatsApp Channel; check what AI search says about you.</p>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Ask yourself",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Ask yourself",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Test your business against:</p><ul><li>Who exactly is my ideal customer, and where do they look for solutions like mine? Why do customers buy from me rather than a competitor? Have I asked them? Why have customers stopped buying from me? Which marketing channel brings the most profitable customers for each dollar spent? Can customers find and buy from me online?</li></ul>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Founder tips",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Founder tips",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Practical advice:</p><ul><li>Focus your marketing on the products or services with the highest gross margin (Module 7). Marketing is a work in progress. Test small, measure, and scale what works. Ask every new customer how they heard about you, and record it.</li></ul>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Action checklist",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Action checklist",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Before moving on, complete:</p><ul><li>Write a one-page profile of your ideal customer Interview at least ten customers or prospects about their needs Set three marketing goals for the next quarter, each with a measure of success Set a monthly marketing budget and a way to track results by channel Walk through your business as a customer and list five improvements</li></ul>"
+        }
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "name": "EJ 05 — Operations, people and technology",
+  "description": "Part: Strategy & Market. Well-run operations turn a good idea into a reliable business. This module covers leadership and urgency, effective and efficient processes, the supply chain, managing change, outsourcing, hiring, and the technology a startup needs.",
+  "language": "en",
+  "subtitle_languages": [],
+  "status": "published",
+  "modules": [
+   {
+    "name": "Introduction",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Module 5 — Operations, people and technology",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Well-run operations turn a good idea into a reliable business. This module covers leadership and urgency, effective and efficient processes, the supply chain, managing change, outsourcing, hiring, and the technology a startup needs.</p>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Key ideas",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Sense of urgency and leadership",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Follow up, pay attention to detail, and deal with problems immediately rather than letting them grow. Good leaders inspire, encourage and challenge their teams.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Time management",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Set goals, track progress, keep a prioritised to-do list, cut distractions, and delegate what others can do.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Effective versus efficient",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>An effective operation produces the result you intended. An efficient one produces it with the least wasted time, effort and money. You need both.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Process improvement",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Change a process to standardise it, remove bottlenecks, reduce errors, simplify it, or fit a new system. Follow four steps:</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>1. Examine: find the areas performing below expectations. 2. Prioritise: rank them by their impact on customers, staff and profit. 3. Decide: choose what to change, starting with areas that repeatedly fail. 4. Document and implement: write down the new process, make sure everyone understands it, and check that it delivers the expected result.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Supply chain",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Your supply chain is the flow of goods, information and money from your suppliers to your customers. Manage forecasting, purchasing, production, scheduling, stock levels, transport, payment terms and customer requests as one linked system.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Managing change",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>People resist change they do not understand. Lead from the front, state goals clearly, involve staff early, communicate openly, reward progress, and develop team leaders who can carry the change.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Outsourcing",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Contract out functions you lack the skills for or need only part-time, such as bookkeeping, payroll, IT support, design or legal work. Compare the full cost of doing it in- house with the contractor&#x27;s price and the quality you will get.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "People",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Hiring decisions shape your business more than almost anything else.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Define the role and the skills needed before advertising",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Use structured interviews and check references. Write a simple employee handbook covering conduct, leave, pay and safety. Get payroll and statutory deductions right every time, or outsource them. Give every new hire a proper orientation and initial training.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Country focus",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Jordan employment and social security Jordan&#x27;s Labour Law sets minimum standards that contracts can improve on but never reduce. Where a rule is unclear, courts read it in the worker&#x27;s favour. Labour cases are heard quickly and free of court fees, so mistakes are costly for employers.</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>Employee or contractor? The difference matters for social security and dismissal rights.</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 2,
+        "payload": {
+         "html": "<p>Test                      Employee                              Contractor</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 3,
+        "payload": {
+         "html": "<p>Control                   Works under your direction and        Works independently, on their own supervision                           responsibility</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 4,
+        "payload": {
+         "html": "<p>Paid for                  Being available during agreed hours   Delivering the agreed result and place</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 5,
+        "payload": {
+         "html": "<p>Business                  Carried by you                        Carried by the contractor risk</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Employment contracts",
+      "description": "",
+      "blocks": []
+     },
+     {
+      "name": "Put contracts in writing, in Arabic, in two copies (one each)",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Add a foreign-language copy for non-Arabic-speaking workers. A probation period must be written into the contract and may not exceed three months. It counts towards length of service. Normal working time is a maximum of 8 hours a day or 48 hours a week. Overtime is voluntary and paid at no less than 125% of normal pay. Work on the weekly rest day or a public holiday is paid at no less than 150%. Pay wages within seven days of the due date, at no less than the national minimum wage. Provide a safe workplace, legal leave (annual, sick and maternity) and safety equipment and training. Companies with five or more employees need written internal work regulations. Inventions belong to the employer if they relate to the business or use its information, tools or materials, unless agreed otherwise in writing. Put IP ownership in the contract.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Ending employment",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Article 28 allows dismissal without notice only for serious misconduct. Examples include forged documents, serious damage caused by gross error, repeated safety breaches after two written warnings, unjustified absence (over 20</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>separate days a year or 10 consecutive days, after formal written warning), disclosing business secrets, assault, or being intoxicated at work. Unfair dismissal from an open- ended contract costs at least half a month&#x27;s pay per year of service (minimum two months), plus notice pay and other entitlements. Ending a fixed-term contract early without cause means paying wages for the rest of the term.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Social security (SSC)",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Enrolment is mandatory for every worker aged 16 or over, of any nationality, from the first employee. This includes self-employed people and owners or partners who work in the business. It covers work injury, old age, disability and death, maternity, unemployment and health insurance.</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>Contribution (% of insurable wage, capped at JOD               Employer   Employee 3,000 a month)</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 2,
+        "payload": {
+         "html": "<p>Old age, disability and death                                  11%        6.5%</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 3,
+        "payload": {
+         "html": "<p>Work injury                                                    2%         –</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 4,
+        "payload": {
+         "html": "<p>Maternity                                                      0.75%      –</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 5,
+        "payload": {
+         "html": "<p>Unemployment                                                   0.5%       1%</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 6,
+        "payload": {
+         "html": "<p>Total (21.75%)                                                 14.25%     7.5%</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Budget for this in your hiring costs",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>a JOD 600 monthly salary costs the business about JOD 685.50 once the employer&#x27;s contribution is added.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Employer duties to SSC",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>pay contributions by the 15th of the following month (late interest is 1% a month); report new joiners and leavers by the end of the following month; and file the annual staff list by the end of March. Penalties include a 30% surcharge on under-declared wages, a JOD 500 fine for each uninsured worker, and JOD 1,000 to 2,000 for knowingly false data.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Technology",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Choose software to fit your business needs, not the other way round. Back up all files to the cloud automatically. Protect devices and accounts with strong passwords, two-factor authentication and up-to-date security software. Use the internet and mobile tools to reach customers and work from anywhere.</p>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Ask yourself",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Ask yourself",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Test your business against:</p><ul><li>Which process causes the most errors, delays or customer complaints? Which tasks take my time that someone else could do better or cheaper?</li><li>If my laptop were stolen today, what would I lose? Does every employee know what is expected of them and how they are doing?</li></ul>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Founder tips",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Founder tips",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Practical advice:</p><ul><li>Measure before and after every process change so you know whether it worked. Fix one bottleneck at a time; the next one will become visible once the first is gone. Founders often hire too fast when busy and fire too slowly when a hire is not working. Do the opposite.</li></ul>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Action checklist",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Action checklist",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Before moving on, complete:</p><ul><li>Map your core process from order to delivery and mark the bottlenecks Choose one process to improve using the four steps above List functions you could outsource and compare the costs Set up automatic cloud backup and two-factor authentication on key accounts Draft a basic employee handbook and onboarding checklist</li></ul>"
+        }
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "name": "EJ 06 — Reading your financial statements",
+  "description": "Part: Financial Health. Three statements tell you how your business is really doing: the income statement (profit), the balance sheet (what you own and owe), and the cash flow statement (where cash came from and went). A founder who can read them makes better decisions and earns the trust of lenders and investors.",
+  "language": "en",
+  "subtitle_languages": [],
+  "status": "published",
+  "modules": [
+   {
+    "name": "Introduction",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Module 6 — Reading your financial statements",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Three statements tell you how your business is really doing: the income statement (profit), the balance sheet (what you own and owe), and the cash flow statement (where cash came from and went). A founder who can read them makes better decisions and earns the trust of lenders and investors.</p>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Key ideas",
+    "description": "",
+    "lessons": [
+     {
+      "name": "The three statements at a glance",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Statement                                       Question it answers       Covers</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>Income statement                                Did we make a profit?     Revenue, cost of sales, expenses (profit and loss)                                                         and net profit over a period</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 2,
+        "payload": {
+         "html": "<p>Balance sheet                                   What do we own and owe?   Assets, liabilities and owner&#x27;s equity at a point in time</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 3,
+        "payload": {
+         "html": "<p>Statement                                       Question it answers             Covers</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 4,
+        "payload": {
+         "html": "<p>Cash flow statement                             Where did our cash come         Cash from operating, investing from and go?                    and financing activities over a period</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Profit is not cash",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>A profitable business can still run out of money if customers pay late, stock piles up or loan repayments fall due. The cash flow statement shows cash actually received and paid. It leaves out non-cash items such as depreciation.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Look at trends, not single years",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Put three to five years (or 12 to 24 months for a young startup) side by side, oldest on the left and newest on the right. Add your projections to the right.</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>Adjust for &quot;abnormal&quot; items. To see the true profit of the business, strip out or correct items that distort it: personal expenses run through the business, deals with relatives not at market price, owner salaries far above or below market, one-off gains or losses, and corrections of past errors.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Common-size statements",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Convert each line into a percentage of revenue (income statement) or of total assets (balance sheet). Percentages make it easy to spot unusual changes, as in this example:</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>Line                                    Year 1 (USD)           % of revenue   Year 2 (USD)   % of revenue</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 2,
+        "payload": {
+         "html": "<p>Revenue                                 200,000                100%           260,000        100%</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 3,
+        "payload": {
+         "html": "<p>Cost of sales                           120,000                60%            169,000        65%</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 4,
+        "payload": {
+         "html": "<p>Gross profit                            80,000                 40%            91,000         35%</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 5,
+        "payload": {
+         "html": "<p>Operating expenses                      60,000                 30%            70,200         27%</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 6,
+        "payload": {
+         "html": "<p>Net profit                              20,000                 10%            20,800         8%</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 7,
+        "payload": {
+         "html": "<p>Revenue grew 30%, but gross margin fell from 40% to 35%. The founder should find out why: rising supplier prices, discounting, or a shift towards lower-margin products.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Cash versus accrual accounting",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Cash accounting records income when paid and costs when settled. Accrual accounting records them when earned or incurred. Accrual gives a truer picture of performance and is usually required once a business grows or raises finance.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Five financial pitfalls to avoid",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>1. No cash reserve for slow months or emergencies 2. Not tracking cash flow weekly 3. Borrowing without a clear plan to repay 4. Spending ahead of revenue 5. Mixing personal and business money</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Country focus",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Jordan income tax and sales tax Tax shapes your prices, cash flow and record-keeping from the first sale. Here are the basics every Jordanian founder should know.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Income tax",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>what is taxed. Any income earned in or from Jordan is taxable, for residents and non-residents alike, unless the law specifically exempts it. Exemptions include end- of-service payments within legal limits and some agricultural income: the first JOD 1 million of an individual&#x27;s agricultural sales, or the first JOD 50,000 of a company&#x27;s net agricultural income.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "How taxable income is calculated",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Step                                                           Example (JOD)</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>Gross income from taxable sources                              250</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 2,
+        "payload": {
+         "html": "<p>Less allowable expenses                                        (50)</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 3,
+        "payload": {
+         "html": "<p>Net income                                                     200</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Less, in order",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>losses carried forward, personal and           – family exemptions (individuals), approved donations</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>Taxable income                                                 200</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 2,
+        "payload": {
+         "html": "<p>Tax is charged on taxable income at the rates set for individuals or companies. Companies also pay a national contribution on taxable income: 1% for most companies (2% for telecoms and insurance, 3% for banks, 7% for basic mining). Individuals pay 1% on taxable income above JOD 200,000.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Records and returns",
+      "description": "",
+      "blocks": []
+     },
+     {
+      "name": "Tax accounting is on an accruals basis",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Only some professionals (lawyers, doctors, auditors) may use cash accounting. Records must follow international accounting standards and be audited by a licensed auditor. Tax law requires records to be kept for at least four years after filing, and longer while any dispute is open. Commercial law requires the statutory books to be kept for ten years, so keep everything for ten. File the annual return within four months of the year end.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Withholding tax you must deduct and pay over",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Payment                                                        Rate          Who withholds</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>Professional fees paid by a                                    5%            The paying company company</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 2,
+        "payload": {
+         "html": "<p>Employee salaries                                              Per the tax   Employer regulations</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 3,
+        "payload": {
+         "html": "<p>Bank interest to an individual                                 5%            The bank</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 4,
+        "payload": {
+         "html": "<p>Bank interest to a company                                     7%            The bank</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 5,
+        "payload": {
+         "html": "<p>Imported services paid to a non-                               10%           The resident business receiving resident                                                                     the service</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Penalties",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Late filing costs JOD 100 for individuals, JOD 300 for most companies and JOD 1,000 for shareholding companies. Failing to keep records, withhold tax, produce documents or issue an invoice on request costs JOD 200 to 500 each. Late payment adds 0.4% a week. Tax evasion, such as fake documents, hidden income or destroyed records, brings a fine equal to the tax evaded, and imprisonment for repeat offences.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "General sales tax (a VAT-style tax)",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Tax is charged at each stage of the supply chain. Registered businesses deduct the tax paid on their inputs from the tax they collect on sales.</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>Registration is compulsory once sales over 12 consecutive months reach JOD 30,000 for services or JOD 75,000 for trade and industry. Voluntary registration is possible. Zero-rated versus exempt. Both charge customers no tax. But input tax can be reclaimed on zero-rated sales, including exports, and cannot be reclaimed on exempt sales.</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 2,
+        "payload": {
+         "html": "<p>Tax invoices and periodic returns are required from the date of registration. Penalties. Registering up to 60 days late costs JOD 100 to 500. Beyond 60 days, the fine is two to three times the tax due plus a JOD 200 to 1,000 fine. Under-declaring sales or over-claiming input tax beyond set limits is treated as a crime. Late payment adds 0.4% a week.</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 3,
+        "payload": {
+         "html": "<p>Build sales tax into your prices (Module 7) and your cash budget (Module 10). Tax collected from customers is not your money. Set it aside until it is paid over. Rates and thresholds change, so confirm current figures with the Income and Sales Tax Department or a tax adviser.</p>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Ask yourself",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Ask yourself",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Test your business against:</p><ul><li>Do I receive monthly financial statements, and do I read them? Is my profit rising faster or slower than my revenue? Why? Which personal or one-off items are distorting my figures? How many months could I survive on the cash I hold today?</li></ul>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Founder tips",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Founder tips",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Practical advice:</p><ul><li>Hire a competent bookkeeper or use cloud accounting software from the start. Clean books cost far less than cleaning them up later. Read the cash flow statement first. It is the hardest to manipulate and the one that kills startups. Ask your accountant to explain any line you do not understand.</li></ul>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Action checklist",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Action checklist",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Before moving on, complete:</p><ul><li>Obtain your latest income statement, balance sheet and cash flow statement Build a side-by-side spreadsheet covering every period you have Prepare a common-size version and flag any line that moved by more than 3 percentage points List any abnormal or personal items and adjust for them Set a target cash reserve (for example, three months of fixed costs)</li></ul>"
+        }
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "name": "EJ 07 — Revenue, gross margin and expense control",
+  "description": "Part: Financial Health. Total revenue tells you how big you are; gross margin by product tells you where you actually make money. Analyse both, then review every expense line for savings.",
+  "language": "en",
+  "subtitle_languages": [],
+  "status": "published",
+  "modules": [
+   {
+    "name": "Introduction",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Module 7 — Revenue, gross margin and expense control",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Total revenue tells you how big you are; gross margin by product tells you where you actually make money. Analyse both, then review every expense line for savings.</p>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Key ideas",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Gross profit and gross margin",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Gross profit is revenue minus the direct cost of what you sold. Gross margin is gross profit as a percentage of revenue. It is the money left to pay overheads and generate profit.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Analyse by product or service line",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>A business can be profitable overall while some products lose money. In this example the business earns a 34% overall margin, but Product C earns only 20%:</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>Product line              Revenue (USD)                  Direct costs (USD)   Gross profit (USD)   Gross margin</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 2,
+        "payload": {
+         "html": "<p>Product B                 60,000                         30,000               30,000               50%</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 3,
+        "payload": {
+         "html": "<p>Product A                 100,000                        70,000               30,000               30%</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 4,
+        "payload": {
+         "html": "<p>Product C                 40,000                         32,000               8,000                20%</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 5,
+        "payload": {
+         "html": "<p>Total                     200,000                        132,000              68,000               34%</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 6,
+        "payload": {
+         "html": "<p>Product B earns as much gross profit as Product A on 40% less revenue. Marketing effort should lean towards B; Product C needs a price rise, a cheaper supplier, or a decision to drop it.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Pricing",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Know how each price was set: cost plus a mark-up, competitor matching, or the value to the customer. Test price changes and watch the effect on both revenue and gross profit.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Sales terms",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Payment terms, deposits, credit limits and instalment options can win or lose sales and strongly affect cash flow.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Growing revenue",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Look for underserved market segments, new channels (especially online), complementary products or services, and new revenue streams. Check that you have the capacity and capital to handle growth.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Reviewing expenses",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Go through each overhead line and ask whether it is necessary, whether it delivers value, and whether it could be cheaper. Common savings areas:</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Professional fees (accounting, legal)",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>get competing quotes; use standard templates for routine documents Advertising: compare spend with the sales it generates Subscriptions and memberships: cancel those you do not use Equipment: compare leasing with buying Insurance: confirm cover is adequate and re-quote every year Interest: know every rate you pay and pay off the most expensive debt first Rent: negotiate terms before renewal Telephone and internet: bundle services and review plans Miscellaneous: reclassify anything over a small threshold so you can see what it is</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Expense claims",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Require receipts, a business purpose and approval by someone other than the claimant. Never rubber-stamp claims.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Variance notes",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Each month, write one line explaining any revenue or expense item that changed significantly from the previous period or from budget. This builds a record that makes later decisions faster.</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>Costing and pricing a new product or service Pricing is a strategic decision, not just a number. It decides whether you make a profit, how the market sees you (premium, mid-range or budget) and how well you can compete. Before setting a price, answer five questions: What does it really cost me? What value does the customer get? What do competitors charge? How price-sensitive are my customers? What is my pricing goal: profit, market entry, new customers or expansion?</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Know your costs",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Split them into two groups:</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Direct (variable) costs rise and fall with what you produce",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>raw materials, direct labour hours, packaging, delivery, sales commissions, and energy used in production. Fixed (indirect) costs stay the same whatever you produce: management and admin salaries, rent, audit and legal fees, insurance, bank interest, internet and utilities.</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>Unit cost is the total cost of producing and selling one unit in a period. It falls as volume rises, because fixed costs are spread over more units. With fixed costs of JOD 1,000 a month:</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 2,
+        "payload": {
+         "html": "<p>Month                   Units made               Direct costs (JOD)   Fixed costs (JOD)   Unit cost (JOD)</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 3,
+        "payload": {
+         "html": "<p>June                    100                      1,000                1,000               20</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 4,
+        "payload": {
+         "html": "<p>Month                   Units made               Direct costs (JOD)   Fixed costs (JOD)   Unit cost (JOD)</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 5,
+        "payload": {
+         "html": "<p>September               50                       500                  1,000               30</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 6,
+        "payload": {
+         "html": "<p>August                  5                        50                   1,000               210</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 7,
+        "payload": {
+         "html": "<p>You can cut unit cost by finding cheaper inputs, outsourcing production, growing volume, or reducing overheads.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Break-even point",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>This is where total revenue equals total costs. Divide fixed costs by the profit each unit contributes (selling price minus variable cost per unit). Example: fixed costs of JOD 1,000 a month, variable cost of JOD 3 a unit and a price of JOD 5 give a contribution of JOD 2. You must sell 1,000 ÷ 2 = 500 units a month to break even.</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>Price taker or price maker? A price taker sells something with close substitutes, such as dairy, soft drinks or vegetables, and must accept the market price. A price maker has a differentiated product with no close substitute and can set the price. Know which you are before choosing a strategy.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Accounting profit versus economic profit",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Accounting profit is revenue minus costs. Economic profit also deducts the opportunity cost: what your time and money would earn elsewhere. A founder who leaves a well-paid job should check that the business beats the salary given up, not just that it shows a profit.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Common pricing strategies",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Strategy                               How it works                           Example</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>Cost-plus                              Add a set margin to unit cost          Unit cost JOD 10 plus a 40% mark-up = price JOD 14</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 2,
+        "payload": {
+         "html": "<p>Value-based                            Price on the value customers           Innovative products that solve a perceive, not just cost                real problem, premium brands</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 3,
+        "payload": {
+         "html": "<p>Market-based                           Set the price within competitors&#x27;      Competitors charge JOD 15 to 18; range                                  you charge JOD 16</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 4,
+        "payload": {
+         "html": "<p>Penetration                            Start low, or with a free trial, to    Gyms, internet services win share, then raise gradually</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 5,
+        "payload": {
+         "html": "<p>Skimming                               Start high for early adopters,         New phones and TVs, fashion then lower as the market               items matures</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 6,
+        "payload": {
+         "html": "<p>Strategy                               How it works                      Example</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 7,
+        "payload": {
+         "html": "<p>Freemium or                            A free basic version and a paid   Many technology startups subscription                           version with extra features</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 8,
+        "payload": {
+         "html": "<p>Pricing too low means losing money without noticing, signalling low quality, and struggling to raise prices later. Pricing too high means losing customers to competitors unless the value clearly justifies it.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Worked example",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>a ticket-booking app. Development costs 100 hours at JOD 10 an hour (JOD 1,000), plus JOD 300 of software subscriptions and JOD 700 of hosting: JOD 2,000 in direct costs. Fixed costs are JOD 4,000, so the total cost is JOD 6,000. A 50% target margin sets a revenue target of JOD 9,000.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Monthly subscription of JOD 5 (JOD 60 a year)",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>150 subscribers needed. One-off lifetime fee of JOD 5: 1,800 subscribers needed. One-off lifetime fee of JOD 100: 90 subscribers needed.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Remember that sales tax is added to the price",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Decide whether the customer, the business or both will bear it.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "After launch",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>test and adjust. Run split tests that change one variable at a time (price point, features, segment or payment timing). Gather customer feedback and watch sales data for the effect on volume and profit. Your price is right when sales are healthy, you make a profit, customers are satisfied, competitors cannot easily take your customers, and the price reflects value, not just cost.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Pricing mistakes to avoid",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>setting prices on gut feeling instead of numbers; copying a competitor exactly; pricing low only to attract customers; ignoring indirect costs; changing prices constantly without reason. Also allow for the economy and customers&#x27; purchasing power, regulated price limits, distributors&#x27; margins, and enough flexibility to respond to competitors and demand.</p>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Ask yourself",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Ask yourself",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Test your business against:</p><ul><li>Which of my products or services has the highest gross margin? Am I selling enough of it? How did I set my prices, and when did I last review them? What do competitors offer that I do not? What would happen to profit if I raised prices by 5%?</li><li>Which expense has grown fastest, and why?</li></ul>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Founder tips",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Founder tips",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Practical advice:</p><ul><li>A small price increase usually adds more to profit than a much larger rise in volume. Recheck supplier prices at least once a year. Review your largest five expense lines every month; they hold most of the savings.</li></ul>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Action checklist",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Action checklist",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Before moving on, complete:</p><ul><li>Calculate gross margin for each product or service line Rank lines by gross profit, not revenue, and adjust marketing focus Review the pricing of your lowest-margin line Go through every expense line and identify at least three savings Introduce a written expense-claim policy Start a monthly one-page variance note</li></ul>"
+        }
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "name": "EJ 08 — Assets, liabilities and working capital",
+  "description": "Part: Financial Health. Founders watch revenue and costs closely but often neglect the balance sheet. Yet slow- paying customers, excess stock and unmanaged debts are what drain a startup's cash.",
+  "language": "en",
+  "subtitle_languages": [],
+  "status": "published",
+  "modules": [
+   {
+    "name": "Introduction",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Module 8 — Assets, liabilities and working capital",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Founders watch revenue and costs closely but often neglect the balance sheet. Yet slow- paying customers, excess stock and unmanaged debts are what drain a startup&#x27;s cash.</p>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Key ideas",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Book value is not market value",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Book value is what you paid for an asset minus accumulated depreciation. Fair market value is what a willing buyer would pay a willing seller, both well informed and under no pressure. Lenders and buyers care about market value.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Assets to review",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Asset                                                          What to check</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>Accounts receivable (money owed by                             Is there an aged list (current, 30, 60, 90+ customers)                                                     days)? How do you assess a customer before giving credit? Are your terms enforced?</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 2,
+        "payload": {
+         "html": "<p>Asset                                                            What to check</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 3,
+        "payload": {
+         "html": "<p>Inventory (stock)                                                Do you hold the right items in the right quantities? Do you mark down slow-moving stock quickly?</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 4,
+        "payload": {
+         "html": "<p>Equipment and property                                           Is each item fully used? Owned or leased? Is money set aside for repairs and replacement?</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 5,
+        "payload": {
+         "html": "<p>Cash and petty cash                                              Is petty cash locked, receipted and reviewed monthly?</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 6,
+        "payload": {
+         "html": "<p>Prepayments and staff advances                                   Can prepayments be reduced to free cash? Are advances recorded and recovered?</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 7,
+        "payload": {
+         "html": "<p>Vehicles                                                         Owned or leased? How is business use of personal vehicles reimbursed?</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Liabilities to review",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Liability                                                      What to check</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>Accounts payable (money owed to                                Are all bills recorded? Any overdue, attracting suppliers)                                                     late fees or holding up orders? Are early- payment discounts taken?</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 2,
+        "payload": {
+         "html": "<p>Overdrafts and credit cards                                    Are overdrafts routine? What interest rate applies to each card?</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 3,
+        "payload": {
+         "html": "<p>Long-term loans                                                Can repayments be met from operating profit? Could the debt be restructured on better terms?</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 4,
+        "payload": {
+         "html": "<p>Customer deposits                                              Could you refund them if needed?</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 5,
+        "payload": {
+         "html": "<p>Taxes and employee benefits                                    Are they paid on time? Are amounts owed set aside?</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Hidden and contingent liabilities",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Some obligations do not appear on the balance sheet: long-term leases, pending legal claims, warranty work, prepaid vouchers, and unfunded staff benefits. List them and consider setting cash aside.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Working capital is current assets minus current liabilities",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>It is the cushion that funds day- to-day operations. Too little and you cannot pay bills; too much idle cash means a missed opportunity to invest in growth.</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>Your working capital requirement Every trading business buys from suppliers, holds stock and sells to customers. The money tied up in that cycle is your working capital requirement, also called the funding gap. It is the heart of the business, and the main reason fast-growing startups run out of cash.</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 2,
+        "payload": {
+         "html": "<p>\\text{Working capital requirement} = \\text{Inventory} + \\text{Receivables} - \\text{Payables}</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 3,
+        "payload": {
+         "html": "<p>Each part can be estimated from revenue and the number of days involved:</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 4,
+        "payload": {
+         "html": "<p>Receivables = days of credit given × (annual revenue ÷ 365) Inventory = days of stock held × (annual cost of sales ÷ 365) Payables = days of credit received × (annual cost of sales ÷ 365)</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Worked example",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Annual revenue is USD 182,500 (USD 500 a day) and gross margin is 40%, so cost of sales is USD 300 a day.</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>Component               Well-managed                  Amount    % of      Slipping   Amount   % of terms                         (USD)     revenue   terms      (USD)    revenue</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 2,
+        "payload": {
+         "html": "<p>Receivables             45 days                       22,500    12.3%     90 days    45,000   24.7%</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 3,
+        "payload": {
+         "html": "<p>Inventory               30 days                       9,000     4.9%      120 days   36,000   19.7%</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 4,
+        "payload": {
+         "html": "<p>Less                    20 days                       −6,000    −3.3%     20 days    −6,000   −3.3% payables</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 5,
+        "payload": {
+         "html": "<p>Requirement                                           25,500    13.9%                75,000   41.1%</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 6,
+        "payload": {
+         "html": "<p>With well-managed terms, a new USD 40,000 contract needs about USD 5,560 of extra working capital (13.9%). If collections and stock control slip, the same contract needs USD 16,440 (41.1%), nearly three times as much. That is cash you must find from an overdraft, a loan or your own pocket.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Levers to shrink the gap",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>collect faster, hold less stock, and negotiate longer terms with suppliers. Agree longer terms upfront rather than simply paying late; overdue accounts soon lead to supply problems.</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>Factoring means selling your receivables to a third party at a discount for immediate cash. It helps cash flow but is expensive; use it with care.</p>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Ask yourself",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Ask yourself",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Test your business against:</p><ul><li>How many days, on average, do my customers take to pay? How much cash is tied up in slow-moving stock? Am I paying any supplier late? What is it costing me? What obligations could hit me that are not on my balance sheet?</li></ul>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Founder tips",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Founder tips",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Practical advice:</p><ul><li>Invoice immediately and follow up on the first day an invoice is overdue. Agree payment terms with suppliers that are at least as long as the terms you give customers. Ask for deposits on large or custom orders.</li></ul>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Action checklist",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Action checklist",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Before moving on, complete:</p><ul><li>Produce an aged receivables list and chase everything over 30 days Identify stock that has not moved in 90 days and plan to clear it List every debt with its balance, interest rate and repayment date List contingent liabilities and estimate their possible cost Calculate your working capital</li></ul>"
+        }
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "name": "EJ 09 — Key financial ratios, your business dashboard",
+  "description": "Part: Financial Health. A handful of ratios, tracked every month or quarter, warn you of trouble long before it shows in the bank balance. No ratio is good or bad on its own; what matters is its trend and how it compares with businesses like yours.",
+  "language": "en",
+  "subtitle_languages": [],
+  "status": "published",
+  "modules": [
+   {
+    "name": "Introduction",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Module 9 — Key financial ratios, your business dashboard",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>A handful of ratios, tracked every month or quarter, warn you of trouble long before it shows in the bank balance. No ratio is good or bad on its own; what matters is its trend and how it compares with businesses like yours.</p>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Key ideas",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Eleven core ratios",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Ratio                                           Formula                          What it tells you</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>Current ratio                                   Current assets ÷ current         Can you pay bills due within a liabilities                      year? Below 1 is a warning sign.</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 2,
+        "payload": {
+         "html": "<p>Quick (acid-test) ratio                         (Cash + receivables) ÷           The same test, excluding stock, current liabilities              which may be slow to sell</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 3,
+        "payload": {
+         "html": "<p>Working capital                                 Current assets − current         The cash cushion available to liabilities                      run and grow the business</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 4,
+        "payload": {
+         "html": "<p>Receivables turnover                            Credit sales ÷ average           How many times a year you receivables                      collect what customers owe</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 5,
+        "payload": {
+         "html": "<p>Days to collect                                 (Receivables ÷ credit sales) ×   Average days customers take 365                              to pay</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 6,
+        "payload": {
+         "html": "<p>Inventory turnover                              Cost of sales ÷ average          How many times a year you sell inventory                        through your stock</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 7,
+        "payload": {
+         "html": "<p>Days in inventory                               (Ending inventory ÷ cost of      How many days of sales are sales) × 365                     sitting in stock</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 8,
+        "payload": {
+         "html": "<p>Debt to equity                                  Total liabilities ÷ owner&#x27;s      How much of the business is equity                           funded by creditors versus owners</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 9,
+        "payload": {
+         "html": "<p>Interest cover (times                           Profit before interest and tax   How comfortably profit covers interest earned)                                ÷ interest expense               interest payments</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 10,
+        "payload": {
+         "html": "<p>Net profit margin                               Net profit ÷ net sales           How much of each sale becomes profit</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 11,
+        "payload": {
+         "html": "<p>Asset turnover                                  Net sales ÷ average total        How well your assets generate assets                           sales</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Worked example",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>A startup has USD 50,000 in current assets (of which USD 15,000 is stock) and USD 25,000 in current liabilities.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Current ratio",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>50,000 ÷ 25,000 = 2.0 Quick ratio: (50,000 − 15,000) ÷ 25,000 = 1.4 Working capital: 50,000 − 25,000 = USD 25,000</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>If credit sales for the year are USD 180,000 and receivables are USD 30,000, days to collect = (30,000 ÷ 180,000) × 365 = about 61 days. If your terms are 30 days, customers are paying twice as slowly as agreed.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Choose the ratios that matter for your business",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>A service business with no stock can ignore the inventory ratios. A retailer should watch them closely.</p>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Ask yourself",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Ask yourself",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Test your business against:</p><ul><li>Which five ratios best describe the health of my business? Are they improving or getting worse over the last four quarters? How do they compare with others in my industry?</li></ul>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Founder tips",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Founder tips",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Practical advice:</p><ul><li>Set up a simple spreadsheet that calculates your chosen ratios automatically from your monthly accounts. Lenders and investors will calculate these ratios anyway. Know your numbers before they ask. Ask your industry association or bank for typical ratios in your sector.</li></ul>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Action checklist",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Action checklist",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Before moving on, complete:</p><ul><li>Choose five to seven ratios relevant to your business Calculate them for each period you have data for Plot the trend and flag any ratio moving the wrong way Agree one action for each ratio that is getting worse</li></ul>"
+        }
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "name": "EJ 10 — Budgets, forecasts and cash flow",
+  "description": "Part: Planning & Funding. A budget is where you intend to go; a forecast is where you are actually heading. Compare the two every month, explain the gaps, and keep a rolling cash budget so you are never surprised by a shortfall.",
+  "language": "en",
+  "subtitle_languages": [],
+  "status": "published",
+  "modules": [
+   {
+    "name": "Introduction",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Module 10 — Budgets, forecasts and cash flow",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>A budget is where you intend to go; a forecast is where you are actually heading. Compare the two every month, explain the gaps, and keep a rolling cash budget so you are never surprised by a shortfall.</p>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Key ideas",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Budget versus forecast",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>A budget is a financial target you commit to hitting. A forecast is your best estimate of results based on current performance and the economic climate. A stretch budget sets deliberately ambitious targets to push the team.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "The budgets a startup needs",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>1. Sales budget: expected revenue by product and month. 2. Expense budget: expected operating costs by month. 3. Capital expenditure budget: planned purchases of equipment and other long-term assets, and their effect on future profit. 4. Cash budget: expected cash in and out each month. This is the most important for a startup.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Types of budget",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Type               How it works                                           When to use it</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>Static             Set once for the year and not changed                  Stable, predictable businesses</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 2,
+        "payload": {
+         "html": "<p>Rolling            Each time a month or quarter ends, a new               Startups and fast-changing one is added, so you always look 12 months             businesses ahead</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 3,
+        "payload": {
+         "html": "<p>Fixed              Amounts stay the same regardless of                    Fixed costs such as rent activity</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 4,
+        "payload": {
+         "html": "<p>Flexible           Amounts adjust with sales volume; can                  Variable costs and scenario include best and worst cases                           planning</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Budget variance report",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Each month compare actual results with budget, mark each variance favourable or unfavourable, and explain the significant ones.</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>Line                       Budget                     Actual   Variance        Favourable or unfavourable (USD)                      (USD)    (USD)</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 2,
+        "payload": {
+         "html": "<p>Revenue                    50,000                     46,000   −4,000          Unfavourable</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 3,
+        "payload": {
+         "html": "<p>Cost of                    30,000                     27,000   3,000           Favourable (lower sales sales                                                                          volume)</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 4,
+        "payload": {
+         "html": "<p>Marketing                  3,000                      4,500    −1,500          Unfavourable</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 5,
+        "payload": {
+         "html": "<p>Rent                       3,000                      3,000    0               On budget</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Cash budget example",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>A three-month cash budget shows the timing of cash, not profit:</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>Line (USD)                                           Month 1   Month 2   Month 3</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 2,
+        "payload": {
+         "html": "<p>Opening cash                                         20,000    15,000    19,000</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 3,
+        "payload": {
+         "html": "<p>Cash sales                                           15,000    16,000    18,000</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 4,
+        "payload": {
+         "html": "<p>Collections from customers                           10,000    14,000    15,000</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 5,
+        "payload": {
+         "html": "<p>Total cash in                                        25,000    30,000    33,000</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 6,
+        "payload": {
+         "html": "<p>Supplier payments                                    12,000    13,000    14,000</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 7,
+        "payload": {
+         "html": "<p>Salaries                                             8,000     8,000     9,000</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 8,
+        "payload": {
+         "html": "<p>Rent                                                 3,000     3,000     3,000</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 9,
+        "payload": {
+         "html": "<p>Other operating costs                                2,000     2,000     2,000</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 10,
+        "payload": {
+         "html": "<p>Equipment purchase                                   5,000     0         0</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 11,
+        "payload": {
+         "html": "<p>Loan repayment                                       0         0         4,000</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 12,
+        "payload": {
+         "html": "<p>Total cash out                                       30,000    26,000    32,000</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 13,
+        "payload": {
+         "html": "<p>Net cash flow                                        −5,000    4,000     1,000</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 14,
+        "payload": {
+         "html": "<p>Closing cash                                         15,000    19,000    20,000</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "The equipment purchase in month 1 reduces cash by a quarter",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>If the minimum safe balance is USD 15,000, there is no room for a slow month. The founder could lease the equipment or negotiate longer supplier terms.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Managing cash flow day to day The three Cs of cash flow",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>1. Cash: tight control of headcount and every expense, and finding cash where you least expect it, such as faster collections, unused assets or grants for product development. 2. Credit: a working plan for payments in and payments out, including agreed deferrals with creditors. Good supplier relationships make this far easier. 3. Communication: do not hide difficulties. Talk early to your bank, suppliers, key customers and staff about the steps you are taking. People support a business that is open with them.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Speed up money coming in",
+      "description": "",
+      "blocks": []
+     },
+     {
+      "name": "Invoice immediately and follow up the day a payment is late",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Ask for deposits when orders are taken. Credit-check every new customer you sell to on credit. Offer a small discount for prompt payment. Clear old and obsolete stock for whatever it will fetch.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Slow down money going out, sensibly",
+      "description": "",
+      "blocks": []
+     },
+     {
+      "name": "Use the full payment terms you are given",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>if a bill is due in 30 days, do not pay in 15. Weigh early-payment discounts carefully. Some are good value; others amount to an expensive loan to your supplier. Do not always choose the cheapest supplier; better payment terms can help cash flow more. Finance long-term assets with long-term loans or leases, not working capital.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "If cash gets tight, pay in this order",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>salaries first (unpaid staff soon leave), then critical suppliers, then agree partial or deferred payments with everyone else.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Know your break-even point",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Calculate the monthly sales you need to cover all costs. It gives you a clear first target and anchors your cash projections.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Build a simple financial model",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>A model combines your actual results with assumptions about the future, so you can ask &quot;what if?&quot;: prices rise 5%, a key customer leaves, we hire two people. Start with expenses, because spending drives revenue and is within your control. Then link revenue to the activities that generate it, such as marketing spend, sales staff and conversion rates. Update the model monthly with actual figures. Fewer than half of startups keep a working model, and those that do make faster, better decisions.</p>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Ask yourself",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Ask yourself",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Test your business against:</p><ul><li>Do I have a written budget for this year? Do I compare it with actual results? What is my lowest projected cash balance in the next six months, and when does it occur? What would happen if sales came in 20% below budget?</li></ul>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Founder tips",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Founder tips",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Practical advice:</p><ul><li>Update your cash budget weekly in the early months.</li><li>Build a worst-case scenario and know what you would cut first. Arrange finance before you need it. Banks lend more readily to businesses that are not desperate.</li></ul>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Action checklist",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Action checklist",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Before moving on, complete:</p><ul><li>Prepare a 12-month sales and expense budget Build a rolling 13-week or 12-month cash budget Set a minimum cash balance and a trigger for action Produce a variance report every month and explain significant gaps List planned equipment purchases in a capital expenditure budget</li></ul>"
+        }
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "name": "EJ 11 — Financing your startup",
+  "description": "Part: Planning & Funding. Every source of money has a price: debt must be repaid with interest, and equity costs you a share of ownership. Match the type of finance to what you need it for, and raise it before you are desperate.",
+  "language": "en",
+  "subtitle_languages": [],
+  "status": "published",
+  "modules": [
+   {
+    "name": "Introduction",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Module 11 — Financing your startup",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Every source of money has a price: debt must be repaid with interest, and equity costs you a share of ownership. Match the type of finance to what you need it for, and raise it before you are desperate.</p>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Key ideas",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Debt versus equity",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Debt financing                           Equity financing</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>What it is               Borrowed money                           Money invested in exchange for a share of the business</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 2,
+        "payload": {
+         "html": "<p>Repayment                Must be repaid with interest, on a       No repayment; investors share in schedule                                 profits and in the value when sold</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 3,
+        "payload": {
+         "html": "<p>Control                  You keep ownership; lenders may          You give up part of the ownership impose conditions                        and often some control</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 4,
+        "payload": {
+         "html": "<p>Cost                     Interest (often tax-deductible)          Share of future value; investors expect a high return</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 5,
+        "payload": {
+         "html": "<p>Best for                 Assets, stock and working capital in a   High-growth ventures that cannot business with steady cash flow           yet support repayments</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 6,
+        "payload": {
+         "html": "<p>How much ownership you give up depends on how much the investor puts in, how long you have traded, your track record, and your future prospects. Ask yourself: is it better to own all of something small or part of something much larger?</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Sources of finance",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Source                                            Type                       Notes</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>Personal savings                                  Equity                     Shows commitment to other funders</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 2,
+        "payload": {
+         "html": "<p>Friends and family                                Debt or equity             Put terms in writing to protect relationships</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 3,
+        "payload": {
+         "html": "<p>Grants and development                            Usually non-repayable or   Government, donor and impact programmes                                        concessional               programmes; often tied to milestones and reporting</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 4,
+        "payload": {
+         "html": "<p>Bank overdraft or credit                          Debt                       Flexible working capital; usually line                                                                         renewed annually</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 5,
+        "payload": {
+         "html": "<p>Bank term or instalment                           Debt                       For equipment, premises or loan                                                                         expansion; usually needs collateral or a guarantee</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 6,
+        "payload": {
+         "html": "<p>Receivables finance and                           Debt                       Cash against unpaid invoices; factoring                                                                    costly but fast</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 7,
+        "payload": {
+         "html": "<p>Supplier (vendor) credit                          Debt                       Longer payment terms from suppliers; often the cheapest finance available</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 8,
+        "payload": {
+         "html": "<p>Leasing                                           Debt-like                  Use equipment without buying it; the lessor keeps ownership</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 9,
+        "payload": {
+         "html": "<p>Credit cards                                      Debt                       Convenient but very expensive; short-term only</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 10,
+        "payload": {
+         "html": "<p>Borrowing against your                            Debt                       Puts your home at risk; use only home                                                                         with great care</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 11,
+        "payload": {
+         "html": "<p>Angel investors                                   Equity                     Individuals investing early, often bringing advice and contacts</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 12,
+        "payload": {
+         "html": "<p>Venture capital and                               Equity                     For scalable businesses; expect impact funds                                                                 strong growth and an exit plan</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 13,
+        "payload": {
+         "html": "<p>Source                                            Type                      Notes</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 14,
+        "payload": {
+         "html": "<p>Merger or public listing                          Equity                    Later-stage options for established businesses</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "What funders look for",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>A clear business plan, accurate financial statements, a realistic cash budget showing how the money will be used and repaid, evidence of demand, and a capable team.</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>Funding by stage The right source of money depends on how far the business has come:</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 2,
+        "payload": {
+         "html": "<p>Stage                                    What you are doing                Typical sources</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 3,
+        "payload": {
+         "html": "<p>Idea and early                           Developing the idea, building a   Own savings (bootstrapping), product                                  first version                     friends and family, grants</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 4,
+        "payload": {
+         "html": "<p>Launch and                               First customers, proving          Accelerators and incubators, validation                               demand                            grants, angels, crowdfunding</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 5,
+        "payload": {
+         "html": "<p>Seed                                     Building the team and a           Angel groups, seed funds, impact repeatable sales model            investors, bank or programme loans</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 6,
+        "payload": {
+         "html": "<p>Growth (Series A                         Scaling and moving towards        Venture capital, growth and and beyond)                              profitability                     impact funds, larger bank facilities</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 7,
+        "payload": {
+         "html": "<p>Equity is cheap at the start but becomes the most expensive money as the company&#x27;s value rises. Debt has a fixed, known cost and you keep your ownership.</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 8,
+        "payload": {
+         "html": "<p>Valuation basics A startup&#x27;s valuation is agreed between founders and investors when a round is raised. In practice it depends as much on investor demand as on revenue, the team, the market and competition.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Pre-money valuation",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>value before the new investment. Post-money valuation: pre-money value plus the new investment. Investor stake: investment ÷ post-money valuation.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Example",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>at a USD 2 million pre-money valuation, an investor putting in USD 500,000 gets a post-money value of USD 2.5 million and a 20% stake.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Higher is not always better",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>An inflated valuation is hard to grow into, risks a &quot;down round&quot; later, and makes staff share options less attractive. Price friends-and-family rounds fairly too. A valuation that later investors will not accept may force an awkward restructuring.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Pitching to funders",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>the finnpact pitch deck Structure your pitch around the questions funders ask:</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>1. Problem: what unmet need or gap are you addressing? 2. Solution: how does your product or service solve it? 3. Value proposition: what makes you unique, and why would customers choose you? 4. Competitive analysis: who else serves this market, and how do you compare? 5. Business model: how do you make money? One-off or recurring, B2B or B2C, pricing assumptions? 6. Market traction: sales, customers, publicity and well-known clients so far. 7. Go-to-market: which segments you will target and how you will reach them. 8. Revenue growth and financials: actual results plus at least two years of projections, with key assumptions. 9. The ask: how much you need and exactly how it will be used (equipment, stock, staff, marketing, IT). 10. People: key team members and planned hiring, including the gender split of staff. 11. Impact: the Sustainable Development Goals you contribute to and how you improve people&#x27;s lives.</p>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Ask yourself",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Ask yourself",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Test your business against:</p><ul><li>What exactly do I need the money for, and how much? Can the business afford the repayments from its cash flow, even in a slow month? What will I give up, in ownership or control, for this money? Have I explored grants and programme funding I may be eligible for?</li></ul>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Founder tips",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Founder tips",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Practical advice:</p><ul><li>Do not use short-term debt such as overdrafts or credit cards to fund long-term assets. Prepare a funding pack (business plan, last statements, cash budget, use of funds) before approaching anyone. Read every term sheet and loan agreement with a lawyer or advisor.</li></ul>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Action checklist",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Action checklist",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Before moving on, complete:</p><ul><li>Calculate how much finance you need and for what Decide whether debt, equity or a mix fits your stage and plans Shortlist three potential sources and their requirements Prepare a funding pack Check eligibility for finnpact-supported and other programme funding</li></ul>"
+        }
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "name": "EJ 12 — Internal controls, risk and fraud prevention",
+  "description": "Part: Protection. Small businesses suffer fraud too, often at the hands of trusted staff, and a single large loss can sink a startup. Simple controls, set up early, make errors and theft far less likely and your financial data far more reliable.",
+  "language": "en",
+  "subtitle_languages": [],
+  "status": "published",
+  "modules": [
+   {
+    "name": "Introduction",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Module 12 — Internal controls, risk and fraud prevention",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Small businesses suffer fraud too, often at the hands of trusted staff, and a single large loss can sink a startup. Simple controls, set up early, make errors and theft far less likely and your financial data far more reliable.</p>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Key ideas",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Why controls matter",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Good controls make staff follow company policy, reduce errors, produce reliable financial information, improve efficiency, and protect assets. No set of controls is foolproof, so check them with occasional surprise reviews.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "The fraud triangle",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Fraud usually needs three things at once:</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>1. Opportunity: weak controls, one person handling a whole transaction, no reviews. 2. Pressure or motive: personal debt, financial stress, unrealistic targets. 3. Rationalisation: &quot;I&#x27;m underpaid&quot;, &quot;I&#x27;ll pay it back&quot;, &quot;no one will notice&quot;.</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 2,
+        "payload": {
+         "html": "<p>You cannot control pressure or rationalisation, but you can remove the opportunity. Remove the opportunity and most fraud never happens.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Common forms of fraud",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>theft of cash or assets, false or hidden information, bribery, extortion, undisclosed conflicts of interest, forgery, theft of trade secrets, and breaches of trust by people managing money on your behalf.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Key controls by area",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Area                           Essential controls</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>Cash and bank                  Limit who can sign or approve payments; require two approvals above a set amount; reconcile bank accounts monthly; reconcile daily takings; lock and review petty cash; check refunds</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 2,
+        "payload": {
+         "html": "<p>Receivables                    Approve write-offs separately from collection; review the aged list monthly; have someone other than the bookkeeper open customer payments</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 3,
+        "payload": {
+         "html": "<p>Payables                       Approve new suppliers before first payment; match every invoice to an order and delivery; watch for duplicate payments and unfamiliar suppliers</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 4,
+        "payload": {
+         "html": "<p>Inventory                      Restrict access to stock; count stock regularly and investigate differences</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 5,
+        "payload": {
+         "html": "<p>Payroll                        Check the payroll list against actual staff; approve overtime; separate who adds employees from who pays them</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 6,
+        "payload": {
+         "html": "<p>General                        Compare results with budget monthly; protect and tag fixed assets; require mandatory leave so others cover each role; review expense claims</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Segregation of duties",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>No single person should approve, record and pay a transaction. In a very small team, the founder should review and approve what one person records.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Warning signs to investigate",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>an employee who never takes leave, lives beyond their means, resists sharing duties, or keeps records others cannot see; unexplained stock losses; customer complaints about payments not credited; missing documents.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Simple risk scoreboard",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Rate each business function (cash, sales, purchasing, payroll, inventory, IT) on likelihood and impact of loss, from 1 (low) to 5 (high). Multiply the two. Tackle the highest scores first.</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>Crisis readiness and business continuity Every business meets a crisis sooner or later: losing the biggest customer, a supply shock, a pandemic, a regional conflict. Small businesses are the most exposed because they have thin management and little cash. Prepare before it happens.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Look for the potholes ahead",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Do you depend on too few customers or suppliers? What does your order pipeline look like for the next three months? Even a sharp recovery is dangerous: you must pay for stock before customers pay you.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Lead calmly through uncertainty",
+      "description": "",
+      "blocks": []
+     },
+     {
+      "name": "Be calm and realistically optimistic",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Acknowledge what you do not know rather than overpromising. Use your team&#x27;s know-how. Give people clear responsibility for specific issues instead of deciding everything yourself. Show empathy: staff are worried about their own income and families as well as the business. Communicate often and openly with staff, customers, suppliers and funders: what we know, what we don&#x27;t know, and what we are doing.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Decide without all the facts",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Waiting for complete information is an illusion. Work in a repeating cycle: decide, pause, assess the results, anticipate what comes next, act, and adjust as new information arrives.</p>"
+        }
+       }
+      ]
+     },
+     {
+      "name": "Business continuity checklist",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Name a small crisis team with clear owners for staff, operations and supply chain, customers, finance and digital. Stress-test your cash budget: what happens if revenue drops 30% or 50% for three months? List contractual obligations (rent, loans, tax, key supply contracts) and their impact under stress. Identify critical suppliers and line up alternatives; hold safety stock where it makes sense. Prepare for remote or flexible working, with secure access to files and systems. Agree in advance who speaks to staff, customers and the media, and what they will say.</p>"
+        }
+       },
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 1,
+        "payload": {
+         "html": "<p>A crisis can also open opportunities, such as new products, channels or customers. Keep an eye out for them while you protect the core.</p>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Ask yourself",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Ask yourself",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Test your business against:</p><ul><li>Could one person in my business take money without anyone else noticing? Who reconciles the bank account, and does anyone check their work? When did I last count stock or review payroll against real staff?</li></ul>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Founder tips",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Founder tips",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Practical advice:</p><ul><li>Prevention costs far less than investigation, and money lost to fraud is rarely recovered. Introduce controls as policy for everyone, not as a sign of distrust in anyone. Investigate every red flag promptly; ignored warning signs are how small frauds become large ones.</li></ul>"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Action checklist",
+    "description": "",
+    "lessons": [
+     {
+      "name": "Action checklist",
+      "description": "",
+      "blocks": [
+       {
+        "block_type": "text",
+        "title": "",
+        "order": 0,
+        "payload": {
+         "html": "<p>Before moving on, complete:</p><ul><li>Set payment approval limits and dual sign-off above a threshold Reconcile every bank account monthly and have the founder review it Map who does what in cash, purchasing and payroll, and separate key duties Complete a risk scoreboard for each business function Write a short code of conduct covering conflicts of interest and gifts</li></ul>"
+        }
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ }
+]

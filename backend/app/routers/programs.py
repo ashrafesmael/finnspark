@@ -10,7 +10,7 @@ from ..database import get_db
 from ..deps import require_branch_access, require_perm
 from ..models import (
     Applicant, Business, BusinessFounder, BusinessIndustry, BusinessType, Course,
-    InvestmentCase, InvestmentStage, InvestmentStatus, MentorConclusionQuestion,
+    CourseStatus, InvestmentCase, InvestmentStage, InvestmentStatus, MentorConclusionQuestion,
     MentorReviewQuestion, Mentorship, Program, ProgramType, ProgramStatus, QuestionAnswer,
 )
 from ..utils import paginate, parse_page
@@ -99,12 +99,71 @@ def program_ser(p: Program, db: Session) -> dict:
     return {
         "id": p.id, "branch": p.branch_id, "name": p.name, "description": p.description,
         "program_type": {"id": p.program_type.id, "name": p.program_type.name} if p.program_type else None,
-        "status": {"id": p.status_id} if p.status_id else None,
+        "status": {"id": p.status_id, "name": p.status.name, "code_name": p.status.code_name} if p.status else None,
         "scoring_required": bool(p.scoring_required),
         "creation_date": str(p.creation_date or ""),
         "businesses_count": businesses or 0,
         "courses_count": courses or 0,
     }
+
+
+def _program_status(db: Session, code_name: str, name: str) -> ProgramStatus:
+    """Get-or-create a program status by code (statuses are branch-agnostic refs)."""
+    st = db.query(ProgramStatus).filter(ProgramStatus.code_name == code_name).first()
+    if not st:
+        st = ProgramStatus(code_name=code_name, name=name)
+        db.add(st)
+        db.flush()
+    return st
+
+
+def _course_status(db: Session, code_name: str, name: str) -> CourseStatus:
+    """Get-or-create a course status by code."""
+    from ..models import CourseStatus
+    st = db.query(CourseStatus).filter(CourseStatus.code_name == code_name).first()
+    if not st:
+        st = CourseStatus(code_name=code_name, name=name)
+        db.add(st)
+        db.flush()
+    return st
+
+
+def _set_program_courses_status(db: Session, program_id: int, status) -> None:
+    """Flip every course attached to a programme to the given course status."""
+    if status is None:
+        return
+    from ..models import Course
+    db.query(Course).filter(Course.program_id == program_id).update(
+        {"status_id": status.id}, synchronize_session=False)
+
+
+@router.post("/programs/{branch_id}/{program_id}/archive/")
+def archive_program(branch_id: int, program_id: int, ctx=Depends(require_perm("programs.edit"))):
+    """Archive a programme: hidden from pickers and dashboards, its courses leave
+    the learner catalogue, and everything stays reactivatable."""
+    db: Session = ctx["db"]
+    p = db.get(Program, program_id)
+    if not p or p.branch_id != branch_id:
+        raise HTTPException(status_code=404, detail="Programme not found.")
+    p.status_id = _program_status(db, "archived", "Archived").id
+    archived = _course_status(db, "archived", "Archived")
+    _set_program_courses_status(db, program_id, archived)
+    db.commit()
+    return program_ser(p, db)
+
+
+@router.post("/programs/{branch_id}/{program_id}/reactivate/")
+def reactivate_program(branch_id: int, program_id: int, ctx=Depends(require_perm("programs.edit"))):
+    """Bring an archived programme — and its courses — back."""
+    db: Session = ctx["db"]
+    p = db.get(Program, program_id)
+    if not p or p.branch_id != branch_id:
+        raise HTTPException(status_code=404, detail="Programme not found.")
+    p.status_id = _program_status(db, "active", "Active").id
+    published = _course_status(db, "published", "Published")
+    _set_program_courses_status(db, program_id, published)
+    db.commit()
+    return program_ser(p, db)
 
 
 @router.get("/programs/{branch_id}/")
@@ -114,6 +173,16 @@ def list_programs(branch_id: int, request: Request, ctx=Depends(require_perm("pr
     q = db.query(Program).filter(Program.branch_id == branch_id)
     if s := request.query_params.get("search"):
         q = q.filter(Program.name.ilike(f"%{s}%"))
+    # default to active-only so archived programmes leave every picker;
+    # the programmes screen can ask for archived or everything explicitly
+    status_f = (request.query_params.get("status") or "active").lower()
+    if status_f != "all":
+        arch = db.query(ProgramStatus).filter(ProgramStatus.code_name == "archived").first()
+        if status_f == "archived":
+            q = q.filter(Program.status_id == arch.id) if arch else q.filter(False)
+        else:  # active (default)
+            q = q.filter((Program.status_id != arch.id) | (Program.status_id.is_(None))) if arch \
+                else q
     q = q.order_by(Program.creation_date.desc())
     return paginate(q, page, size, lambda p: program_ser(p, db))
 

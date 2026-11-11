@@ -9,11 +9,20 @@ export default function Programs() {
   const { branch, can } = useAuth()
   const [page, setPage] = useState(1)
   const [search, setSearch] = useState('')
+  const [statusF, setStatusF] = useState('active')
   const [edit, setEdit] = useState(null)
   const pageSize = 10
 
   const { data: types } = useFetch(branch ? `/program-types/${branch.id}/` : null)
-  const list = useFetch(branch ? `/programs/${branch.id}/?page=${page}&page_size=${pageSize}&search=${search}` : null)
+  const list = useFetch(branch ? `/programs/${branch.id}/?page=${page}&page_size=${pageSize}&search=${search}&status=${statusF}` : null)
+
+  const toggleArchive = async (r) => {
+    const archived = r.status?.code_name === 'archived'
+    const verb = archived ? 'reactivate' : 'archive'
+    if (!confirm(`${archived ? 'Reactivate' : 'Archive'} "${r.name}"?`)) return
+    await api.post(`/programs/${branch.id}/${r.id}/${verb}/`)
+    list.reload()
+  }
 
   return (
     <div>
@@ -37,6 +46,11 @@ export default function Programs() {
         <div className="row gap">
           <input placeholder="Search…" value={search}
                  onChange={(e) => { setSearch(e.target.value); setPage(1) }} />
+          <select value={statusF} onChange={(e) => { setStatusF(e.target.value); setPage(1) }}>
+            <option value="active">Active</option>
+            <option value="archived">Archived</option>
+            <option value="all">All</option>
+          </select>
           {can('programs.edit') && (
             <button className="btn primary sm" onClick={() => setEdit({})}>+ Add program</button>
           )}
@@ -51,9 +65,19 @@ export default function Programs() {
           { header: 'Courses', key: 'courses_count' },
           { header: 'Created', render: (r) => (r.creation_date || '').slice(0, 10) },
           { header: 'Scoring req.', render: (r) => (r.scoring_required ? 'Yes' : 'No') },
+          { header: 'Status', render: (r) => r.status
+              ? <StatusPill name={r.status.name} code_name={r.status.code_name} />
+              : '—' },
           { header: '', render: (r) => (
             <span className="row gap">
               <Link className="btn ghost sm" to={`/programs-courses/${r.id}`}>Open</Link>
+              {can('programs.edit') && (
+                r.status?.code_name === 'archived' ? (
+                  <button className="btn ghost sm" onClick={() => toggleArchive(r)}>Reactivate</button>
+                ) : (
+                  <button className="btn ghost sm" onClick={() => toggleArchive(r)}>Archive</button>
+                )
+              )}
               {can('programs.edit') && (
                 <button className="btn ghost sm danger" onClick={async () => {
                   if (confirm('Delete programme?')) {

@@ -3,7 +3,7 @@ from datetime import datetime
 
 from fastapi import APIRouter, Depends, HTTPException, Request
 from pydantic import BaseModel
-from sqlalchemy import func
+from sqlalchemy import func, or_
 from sqlalchemy.orm import Session
 
 from ..database import get_db
@@ -52,6 +52,20 @@ def course_ser(c: Course, db: Session, user_id: int | None = None, lang: str = "
 router = APIRouter(tags=["courses"])
 
 
+def _exclude_archived(db: Session, q, status_param=None):
+    """Hide courses of the 'archived' course status unless explicitly asked for.
+    Courses attached to an archived programme get this status, so a training
+    programme can be switched off — and back on — without deleting anything."""
+    archived = db.query(CourseStatus).filter(CourseStatus.code_name == "archived").first()
+    if not archived:
+        return q
+    if status_param == "archived":
+        return q.filter(Course.status_id == archived.id)
+    if status_param in ("all", None, ""):
+        return q
+    return q.filter(or_(Course.status_id.is_(None), Course.status_id != archived.id))
+
+
 @router.get("/courses/{branch_id}/")
 def list_courses(branch_id: int, request: Request, ctx=Depends(require_perm("courses.view"))):
     db: Session = ctx["db"]
@@ -63,6 +77,7 @@ def list_courses(branch_id: int, request: Request, ctx=Depends(require_perm("cou
         q = q.filter(Course.language == v)
     if s := request.query_params.get("search"):
         q = q.filter(func.lower(Course.name).contains(s.lower()))
+    q = _exclude_archived(db, q, request.query_params.get("status"))
     # A numbered curriculum ("01. ...") is a sequence, not a newest-first feed,
     # so ordering falls back to the course name when every course is numbered.
     names = [row.name for row in q.with_entities(Course.name).all()]
@@ -87,6 +102,7 @@ def my_courses(branch_id: int, ctx=Depends(require_perm("courses.view"))):
         (Course.program_id.is_(None)) |
         (Course.program_id.in_(program_ids or [0]))
     )
+    q = _exclude_archived(db, q, None)
     rows = q.all()
     if rows and all(re.match(r"^\d+\.\s", c.name or "") for c in rows):
         rows.sort(key=lambda c: c.name)
