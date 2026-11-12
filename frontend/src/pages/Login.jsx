@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Logo from '../components/Logo'
 import { useAuth } from '../context/AuthContext'
 
@@ -35,6 +35,10 @@ export default function Login() {
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </label>
         <button className="btn primary" disabled={busy}>{busy ? 'Signing in…' : 'Sign in'}</button>
+        <div className="row spread" style={{ marginTop: 12 }}>
+          <Link to="/forgot-password" className="sm muted">Forgot password?</Link>
+          <Link to="/signup" className="sm muted">Create account</Link>
+        </div>
       </form>
     </div>
   )

@@ -3,6 +3,9 @@ import { AuthProvider, useAuth } from './context/AuthContext'
 import Layout from './components/Layout'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import Signup from './pages/Signup'
+import ForgotPassword from './pages/ForgotPassword'
+import SetPassword from './pages/SetPassword'
 import Dashboard from './pages/Dashboard'
 import SelectionBoard from './pages/SelectionBoard'
 import Forms from './pages/Forms'
@@ -27,6 +30,9 @@ function Shell() {
     <Routes>
       <Route path="/apply/:formId" element={<PublicApply />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/signup" element={<Signup />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/set-password" element={<SetPassword />} />
       <Route path="*" element={<Login />} />
     </Routes>
   )

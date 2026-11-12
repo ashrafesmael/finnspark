@@ -106,6 +106,42 @@ export function UsersAdmin() {
               <div className="row gap" style={{ justifyContent: 'flex-end' }}>
                 {can('users.manage') && (
                   <>
+                    {r.status?.code_name === 'pending' && (
+                      <>
+                        <button type="button" className="btn ghost sm"
+                                title="Approve registration — assigns the selected roles and emails a set-password link"
+                                onClick={async () => {
+                                  const roleIds = (r.roles || []).map((x) => x.id)
+                                  let chosen = roleIds
+                                  if (roles?.length) {
+                                    const names = roles.map((x) => `${x.id}: ${x.name}`).join('\n')
+                                    const pick = prompt('Approve this user. Enter the role id to assign:\n' + names,
+                                                        String(roleIds[0] || roles[0].id))
+                                    if (pick === null) return
+                                    chosen = [Number(pick)].filter(Boolean)
+                                  }
+                                  try {
+                                    const res = await api.post(`/users/${branch.id}/${r.id}/approve/`, { role_ids: chosen })
+                                    alert(res.data?.message || 'Approved.')
+                                  } catch (err) {
+                                    alert(err.response?.data?.detail || 'Approval failed')
+                                  }
+                                  reloadAll()
+                                }}>
+                          Approve
+                        </button>
+                        <button type="button" className="btn ghost sm danger"
+                                onClick={async () => {
+                                  if (!confirm(`Reject ${r.first_name || r.email}'s registration?`)) return
+                                  try { await api.post(`/users/${branch.id}/${r.id}/reject/`) } catch (e) {
+                                    alert(e.response?.data?.detail || 'Rejection failed')
+                                  }
+                                  reloadAll()
+                                }}>
+                          Reject
+                        </button>
+                      </>
+                    )}
                     <button
                       type="button"
                       className="btn ghost sm"

@@ -132,6 +132,23 @@ class UserStatus(RefBase):
     __tablename__ = "user_statuses"
 
 
+class AuthToken(Base):
+    """Single-use email tokens for account activation (admin invites / approvals)
+    and password resets — hashed at rest, expiry-tracked, mirroring the DevX flow."""
+    __tablename__ = "auth_tokens"
+    id = Column(Integer, primary_key=True)
+    token_hash = Column(String(128), nullable=False, index=True)
+    purpose = Column(String(20), nullable=False)   # invite | reset
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    email = Column(String(255), default="")
+    display_name = Column(String(400), default="")
+    role_ids = Column(JSON, default=list)          # branch roles to assign on activation
+    branch_id = Column(Integer, nullable=True)
+    expires_at = Column(DateTime, nullable=False)
+    used_at = Column(DateTime, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+
 class OrganizationStatus(RefBase):
     __tablename__ = "organization_statuses"
 

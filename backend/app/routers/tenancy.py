@@ -1,3 +1,7 @@
+from datetime import datetime, timedelta
+import hashlib
+import secrets
+
 from fastapi import APIRouter, Depends, HTTPException, Request
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
@@ -5,7 +9,7 @@ from sqlalchemy.orm import Session
 from ..database import get_db
 from ..deps import get_current_user, get_user_branch_ids, require_branch_access, require_perm
 from ..models import (
-    Branch, Organization, OrganizationStatus, Role, User, UserRole, UserStatus,
+    AuthToken, Branch, Organization, OrganizationStatus, Role, User, UserRole, UserStatus,
 )
 from ..utils import paginate, parse_page, serialize_ref
 
@@ -384,7 +388,8 @@ def invite_user(branch_id: int, data: InviteUserIn, ctx=Depends(require_perm("us
     if not user:
         user = User(
             email=email,
-            password_hash=hash_password(data.password or "Welcome123!"),
+            # blank password -> single-use activation link instead of a shared one
+            password_hash=hash_password(data.password) if data.password else hash_password(secrets.token_hex(32)),
             first_name=data.first_name,
             last_name=data.last_name,
             position=data.position,
@@ -417,8 +422,21 @@ def invite_user(branch_id: int, data: InviteUserIn, ctx=Depends(require_perm("us
         if not exists:
             db.add(UserRole(user_id=user.id, role_id=rid, branch_id=branch_id))
 
+    # No password given -> email a single-use set-password link (DevX pattern).
+    activation_url = None
+    emailed = False
+    if not data.password:
+        url, emailed = _invite_token(db, user, branch_id, target_role_ids)
+        activation_url = url
+
     db.commit()
-    return user_row(user, db, branch_id)
+    out = user_row(user, db, branch_id)
+    if activation_url:
+        out["activation_url"] = activation_url
+        out["email_sent"] = emailed
+        out["message"] = ("Invitation email sent to " + user.email) if emailed else \
+            ("Email could not be sent — share this activation link manually: " + activation_url)
+    return out
 
 
 @router.patch("/users/{branch_id}/{user_id}/")
@@ -948,3 +966,105 @@ def _reseed_entrepreneur_data_for_branch(db: Session, branch_id: int):
     db.commit()
 
 
+
+
+# ---------------------------------------------------------------- approvals / invitations
+from ..config import config as _cfg  # noqa: E402
+from ..mailer import send_email as _send_email  # noqa: E402
+
+PUBLIC_BASE = (_cfg.PUBLIC_BASE_URL or "https://accelerate.finnpact.com").rstrip("/")
+
+
+def _hash_token(raw: str) -> str:
+    return hashlib.sha256(raw.encode()).hexdigest()
+
+
+def _user_status(db: Session, code: str, name: str = "") -> UserStatus:
+    st = db.query(UserStatus).filter(UserStatus.code_name == code).first()
+    if not st:
+        st = UserStatus(code_name=code, name=name or code.title())
+        db.add(st)
+        db.flush()
+    return st
+
+
+def _invite_token(db: Session, user: User, branch_id: int, role_ids: list[int], hours: int = 168):
+    """Single-use hashed invite token (DevX pattern), emailed as a set-password link."""
+    raw = secrets.token_hex(32)
+    tok = AuthToken(
+        token_hash=_hash_token(raw), purpose="invite", user_id=user.id,
+        email=user.email,
+        display_name=f"{user.first_name or ''} {user.last_name or ''}".strip(),
+        role_ids=role_ids, branch_id=branch_id,
+        expires_at=datetime.utcnow() + timedelta(hours=hours),
+    )
+    db.add(tok)
+    db.flush()
+    url = f"{PUBLIC_BASE}/set-password?token={raw}"
+    name = user.first_name or user.last_name or "there"
+    sent = _send_email(
+        user.email,
+        "Your finnspark account has been approved — set your password",
+        '<div style="font-family:Arial,sans-serif;max-width:520px;margin:0 auto">'
+        '<h2 style="color:#174950">Welcome to finnspark</h2>'
+        f"<p>Hello {name},</p>"
+        "<p>Your account has been created. Click the button below to choose your password "
+        f"(the link is valid for <b>{hours // 24} days</b> and can be used once):</p>"
+        '<p style="text-align:center;margin:26px 0">'
+        f'<a href="{url}" style="background:#174950;color:#fff;padding:12px 28px;'
+        'border-radius:6px;text-decoration:none;font-weight:bold">Set my password</a></p>'
+        '<p style="color:#666;font-size:13px">Or copy this link into your browser:<br>'
+        f'<a href="{url}">{url}</a></p>'
+        '<p style="color:#666;font-size:13px">If you weren\'t expecting this email, '
+        "you can ignore it.</p></div>")
+    return url, sent
+
+
+class ApproveIn(BaseModel):
+    role_ids: list[int] = []
+
+
+@router.post("/users/{branch_id}/{user_id}/approve/")
+def approve_user(branch_id: int, user_id: int, data: ApproveIn,
+                 ctx=Depends(require_perm("users.manage"))):
+    """Approve a pending self-registration: activates the account, assigns the
+    chosen roles, and emails a single-use set-password link (DevX flow)."""
+    db: Session = ctx["db"]
+    u = db.get(User, user_id)
+    if not u:
+        raise HTTPException(status_code=404, detail="User not found.")
+    code = db.get(UserStatus, u.status_id).code_name if u.status_id else ""
+    if code not in ("pending", "invited", "inactive"):
+        raise HTTPException(status_code=400,
+                            detail="Only pending or invited users can be approved.")
+
+    role_ids = [int(rid) for rid in (data.role_ids or []) if rid]
+    for rid in role_ids:
+        exists = db.query(UserRole).filter_by(user_id=u.id, branch_id=branch_id, role_id=rid).first()
+        if not exists:
+            db.add(UserRole(user_id=u.id, role_id=rid, branch_id=branch_id))
+
+    u.status_id = _user_status(db, "active", "Active").id
+    url, sent = _invite_token(db, u, branch_id, role_ids)
+    db.commit()
+    return {"ok": True, "activation_url": url, "email_sent": sent,
+            "message": f"{u.first_name or u.email} approved. "
+                       + ("Invitation email sent." if sent
+                          else "Email not sent — share this activation link manually:")
+                       + f" {url}" if not sent else
+                       f"{u.first_name or u.email} approved. Invitation email sent."}
+
+
+@router.post("/users/{branch_id}/{user_id}/reject/")
+def reject_user(branch_id: int, user_id: int, ctx=Depends(require_perm("users.manage"))):
+    db: Session = ctx["db"]
+    u = db.get(User, user_id)
+    if not u:
+        raise HTTPException(status_code=404, detail="User not found.")
+    code = db.get(UserStatus, u.status_id).code_name if u.status_id else ""
+    if code == "active":
+        raise HTTPException(status_code=400,
+                            detail="Cannot reject an active user — remove them from the branch instead.")
+    u.status_id = _user_status(db, "inactive", "Inactive").id
+    db.commit()
+    return {"ok": True, "message": "Registration rejected."}
