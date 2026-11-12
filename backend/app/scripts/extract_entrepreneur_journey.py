@@ -105,6 +105,7 @@ def extract(txt_path, out_path):
 
     courses = []
     for mod in modules:
+        practice = {}  # Ask yourself / Founder tips / Action checklist items
         # split into section chunks at the four markers — markers are standalone
         # lines at 2-space indent, followed immediately by body (no blank line)
         chunks, cur_name, cur_lines = [], "Introduction", []
@@ -140,54 +141,88 @@ def extract(txt_path, out_path):
             if sec_name in ("Introduction",):
                 continue
             if sec_name in ("Ask yourself", "Founder tips", "Action checklist"):
-                items = [para_text(g) for g in sec if indent_of(g) >= 6]
-                lms_modules.append({
-                    "name": sec_name,
-                    "description": "",
-                    "lessons": [{
-                        "name": sec_name,
-                        "description": "",
-                        "blocks": [{"block_type": "text", "title": "", "order": 0,
-                                    "payload": {"html": to_html(
-                                        {"Action checklist": "Before moving on, complete:",
-                                         "Ask yourself": "Test your business against:",
-                                         "Founder tips": "Practical advice:"}[sec_name], items)}}],
-                    }],
-                })
+                # the three practice sections merge into ONE closing lesson
+                # ("Reflect & apply") — three tiny lessons felt like note cards
+                practice[sec_name] = [para_text(g) for g in sec if indent_of(g) >= 6]
                 continue
 
-            # Key ideas -> split into lessons at run-in / standalone headings
-            lessons, cur_les = [], None
-            for gi, g in enumerate(sec):
+            # Key ideas -> merge consecutive concepts into SUBSTANTIAL lessons.
+            # Best practice (Coursera/Udemy): a lesson holds ~3-8 minutes of
+            # focused reading. One lesson per tiny heading made the course feel
+            # like a stack of note cards, so concepts are combined sequentially
+            # until a lesson carries enough body to be worth opening.
+            MIN_LESSON_CHARS = 2000
+            lessons = []
+            pending = []  # collected (title, body_html) items for the open lesson
+
+            def flush():
+                nonlocal pending
+                if not pending:
+                    return
+                blocks = []
+                for t, b in pending:
+                    blocks.append({"block_type": "text", "title": t,
+                                   "order": len(blocks),
+                                   "payload": {"html": f"<h4>{html.escape(t)}</h4>{b}"}})
+                lessons.append({
+                    "name": pending[0][0] if len(pending) == 1
+                            else f"{pending[0][0]} & related concepts",
+                    "description": "Covers: " + "; ".join(t for t, _ in pending),
+                    "blocks": blocks,
+                })
+                pending = []
+
+            cur_les = None
+            for g in sec:
                 text = para_text(g)
-                prev_blank = gi == 0 or True  # groups are blank-line separated already
                 m = RUNIN_RE.match(text)
                 standalone = (indent_of(g) <= 4 and len(text) <= 75
                               and not text.endswith((".", ",", ":", ";"))
                               and text[:1].isupper())
+                title, body = None, None
                 if m:
-                    title = m.group(1).rstrip(".:")
-                    body = text[len(m.group(1)):].strip()
-                    cur_les = {"name": title, "description": "",
-                               "blocks": [{"block_type": "text", "title": "", "order": 0,
-                                           "payload": {"html": to_html(body)}}]}
-                    lessons.append(cur_les)
+                    title, body = m.group(1).rstrip(".:"), text[len(m.group(1)):].strip()
                 elif standalone:
-                    cur_les = {"name": text, "description": "",
-                               "blocks": []}
-                    lessons.append(cur_les)
-                elif cur_les is not None:
-                    cur_les["blocks"].append(
-                        {"block_type": "text", "title": "", "order": len(cur_les["blocks"]),
-                         "payload": {"html": to_html(text)}})
+                    title, body = text, ""
+                elif pending:
+                    # continuation of the previous concept's body
+                    t, b = pending[-1]
+                    pending[-1] = (t, f"{b} {html.escape(text)}")
+                    continue
                 else:
-                    cur_les = {"name": "Overview", "description": "",
-                               "blocks": [{"block_type": "text", "title": "", "order": 0,
-                                           "payload": {"html": to_html(text)}}]}
-                    lessons.append(cur_les)
-            # merge trailing empty lessons
-            lessons = [l for l in lessons if l["blocks"] or l["name"] != "Overview"]
-            lms_modules.append({"name": "Key ideas", "description": "", "lessons": lessons})
+                    title, body = "Overview", text
+                pending.append((title, html.escape(body) if body else ""))
+                if sum(len(b) for _, b in pending) >= MIN_LESSON_CHARS:
+                    flush()
+            flush()
+            lessons = [l for l in lessons if l["blocks"]]
+            lms_modules.append({"name": "Core concepts", "description": "", "lessons": lessons})
+
+        # one closing "Reflect & apply" lesson instead of three micro-lessons
+        if practice:
+            blocks, order = [], 0
+            plan = [("Ask yourself", "Test your business against:"),
+                    ("Founder tips", "Practical advice from experience:"),
+                    ("Action checklist", "Before moving on, complete:")]
+            for sec_name, lead in plan:
+                items = practice.get(sec_name)
+                if not items:
+                    continue
+                lis = "".join(f"<li>{html.escape(i)}</li>" for i in items)
+                blocks.append({"block_type": "text", "title": sec_name,
+                               "order": order,
+                               "payload": {"html": f"<h4>{html.escape(lead)}</h4><ul>{lis}</ul>"}})
+                order += 1
+            lms_modules.append({
+                "name": "Reflect & apply",
+                "description": "",
+                "lessons": [{
+                    "name": "Reflect & apply",
+                    "description": "Questions to test yourself with, founder tips and the "
+                                   "action checklist for this module.",
+                    "blocks": blocks,
+                }],
+            })
 
         courses.append({
             "name": f"EJ {mod['num']:02d} — {mod['title']}",
