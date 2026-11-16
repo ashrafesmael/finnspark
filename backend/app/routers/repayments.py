@@ -1394,7 +1394,8 @@ def _classify_disbursement(title: str):
     if "track ii" in t or "tranche" in t or "loan" in t:
         return "loan", "II"
     if "track i" in t or "prototype" in t or "stipend" in t or "allowance" in t \
-            or "voucher" in t or "grant" in t or "monthly disbursement" in t:
+            or "voucher" in t or "grant" in t or "monthly disbursement" in t \
+            or "disbursement" in t:
         return "grant", "I"
     return "loan", "II"
 
