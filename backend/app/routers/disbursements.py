@@ -31,6 +31,7 @@ def batch_ser(b: DisbursementBatch, db: Session, include_items: bool = True) -> 
         "total_amount_eur": float(b.total_amount or 0.0),
         "total_amount_jod": float(getattr(b, "total_amount_jod", None) if getattr(b, "total_amount_jod", None) is not None else round((b.total_amount or 0.0) * (getattr(b, "exchange_rate", None) or 0.76), 3)),
         "status": b.status or "draft",
+        "disbursement_type": b.disbursement_type or None,
         "notes": b.notes or "",
         "created_by": {
             "id": b.created_by.id,
@@ -149,7 +150,7 @@ def disbursements_summary(
     # JOD come from the included items (batch-level totals can be stale);
     # batches are classified with the same title rules the repayments module
     # uses, so both screens tell the same story
-    from .repayments import _classify_disbursement
+    from .repayments import batch_track
     by_track = {
         "grant_I": {"eur": 0.0, "jod": 0.0, "batches": 0},
         "loan_II": {"eur": 0.0, "jod": 0.0, "batches": 0},
@@ -161,7 +162,7 @@ def disbursements_summary(
     for b in processed:
         eur, jod = _item_sums.get(b.id, (0.0, 0.0))
         jod_actual += jod
-        kind, track = _classify_disbursement(b.title)
+        kind, track = batch_track(b)
         key = f"{kind}_{track}"
         if key not in by_track:
             key = "other"
@@ -233,6 +234,7 @@ class DisbursementBatchCreateIn(BaseModel):
     exchange_rate: float = 0.76
     base_amount: float = 0.0
     notes: str = ""
+    disbursement_type: str | None = None
     items: list[DisbursementItemIn] | None = None
 
 
@@ -311,6 +313,7 @@ def create_disbursement_batch(
         exchange_rate=rate,
         base_amount=float(data.base_amount or 0.0),
         notes=data.notes or "",
+        disbursement_type=data.disbursement_type,
         status="draft",
         created_by_id=user.id,
     )
@@ -558,6 +561,7 @@ class DisbursementBatchUpdateIn(BaseModel):
     exchange_rate: float | None = None
     base_amount: float | None = None
     notes: str | None = None
+    disbursement_type: str | None = None
     items: list[DisbursementItemUpdateIn] | None = None
 
 
@@ -598,6 +602,11 @@ def update_disbursement_batch(
         batch.base_amount = float(data.base_amount)
     if data.notes is not None:
         batch.notes = data.notes
+    if data.disbursement_type is not None:
+        if data.disbursement_type not in DISBURSEMENT_TYPES:
+            raise HTTPException(status_code=400,
+                                detail=f"disbursement_type must be one of: {', '.join(DISBURSEMENT_TYPES)}")
+        batch.disbursement_type = data.disbursement_type
 
     batch_rate = float(batch.exchange_rate if batch.exchange_rate is not None else 0.76)
     rate_changed = data.exchange_rate is not None and batch_rate != old_rate

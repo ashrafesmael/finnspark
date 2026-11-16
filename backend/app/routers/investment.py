@@ -76,10 +76,10 @@ def dealflow_list(branch_id: int, request: Request, ctx=Depends(require_perm("de
     # Track II-only amount disbursed to each business: items whose parent
     # batch classifies as Track II (loan tranches + co-financing grants).
     # Track I stipends/vouchers are not repayable and stay out of the deal view.
-    from .repayments import _classify_disbursement
-    batch_track = {b.id: _classify_disbursement(b.title)[1] for b in
-                   db.query(DisbursementBatch).filter(
-                       DisbursementBatch.branch_id == branch_id).all()}
+    from .repayments import batch_track
+    track_map = {b.id: batch_track(b)[1] for b in
+                 db.query(DisbursementBatch).filter(
+                     DisbursementBatch.branch_id == branch_id).all()}
     paid = {}
     for biz_id, bid, amt in db.query(
         DisbursementItem.business_id,
@@ -89,7 +89,7 @@ def dealflow_list(branch_id: int, request: Request, ctx=Depends(require_perm("de
         DisbursementItem.is_included == True,   # noqa: E712
         Business.branch_id == branch_id,
     ).group_by(DisbursementItem.business_id, DisbursementItem.batch_id).all():
-        if batch_track.get(bid) == "II":
+        if track_map.get(bid) == "II":
             paid[biz_id] = paid.get(biz_id, 0.0) + float(amt)
 
     def ser_with_disbursed(c: InvestmentCase) -> dict:

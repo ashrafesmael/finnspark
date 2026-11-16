@@ -1371,8 +1371,36 @@ def _counts_toward_balance(r: LoanRepayment, processed_ids: set) -> bool:
     rows count only once their batch is processed."""
     return r.status == "completed" and (r.batch_id is None or r.batch_id in processed_ids)
 
+TYPE_TO_TRACK = {
+    "stipend": ("grant", "I"),
+    "voucher": ("grant", "I"),
+    "grant": ("grant", "I"),
+    "loan": ("loan", "II"),
+    "cofinancing_grant": ("grant", "II"),
+}
+
+DISBURSEMENT_TYPES = list(TYPE_TO_TRACK.keys())
+DISBURSEMENT_TYPE_LABELS = {
+    "stipend": "Monthly stipend / allowance (Track I grant)",
+    "voucher": "Prototype voucher / milestone (Track I grant)",
+    "grant": "Other grant (Track I)",
+    "loan": "Loan disbursement (Track II, repayable)",
+    "cofinancing_grant": "Co-financing grant tranche / top-up (Track II)",
+}
+
+
+def batch_track(batch):
+    """(kind, track) for a batch: the explicitly stored disbursement_type wins;
+    legacy batches fall back to title-keyword inference."""
+    t = getattr(batch, "disbursement_type", None)
+    if t and t in TYPE_TO_TRACK:
+        return TYPE_TO_TRACK[t]
+    return _classify_disbursement(getattr(batch, "title", ""))
+
+
 def _classify_disbursement(title: str):
-    """(kind, track) from the disbursement batch title.
+    """(kind, track) from the disbursement batch title — legacy fallback only;
+    new batches carry an explicit disbursement_type.
 
     Track I holds only grants (monthly stipend, prototype voucher). Track II
     holds the loan plus the co-financing grant: for the cohort 1&2 series the
@@ -1804,7 +1832,7 @@ def startup_ledger(branch_id: int, business_id: int, ctx=Depends(require_perm("r
     ).all()
     for it in items:
         b = it.batch
-        kind, track = _classify_disbursement(b.title)
+        kind, track = batch_track(b)
         d = it.disbursement_date or b.payment_date
         eur = float(it.amount or 0.0)
         jod = float(it.amount_jod if it.amount_jod is not None else round(eur * float(b.exchange_rate or rate), 3))

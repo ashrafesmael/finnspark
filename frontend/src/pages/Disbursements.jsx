@@ -9,6 +9,14 @@ import { DataTable, Pager, Modal, StatTile, StatusPill } from '../components/ui'
 import api from '../api'
 
 const CURRENCIES = ['USD', 'EUR', 'JOD']
+const DISBURSEMENT_TYPES = [
+  { value: 'stipend', label: 'Monthly stipend / allowance (Track I)' },
+  { value: 'voucher', label: 'Prototype voucher / milestone (Track I)' },
+  { value: 'grant', label: 'Other grant (Track I)' },
+  { value: 'loan', label: 'Loan disbursement (Track II, repayable)' },
+  { value: 'cofinancing_grant', label: 'Co-financing grant tranche (Track II)' },
+]
+
 const PERCENTAGE_PRESETS = [100, 50, 0]
 
 export default function Disbursements() {
@@ -231,6 +239,25 @@ export default function Disbursements() {
             render: (r) => r.program_name || '—',
           },
           {
+            header: 'Type',
+            render: (r) => {
+              const t = DISBURSEMENT_TYPES.find((x) => x.value === r.disbursement_type)
+              const trackII = r.disbursement_type === 'loan' || r.disbursement_type === 'cofinancing_grant'
+              return (
+                <span className="pill neutral" title={t?.label || 'Legacy batch — classified by title'}
+                      style={{ fontSize: '11px', padding: '2px 8px',
+                               color: trackII ? '#8a6100' : undefined,
+                               background: trackII ? 'rgba(240,163,82,0.14)' : undefined }}>
+                  {t ? (t.value === 'stipend' ? 'Stipend'
+                        : t.value === 'voucher' ? 'Voucher'
+                        : t.value === 'grant' ? 'Grant (I)'
+                        : t.value === 'loan' ? 'Loan (II)'
+                        : 'Co-fin. grant (II)') : '—'}
+                </span>
+              )
+            },
+          },
+          {
             header: 'Payment Date',
             render: (r) => (
               <span className="row gap sm">
@@ -370,6 +397,7 @@ function CreateBatchModal({ branchId, programs, onClose, onCreated }) {
   const [baseAmount, setBaseAmount] = useState(250)
   const [title, setTitle] = useState('')
   const [notes, setNotes] = useState('')
+  const [disbType, setDisbType] = useState('stipend')
   const [loading, setLoading] = useState(false)
   const [startups, setStartups] = useState([])
   const [loadingStartups, setLoadingStartups] = useState(false)
@@ -465,6 +493,7 @@ function CreateBatchModal({ branchId, programs, onClose, onCreated }) {
           business_id: s.business_id,
           percentage: Number(s.percentage),
           is_included: Boolean(s.is_included),
+          disbursement_type: disbType,
           amount: eur,
           amount_jod: jod,
           disbursement_date: s.disbursement_date || paymentDate,
@@ -475,6 +504,7 @@ function CreateBatchModal({ branchId, programs, onClose, onCreated }) {
 
       const payload = {
         program_id: Number(programId),
+        disbursement_type: disbType,
         title: title.trim() || undefined,
         payment_date: paymentDate,
         currency,
@@ -585,6 +615,15 @@ function CreateBatchModal({ branchId, programs, onClose, onCreated }) {
             />
           </label>
         </div>
+
+        <label className="stacked" style={{ marginTop: '6px' }}>
+          <span>Disbursement type * (drives Track I / Track II reporting)</span>
+          <select value={disbType} onChange={(e) => setDisbType(e.target.value)}>
+            {DISBURSEMENT_TYPES.map((t) => (
+              <option key={t.value} value={t.value}>{t.label}</option>
+            ))}
+          </select>
+        </label>
 
         <label className="stacked" style={{ marginTop: '6px' }}>
           <span>Notes / Remarks</span>
@@ -801,6 +840,7 @@ function BatchDetailModal({ branchId, batchId, onClose, onUpdated, onExport }) {
   const [title, setTitle] = useState('')
   const [paymentDate, setPaymentDate] = useState('')
   const [notes, setNotes] = useState('')
+  const [disbType, setDisbType] = useState('')
   const [saving, setSaving] = useState(false)
 
   // Sync state when batch data loads
@@ -816,6 +856,7 @@ function BatchDetailModal({ branchId, batchId, onClose, onUpdated, onExport }) {
       setTitle(batch.title || '')
       setPaymentDate(batch.payment_date || '')
       setNotes(batch.notes || '')
+      setDisbType(batch.disbursement_type || '')
     }
   }, [batch])
 
@@ -891,6 +932,7 @@ function BatchDetailModal({ branchId, batchId, onClose, onUpdated, onExport }) {
         exchange_rate: Number(exchangeRate),
         disbursement_currency: disbursementCurrency,
         notes,
+        disbursement_type: disbType || null,
         items: items.map((it) => {
           const itemBase = Number(baseAmount) > 0 ? Number(baseAmount) : Number(it.amount_eur != null ? it.amount_eur : (it.amount != null ? it.amount : it.orig_amount || 0))
           const eur = Math.round(itemBase * (Number(it.percentage) / 100) * 100) / 100
@@ -1018,6 +1060,21 @@ function BatchDetailModal({ branchId, batchId, onClose, onUpdated, onExport }) {
         <div>
           <span className="muted sm">Cohort / Programme</span>
           <div><b>{batch.program_name || '—'}</b></div>
+        </div>
+        <div>
+          <span className="muted sm">Disbursement type</span>
+          {isEditing && can('disbursements.edit') ? (
+            <select value={disbType} onChange={(e) => setDisbType(e.target.value)}
+                    style={{ marginTop: '3px', width: '100%' }}>
+              <option value="">— (classified by title)</option>
+              {DISBURSEMENT_TYPES.map((t) => (
+                <option key={t.value} value={t.value}>{t.label}</option>
+              ))}
+            </select>
+          ) : (
+            <div><b>{(DISBURSEMENT_TYPES.find((t) => t.value === batch.disbursement_type) || {}).label
+                    || '— (classified by title)'}</b></div>
+          )}
         </div>
         <div>
           <span className="muted sm">Payment / Value Date</span>

@@ -618,6 +618,9 @@ class DisbursementBatch(Base):
     total_amount = Column(Float, default=0.0)
     total_amount_jod = Column(Float, default=0.0)
     status = Column(String(30), default="draft")  # draft | processed
+    # explicit classification (replaces title-keyword guessing):
+    # stipend | voucher | grant | loan | cofinancing_grant
+    disbursement_type = Column(String(40), nullable=True)
     notes = Column(Text, default="")
     created_by_id = Column(Integer, ForeignKey("users.id"), nullable=True)
     confirmed_by_id = Column(Integer, ForeignKey("users.id"), nullable=True)

@@ -228,7 +228,7 @@ def dashboard_program(request: Request, ctx=Depends(require_branch_access())):
     # headline disbursement tiles for the dashboard home — same classification
     # and item-based sums as the disbursements module's summary endpoint,
     # restricted to the current program/year filters
-    from .repayments import _classify_disbursement
+    from .repayments import batch_track
     by_track = {
         "grant_I": {"eur": 0.0, "jod": 0.0, "batches": 0},
         "loan_II": {"eur": 0.0, "jod": 0.0, "batches": 0},
@@ -243,7 +243,7 @@ def dashboard_program(request: Request, ctx=Depends(require_branch_access())):
             continue
         processed_eur += eur
         processed_jod += jod
-        kind, track = _classify_disbursement(b.title)
+        kind, track = batch_track(b)
         key = f"{kind}_{track}"
         if key in by_track:
             by_track[key]["eur"] += eur
