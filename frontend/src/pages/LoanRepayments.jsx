@@ -56,7 +56,7 @@ export default function LoanRepayments() {
   const summaryUrl = branchId ? `/repayments/${branchId}/summary/${filterQs ? `?${filterQs}` : ''}` : null
   const overviewUrl = branchId ? `/repayments/${branchId}/loans-overview/${filterQs ? `?${filterQs}` : ''}` : null
   const programsUrl = branchId ? `/programs/${branchId}/?page=1&page_size={100}` : null
-  const batchesUrl = branchId ? `/repayments/${branchId}/batches/` : null
+  const batchesUrl = branchId ? `/repayments/${branchId}/batches/?${filterQs}` : null
 
   const ledgerQueryParams = new URLSearchParams({
     page: page.toString(),
@@ -170,6 +170,48 @@ export default function LoanRepayments() {
         </div>
       </div>
 
+      {/* Global scope filters — recalculate every tile, tab and table below */}
+      <div className="filters card row spread wrap gap" style={{ marginTop: 14 }}>
+        <div className="row gap wrap">
+          <span className="sm muted" style={{ fontWeight: 600 }}>Scope:</span>
+          <select
+            value={selectedProgram}
+            onChange={(e) => { setSelectedProgram(e.target.value); setPage(1); }}
+            className="filter-select"
+            style={{ minWidth: 200 }}
+          >
+            <option value="">All Cohorts / Programmes</option>
+            {programs.map((p) => (
+              <option key={p.id} value={p.id}>{p.name}</option>
+            ))}
+          </select>
+          <select
+            value={selectedStartup}
+            onChange={(e) => { setSelectedStartup(e.target.value); setPage(1); }}
+            className="filter-select"
+            style={{ minWidth: 200 }}
+          >
+            <option value="">All Startups</option>
+            {borrowers.map((b) => (
+              <option key={b.business_id} value={b.business_id}>
+                {b.company_name_en || b.company_name}
+              </option>
+            ))}
+          </select>
+          {(selectedProgram || selectedStartup) && (
+            <button className="btn ghost sm"
+                    onClick={() => { setSelectedProgram(''); setSelectedStartup(''); setPage(1) }}>
+              Clear
+            </button>
+          )}
+        </div>
+        <span className="sm muted">
+          {(selectedProgram || selectedStartup)
+            ? 'Tiles and tables recalculate for the selection'
+            : 'Showing every cohort and startup'}
+        </span>
+      </div>
+
       {/* KPI Stats Section */}
       <div className="tiles-row grid-4">
         <MoneyTile
@@ -254,28 +296,7 @@ export default function LoanRepayments() {
             </div>
 
             <div className="row gap wrap">
-              <select
-                value={selectedStartup}
-                onChange={(e) => { setSelectedStartup(e.target.value); setPage(1); }}
-                className="filter-select"
-              >
-                <option value="">All Startups</option>
-                {borrowers.map((b) => (
-                  <option key={b.business_id} value={b.business_id}>
-                    {b.company_name_en || b.company_name}
-                  </option>
-                ))}
-              </select>
-              <select
-                value={selectedProgram}
-                onChange={(e) => { setSelectedProgram(e.target.value); setPage(1); }}
-                className="filter-select"
-              >
-                <option value="">All Cohorts / Programs</option>
-                {programs.map((p) => (
-                  <option key={p.id} value={p.id}>{p.name}</option>
-                ))}
-              </select>
+              <span className="sm muted">Ledger filters:</span>
 
               <select
                 value={selectedMethod}

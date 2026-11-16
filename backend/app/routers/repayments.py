@@ -1626,11 +1626,38 @@ async def upload_repayment_batch(
 
 
 @router.get("/repayments/{branch_id}/batches/")
-def list_repayment_batches(branch_id: int, ctx=Depends(require_perm("repayments.view"))):
+def list_repayment_batches(branch_id: int, request: Request,
+                           ctx=Depends(require_perm("repayments.view"))):
     db: Session = ctx["db"]
     batches = db.query(RepaymentBatch).filter(
         RepaymentBatch.branch_id == branch_id).order_by(
         RepaymentBatch.batch_month.desc(), RepaymentBatch.id.desc()).all()
+
+    # optional scope filters: cohort/programme or a single startup — batches are
+    # filtered to those containing at least one matching repayment, and their
+    # totals reflect only the matching rows so the tab agrees with the tiles
+    program_id = request.query_params.get("program_id")
+    business_id = request.query_params.get("business_id")
+    if program_id or business_id:
+        biz_ids = None
+        if program_id:
+            biz_ids = {b.id for b in db.query(Business).filter(
+                Business.program_id == int(program_id)).all()}
+        if business_id:
+            want = int(business_id)
+            biz_ids = {want} if biz_ids is None else (biz_ids & {want})
+        out = []
+        for b in batches:
+            rows = [r for r in b.repayments if r.business_id in biz_ids]
+            if not rows:
+                continue
+            ser = repayment_batch_ser(b, db)
+            ser["total_eur"] = round(sum(float(r.amount or 0.0) for r in rows), 2)
+            ser["total_jod"] = round(sum(float(r.amount_jod or 0.0) for r in rows), 3)
+            ser["rows_count"] = len(rows)
+            out.append(ser)
+        return {"results": out, "count": len(out)}
+
     return {
         "results": [repayment_batch_ser(b, db) for b in batches],
         "count": len(batches),
