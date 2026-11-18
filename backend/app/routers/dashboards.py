@@ -2,6 +2,8 @@ import re
 
 from fastapi import APIRouter, Depends, Request
 from sqlalchemy import func, or_
+
+from .repayments import batch_track, DISBURSEMENT_TYPES
 from sqlalchemy.orm import Session
 
 from ..database import get_db
@@ -169,6 +171,7 @@ def dashboard_program(request: Request, ctx=Depends(require_branch_access())):
                 "program_id": pid,
                 "name": pname,
                 "short_name": pname.replace("OCIF ", ""),
+                "by_type": {k: {"eur": 0.0, "jod": 0.0} for k in DISBURSEMENT_TYPES},
                 "total_amount": 0.0,
                 "total_amount_eur": 0.0,
                 "total_amount_jod": 0.0,
@@ -185,19 +188,29 @@ def dashboard_program(request: Request, ctx=Depends(require_branch_access())):
             }
         amt_eur, amt_jod = _item_sums.get(b.id, (0.0, 0.0))
         rate = float(getattr(b, "exchange_rate", None) if getattr(b, "exchange_rate", None) is not None else 0.76)
+        tkey = batch_track(b)[1] == "II" and (
+            "loan" if batch_track(b)[0] == "loan" else "cofinancing_grant") or \
+            (getattr(b, "disbursement_type", None) or "grant")
 
         disb_by_program[pid]["batches_count"] += 1
+        if tkey not in disb_by_program[pid]["by_type"]:
+            disb_by_program[pid]["by_type"][tkey] = {"eur": 0.0, "jod": 0.0}
         disb_by_program[pid]["total_amount"] += amt_eur
         disb_by_program[pid]["total_amount_eur"] += amt_eur
         disb_by_program[pid]["total_amount_jod"] += amt_jod
+        bucket = disb_by_program[pid]["by_type"][tkey]
         if b.status == "processed":
             disb_by_program[pid]["processed_amount"] += amt_eur
             disb_by_program[pid]["processed_amount_eur"] += amt_eur
             disb_by_program[pid]["processed_amount_jod"] += amt_jod
+            bucket["eur"] += amt_eur
+            bucket["jod"] += amt_jod
         else:
             disb_by_program[pid]["draft_amount"] += amt_eur
             disb_by_program[pid]["draft_amount_eur"] += amt_eur
             disb_by_program[pid]["draft_amount_jod"] += amt_jod
+            bucket["draft_eur"] = bucket.get("draft_eur", 0.0) + amt_eur
+            bucket["draft_jod"] = bucket.get("draft_jod", 0.0) + amt_jod
 
     if not params.get("program"):
         for pid, pname in programs_map.items():
@@ -206,6 +219,7 @@ def dashboard_program(request: Request, ctx=Depends(require_branch_access())):
                     "program_id": pid,
                     "name": pname,
                     "short_name": pname.replace("OCIF ", ""),
+                    "by_type": {k: {"eur": 0.0, "jod": 0.0} for k in DISBURSEMENT_TYPES},
                     "total_amount": 0.0,
                     "total_amount_eur": 0.0,
                     "total_amount_jod": 0.0,
@@ -228,7 +242,6 @@ def dashboard_program(request: Request, ctx=Depends(require_branch_access())):
     # headline disbursement tiles for the dashboard home — same classification
     # and item-based sums as the disbursements module's summary endpoint,
     # restricted to the current program/year filters
-    from .repayments import batch_track
     by_track = {
         "grant_I": {"eur": 0.0, "jod": 0.0, "batches": 0},
         "loan_II": {"eur": 0.0, "jod": 0.0, "batches": 0},

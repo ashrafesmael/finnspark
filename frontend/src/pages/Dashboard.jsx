@@ -207,9 +207,17 @@ export default function Dashboard() {
                 <h3>Disbursements per Programme / Cohort</h3>
                 <span className="muted sm">Click bars for batch details 🔍</span>
               </div>
-              <ResponsiveContainer width="100%" height={272}>
+              <ResponsiveContainer width="100%" height={300}>
                 <BarChart
-                  data={prog.disbursements || []}
+                  data={(prog.disbursements || []).map((x) => ({
+                    ...x,
+                    stipend: x.by_type?.stipend?.eur || 0,
+                    voucher: x.by_type?.voucher?.eur || 0,
+                    grant: x.by_type?.grant?.eur || 0,
+                    loan: x.by_type?.loan?.eur || 0,
+                    cofinancing_grant: x.by_type?.cofinancing_grant?.eur || 0,
+                    draft: x.draft_amount_eur || 0,
+                  }))}
                   onClick={handleDisbursementClick}
                   margin={{ top: 10, right: 10, left: 20, bottom: 62 }}
                   style={{ cursor: 'pointer' }}
@@ -233,8 +241,12 @@ export default function Dashboard() {
                     labelFormatter={(label, payload) => payload?.[0]?.payload?.name || label}
                   />
                   <Legend verticalAlign="top" wrapperStyle={{ fontSize: '12px', paddingBottom: 4 }} />
-                  <Bar dataKey="processed_amount" name="Processed" fill="#52bc7e" radius={[4, 4, 0, 0]} />
-                  <Bar dataKey="draft_amount" name="Draft / Pending" fill="#e08a00" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="stipend" stackId="d" name="Stipends (Track I)" fill="#52bc7e" />
+                  <Bar dataKey="voucher" stackId="d" name="Prototype vouchers (Track I)" fill="#8cd2a9" />
+                  <Bar dataKey="grant" stackId="d" name="Other grants (Track I)" fill="#2e9e8f" />
+                  <Bar dataKey="loan" stackId="d" name="Loans (Track II)" fill="#f6b352" />
+                  <Bar dataKey="cofinancing_grant" stackId="d" name="Co-financing grants (Track II)" fill="#e08a00" />
+                  <Bar dataKey="draft" stackId="d" name="Draft / Pending" fill="#9aa7b0" />
                 </BarChart>
               </ResponsiveContainer>
             </div>
