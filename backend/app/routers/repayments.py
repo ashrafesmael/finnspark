@@ -105,6 +105,7 @@ def repayment_ser(r: LoanRepayment, db: Session) -> dict:
 def repayments_summary(
     branch_id: int,
     program_id: Optional[int] = None,
+    cohort_id: Optional[int] = None,
     business_id: Optional[int] = None,
     ctx=Depends(require_perm("repayments.view")),
 ):
@@ -132,7 +133,7 @@ def repayments_summary(
     # scope repayments to the filtered cases; but when a programme/startup
     # filter matched no cases at all, nothing was borrowed in that scope and
     # the collected totals must be zero -- not the whole book's repayments
-    scoped = bool(program_id or business_id)
+    scoped = bool(program_id or cohort_id or business_id)
     repayments = [r for r in db.query(LoanRepayment).filter(
         LoanRepayment.branch_id == branch_id).all()
         if _counts_toward_balance(r, processed_ids)
