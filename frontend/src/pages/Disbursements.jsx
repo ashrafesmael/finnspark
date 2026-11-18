@@ -1063,14 +1063,32 @@ function BatchDetailModal({ branchId, batchId, onClose, onUpdated, onExport }) {
         </div>
         <div>
           <span className="muted sm">Disbursement type</span>
-          {isEditing && can('disbursements.edit') ? (
-            <select value={disbType} onChange={(e) => setDisbType(e.target.value)}
-                    style={{ marginTop: '3px', width: '100%' }}>
-              <option value="">— (classified by title)</option>
-              {DISBURSEMENT_TYPES.map((t) => (
-                <option key={t.value} value={t.value}>{t.label}</option>
-              ))}
-            </select>
+          {can('disbursements.edit') && (!isProcessed || isAdmin) ? (
+            <div>
+              <select value={disbType}
+                      onChange={async (e) => {
+                        const v = e.target.value
+                        setDisbType(v)
+                        // processed batches: the type is metadata — save it
+                        // immediately through the admin type-only endpoint
+                        if (isProcessed && v) {
+                          try {
+                            await api.patch(`/disbursements/${branchId}/${batchId}/type/`,
+                                            { disbursement_type: v })
+                            alert('Disbursement type updated.')
+                          } catch (err) {
+                            alert(err.response?.data?.detail || 'Failed to update type')
+                          }
+                        }
+                      }}
+                      style={{ marginTop: '3px', width: '100%' }}>
+                <option value="">— (classified by title)</option>
+                {DISBURSEMENT_TYPES.map((t) => (
+                  <option key={t.value} value={t.value}>{t.label}</option>
+                ))}
+              </select>
+              {isProcessed && <div className="muted xs">saved immediately — no reopen needed</div>}
+            </div>
           ) : (
             <div><b>{(DISBURSEMENT_TYPES.find((t) => t.value === batch.disbursement_type) || {}).label
                     || '— (classified by title)'}</b></div>

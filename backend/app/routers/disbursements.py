@@ -11,6 +11,7 @@ from ..database import get_db
 from ..deps import require_branch_access, require_perm, has_perm
 from ..models import Business, DisbursementBatch, DisbursementItem, Program
 from ..utils import paginate, parse_page
+from .repayments import batch_track, DISBURSEMENT_TYPES
 
 router = APIRouter(tags=["disbursements"])
 
@@ -150,7 +151,7 @@ def disbursements_summary(
     # JOD come from the included items (batch-level totals can be stale);
     # batches are classified with the same title rules the repayments module
     # uses, so both screens tell the same story
-    from .repayments import batch_track
+    from .repayments import batch_track, DISBURSEMENT_TYPES
     by_track = {
         "grant_I": {"eur": 0.0, "jod": 0.0, "batches": 0},
         "loan_II": {"eur": 0.0, "jod": 0.0, "batches": 0},
@@ -733,6 +734,35 @@ def confirm_disbursement_batch(
 
 
 # ------------------------------------------------------------------ Reopen batch (Admin only)
+
+class DisbursementTypeIn(BaseModel):
+    disbursement_type: str
+
+
+@router.patch("/disbursements/{branch_id}/{batch_id}/type/")
+def set_disbursement_type(branch_id: int, batch_id: int, data: DisbursementTypeIn,
+                          ctx=Depends(require_branch_access())):
+    """Change a batch's disbursement type — works even on PROCESSED batches: the
+    type is reporting metadata (Track I / Track II), not a financial amount, so
+    this is deliberately allowed without a full reopen. Admin-only."""
+    db: Session = ctx["db"]
+    roles = ctx["roles"]
+    is_admin = any(r in ("branch_admin", "organization_admin", "*") for r in roles) \
+        or has_perm(roles, "disbursements.reopen")
+    if not is_admin:
+        raise HTTPException(status_code=403,
+                            detail="Only administrators can change the disbursement type.")
+    if data.disbursement_type not in DISBURSEMENT_TYPES:
+        raise HTTPException(status_code=400,
+                            detail=f"disbursement_type must be one of: {', '.join(DISBURSEMENT_TYPES)}")
+    batch = db.get(DisbursementBatch, batch_id)
+    if not batch or batch.branch_id != branch_id:
+        raise HTTPException(status_code=404, detail="Disbursement batch not found.")
+    batch.disbursement_type = data.disbursement_type
+    batch.updated_at = datetime.utcnow()
+    db.commit()
+    return batch_ser(batch, db, include_items=True)
+
 
 @router.post("/disbursements/{branch_id}/{batch_id}/reopen/")
 def reopen_disbursement_batch(
