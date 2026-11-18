@@ -7,8 +7,9 @@ import api from '../api'
 export default function SelectionBoard() {
   const { branch, can } = useAuth()
   const [stage, setStage] = useState('')
+  const [cohort, setCohort] = useState('')
   const [program, setProgram] = useState('')
-  const [viewBy, setViewBy] = useState('stage') // 'stage' | 'program'
+  const [viewBy, setViewBy] = useState('stage') // 'stage' | 'cohort'
   const [page, setPage] = useState(1)
   const [search, setSearch] = useState('')
   const [status, setStatus] = useState('')
@@ -20,6 +21,7 @@ export default function SelectionBoard() {
   const { data: stages } = useFetch(branch ? `/stages/${branch.id}/` : null)
   const { data: statuses } = useFetch('/applicant-statuses/')
   const { data: programsRes } = useFetch(branch ? `/programs/${branch.id}/?page_size=100` : null)
+  const { data: cohortsRes } = useFetch(branch ? `/v2/cohorts/${branch.id}/` : null)
   const rawPrograms = programsRes?.results || (Array.isArray(programsRes) ? programsRes : [])
   const programs = rawPrograms
     .filter((p) => p.businesses_count > 0 || (p.name && p.name.toLowerCase().includes('cohort')))
@@ -27,6 +29,7 @@ export default function SelectionBoard() {
 
   const qs = new URLSearchParams({ page: String(page), page_size: String(pageSize) })
   if (stage) qs.set('stage', stage)
+  if (cohort) qs.set('cohort', cohort)
   if (program) qs.set('program', program)
   if (search) qs.set('search', search)
   if (status) qs.set('status', status)
@@ -53,23 +56,24 @@ export default function SelectionBoard() {
               Stage
             </button>
             <button
-              id="select-by-program"
-              className={`btn sm ${viewBy === 'program' ? 'primary' : 'ghost'}`}
+              id="select-by-cohort"
+              className={`btn sm ${viewBy === 'cohort' ? 'primary' : 'ghost'}`}
               style={{ padding: '3px 12px', fontSize: '0.82rem', borderRadius: 4, height: 'auto' }}
-              onClick={() => setViewBy('program')}
+              onClick={() => setViewBy('cohort')}
             >
-              Program / Cohort
+              Cohort / Programme
             </button>
           </div>
         </div>
 
-        {(stage || program || status || search || minScore || registered) && (
+        {(stage || program || cohort || status || search || minScore || registered) && (
           <button
             id="btn-reset-filters"
             className="btn ghost sm"
             style={{ fontSize: '0.78rem', padding: '2px 8px', color: 'var(--bad)' }}
             onClick={() => {
               setStage('')
+              setCohort('')
               setProgram('')
               setStatus('')
               setSearch('')
@@ -98,13 +102,13 @@ export default function SelectionBoard() {
             </>
           ) : (
             <>
-              <button className={`tab ${program === '' ? 'active' : ''}`}
-                      onClick={() => { setProgram(''); setPage(1) }}>
+              <button className={`tab ${cohort === '' ? 'active' : ''}`}
+                      onClick={() => { setCohort(''); setPage(1) }}>
                 All Cohorts
               </button>
-              {(programs || []).map((p) => (
-                <button key={p.id} className={`tab ${String(program) === String(p.id) ? 'active' : ''}`}
-                        onClick={() => { setProgram(String(p.id)); setPage(1) }}>{p.name}</button>
+              {(cohortsRes?.results || []).map((c) => (
+                <button key={c.id} className={`tab ${String(cohort) === String(c.id) ? 'active' : ''}`}
+                        onClick={() => { setCohort(String(c.id)); setPage(1) }}>{c.name}</button>
               ))}
             </>
           )}
@@ -114,8 +118,14 @@ export default function SelectionBoard() {
       <div className="filters row wrap">
         <input placeholder="Search business / founder…" value={search}
                onChange={(e) => { setSearch(e.target.value); setPage(1) }} />
+        <select id="filter-cohort" value={cohort} onChange={(e) => { setCohort(e.target.value); setPage(1) }}>
+          <option value="">All Cohorts</option>
+          {(cohortsRes?.results || []).map((c) => (
+            <option key={c.id} value={c.id}>{c.name}</option>
+          ))}
+        </select>
         <select id="filter-program" value={program} onChange={(e) => { setProgram(e.target.value); setPage(1) }}>
-          <option value="">All programs / cohorts</option>
+          <option value="">All Programmes</option>
           {(programs || []).map((p) => (
             <option key={p.id} value={p.id}>{p.name}</option>
           ))}
@@ -145,7 +155,7 @@ export default function SelectionBoard() {
         columns={[
           { header: 'Business/Project', key: 'business_name' },
           { header: 'Founder', render: (r) => `${r.first_name} ${r.last_name}` },
-          { header: 'Program', key: 'program_name' },
+          { header: 'Programme', key: 'program_name' },
           { header: 'Stage', render: (r) => r.selection_stage?.name || '—' },
           { header: 'Eval. by me', render: (r) => r.evaluated_by_me ? 'Yes' : 'No' },
           { header: 'Status', render: (r) => r.status && <StatusPill codeName={r.status.code_name} name={r.status.name} /> },

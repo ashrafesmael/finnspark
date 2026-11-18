@@ -311,6 +311,7 @@ class Applicant(Base):
     answer_labels = Column(JSON, default=dict)    # {field_key: label} captured at submission
 
     program = relationship("Program")
+    cohort = relationship("Cohort")
     stage = relationship("SelectionStage")
     status = relationship("ApplicantStatus")
     country = relationship("Country")
