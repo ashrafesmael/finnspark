@@ -49,6 +49,14 @@ def _case_query(db: Session, branch_id: int):
 
 
 def _apply_filters(q, params):
+    if v := params.get("program"):
+        from .repayments import _enrolled_business_ids
+        ids = _enrolled_business_ids(q.session, None, int(v)) if q.session else set()
+        q = q.filter(InvestmentCase.business_id.in_(ids or [0]))
+    if v := params.get("cohort"):
+        from ..models import Business
+        q = q.join(Business, Business.id == InvestmentCase.business_id).filter(
+            Business.cohort_id == int(v))
     if v := params.get("tier"):
         q = q.filter(InvestmentCase.tier_id == int(v))
     if v := params.get("stage"):

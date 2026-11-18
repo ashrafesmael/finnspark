@@ -61,7 +61,7 @@ export default function Programs() {
         columns={[
           { header: 'Program', key: 'name' },
           { header: 'Type', render: (r) => r.program_type?.name || '—' },
-          { header: 'Businesses', key: 'businesses_count' },
+          { header: 'Participants', key: 'enrolled_count' },
           { header: 'Courses', key: 'courses_count' },
           { header: 'Created', render: (r) => (r.creation_date || '').slice(0, 10) },
           { header: 'Scoring req.', render: (r) => (r.scoring_required ? 'Yes' : 'No') },

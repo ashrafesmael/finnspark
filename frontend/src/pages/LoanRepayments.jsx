@@ -36,6 +36,7 @@ export default function LoanRepayments() {
   const pageSize = 15
   const [search, setSearch] = useState('')
   const [selectedProgram, setSelectedProgram] = useState('')
+  const [selectedCohort, setSelectedCohort] = useState('')
   const [selectedStartup, setSelectedStartup] = useState('')
   const [selectedMethod, setSelectedMethod] = useState('')
   const [selectedStatus, setSelectedStatus] = useState('')
@@ -51,6 +52,7 @@ export default function LoanRepayments() {
   // API endpoints
   const filterParams = new URLSearchParams()
   if (selectedProgram) filterParams.set('program_id', selectedProgram)
+  if (selectedCohort) filterParams.set('cohort_id', selectedCohort)
   if (selectedStartup) filterParams.set('business_id', selectedStartup)
   const filterQs = filterParams.toString()
   const summaryUrl = branchId ? `/repayments/${branchId}/summary/${filterQs ? `?${filterQs}` : ''}` : null
@@ -63,6 +65,7 @@ export default function LoanRepayments() {
     page_size: pageSize.toString(),
     ...(search && { search }),
     ...(selectedProgram && { program_id: selectedProgram }),
+    ...(selectedCohort && { cohort_id: selectedCohort }),
     ...(selectedStartup && { business_id: selectedStartup }),
     ...(selectedMethod && { payment_method: selectedMethod }),
     ...(selectedStatus && { status: selectedStatus }),
@@ -74,6 +77,7 @@ export default function LoanRepayments() {
   const overviewRes = useFetch(overviewUrl)
   const ledgerRes = useFetch(ledgerUrl)
   const programsRes = useFetch(programsUrl)
+  const cohortsRes = useFetch(branch ? `/v2/cohorts/${branch.id}/` : null)
   const batchesRes = useFetch(batchesUrl)
 
   const summary = summaryRes.data || {
@@ -178,18 +182,29 @@ export default function LoanRepayments() {
             value={selectedProgram}
             onChange={(e) => { setSelectedProgram(e.target.value); setPage(1); }}
             className="filter-select"
-            style={{ minWidth: 200 }}
+            style={{ minWidth: 210 }}
           >
-            <option value="">All Cohorts / Programmes</option>
+            <option value="">All Programmes (streams)</option>
             {programs.map((p) => (
               <option key={p.id} value={p.id}>{p.name}</option>
+            ))}
+          </select>
+          <select
+            value={selectedCohort}
+            onChange={(e) => { setSelectedCohort(e.target.value); setPage(1); }}
+            className="filter-select"
+            style={{ minWidth: 150 }}
+          >
+            <option value="">All Cohorts</option>
+            {(cohortsRes.data?.results || []).map((c) => (
+              <option key={c.id} value={c.id}>{c.name}</option>
             ))}
           </select>
           <select
             value={selectedStartup}
             onChange={(e) => { setSelectedStartup(e.target.value); setPage(1); }}
             className="filter-select"
-            style={{ minWidth: 200 }}
+            style={{ minWidth: 190 }}
           >
             <option value="">All Startups</option>
             {borrowers.map((b) => (
@@ -198,9 +213,9 @@ export default function LoanRepayments() {
               </option>
             ))}
           </select>
-          {(selectedProgram || selectedStartup) && (
+          {(selectedProgram || selectedCohort || selectedStartup) && (
             <button className="btn ghost sm"
-                    onClick={() => { setSelectedProgram(''); setSelectedStartup(''); setPage(1) }}>
+                    onClick={() => { setSelectedProgram(''); setSelectedCohort(''); setSelectedStartup(''); setPage(1) }}>
               Clear
             </button>
           )}
@@ -208,7 +223,7 @@ export default function LoanRepayments() {
         <span className="sm muted">
           {(selectedProgram || selectedStartup)
             ? 'Tiles and tables recalculate for the selection'
-            : 'Showing every cohort and startup'}
+            : 'Showing every programme, cohort and startup'}
         </span>
       </div>
 

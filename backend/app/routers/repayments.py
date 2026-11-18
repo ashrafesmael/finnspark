@@ -117,6 +117,9 @@ def repayments_summary(
     if program_id:
         q = q.join(Business, Business.id == InvestmentCase.business_id).filter(
             Business.id.in_(_enrolled_business_ids(db, branch_id, program_id)))
+    if cohort_id:
+        q = q.join(Business, Business.id == InvestmentCase.business_id).filter(
+            Business.cohort_id == cohort_id)
     if business_id:
         q = q.filter(InvestmentCase.business_id == business_id)
     cases = q.all()
@@ -218,6 +221,7 @@ def repayments_summary(
 def loans_overview(
     branch_id: int,
     program_id: Optional[int] = None,
+    cohort_id: Optional[int] = None,
     business_id: Optional[int] = None,
     ctx=Depends(require_perm("repayments.view")),
 ):
@@ -229,6 +233,9 @@ def loans_overview(
     if program_id:
         q = q.join(Business, Business.id == InvestmentCase.business_id).filter(
             Business.id.in_(_enrolled_business_ids(db, branch_id, program_id)))
+    if cohort_id:
+        q = q.join(Business, Business.id == InvestmentCase.business_id).filter(
+            Business.cohort_id == cohort_id)
     if business_id:
         q = q.filter(InvestmentCase.business_id == business_id)
     cases = q.order_by(InvestmentCase.company_name).all()
@@ -312,6 +319,7 @@ def list_repayments(
     branch_id: int,
     business_id: Optional[int] = None,
     program_id: Optional[int] = None,
+    cohort_id: Optional[int] = None,
     status: Optional[str] = None,
     payment_method: Optional[str] = None,
     search: Optional[str] = None,
@@ -329,7 +337,10 @@ def list_repayments(
     if business_id:
         q = q.filter(LoanRepayment.business_id == business_id)
     if program_id:
-        q = q.filter(Business.cohort_id == program_id)
+        enrolled = _enrolled_business_ids(db, branch_id, program_id)
+        q = q.filter(LoanRepayment.business_id.in_(enrolled or [0]))
+    if cohort_id:
+        q = q.filter(Business.cohort_id == cohort_id)
     if status:
         q = q.filter(LoanRepayment.status == status)
     if payment_method:
