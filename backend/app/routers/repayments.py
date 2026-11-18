@@ -22,6 +22,20 @@ router = APIRouter(tags=["loan_repayments"])
 
 
 
+def _enrolled_business_ids(db: Session, branch_id: int, program_id: int) -> set[int]:
+    """Businesses participating in a programme (Track II participants for the
+    acceleration stream), via their programme enrollments."""
+    from ..models import ProgramEnrollment
+    ids = {r[0] for r in db.query(ProgramEnrollment.business_id).filter(
+        ProgramEnrollment.program_id == program_id,
+        ProgramEnrollment.status.in_(("selected", "active", "completed"))).all()}
+    if not ids:
+        # fallback: businesses whose cohort is the given id (legacy/Track I view)
+        ids = {r[0] for r in db.query(Business.id).filter(
+            Business.branch_id == branch_id, Business.cohort_id == program_id).all()}
+    return ids
+
+
 def _display_names(biz: Business, case=None) -> dict:
     """English trading name (for businesses registered under a non-latin name)
     and the entrepreneur behind the startup (founder, else the case's CEO)."""
@@ -102,7 +116,7 @@ def repayments_summary(
     )
     if program_id:
         q = q.join(Business, Business.id == InvestmentCase.business_id).filter(
-            Business.program_id == program_id)
+            Business.id.in_(_enrolled_business_ids(db, branch_id, program_id)))
     if business_id:
         q = q.filter(InvestmentCase.business_id == business_id)
     cases = q.all()
@@ -214,7 +228,7 @@ def loans_overview(
     )
     if program_id:
         q = q.join(Business, Business.id == InvestmentCase.business_id).filter(
-            Business.program_id == program_id)
+            Business.id.in_(_enrolled_business_ids(db, branch_id, program_id)))
     if business_id:
         q = q.filter(InvestmentCase.business_id == business_id)
     cases = q.order_by(InvestmentCase.company_name).all()
@@ -315,7 +329,7 @@ def list_repayments(
     if business_id:
         q = q.filter(LoanRepayment.business_id == business_id)
     if program_id:
-        q = q.filter(Business.program_id == program_id)
+        q = q.filter(Business.cohort_id == program_id)
     if status:
         q = q.filter(LoanRepayment.status == status)
     if payment_method:
@@ -1671,7 +1685,7 @@ def list_repayment_batches(branch_id: int, request: Request,
         biz_ids = None
         if program_id:
             biz_ids = {b.id for b in db.query(Business).filter(
-                Business.program_id == int(program_id)).all()}
+                Business.cohort_id == int(program_id)).all()}
         if business_id:
             want = int(business_id)
             biz_ids = {want} if biz_ids is None else (biz_ids & {want})

@@ -9,7 +9,7 @@ from sqlalchemy.orm import Session
 from ..database import get_db
 from ..deps import require_branch_access
 from ..models import (
-    Applicant, Business, BusinessFounder, BusinessIndustry, BusinessType, Country, District,
+    Applicant, Business, BusinessFounder, BusinessIndustry, BusinessType, Cohort, Country, District,
     Gender, Province, DisbursementBatch, DisbursementItem, Program,
 )
 
@@ -38,7 +38,7 @@ def dashboard_program(request: Request, ctx=Depends(require_branch_access())):
 
     q = db.query(Applicant).filter(Applicant.branch_id == branch_id)
     if v := params.get("program"):
-        q = q.filter(Applicant.program_id == int(v))
+        q = q.filter(Applicant.cohort_id == int(v))
     if v := params.get("year"):
         q = q.filter(func.strftime("%Y", Applicant.application_date) == str(v))
     applicants = q.all()
@@ -46,7 +46,7 @@ def dashboard_program(request: Request, ctx=Depends(require_branch_access())):
     # founders drive gender/age distributions; fall back to applicant records
     biz_q = db.query(Business).filter(Business.branch_id == branch_id)
     if params.get("program"):
-        biz_q = biz_q.filter(Business.program_id == int(params["program"]))
+        biz_q = biz_q.filter(Business.cohort_id == int(params["program"]))
     if v := params.get("year"):
         # "Selected" means a business that came out of the applicant pool of
         # that year — follow the applicant link; imports without one fall back
@@ -117,7 +117,7 @@ def dashboard_program(request: Request, ctx=Depends(require_branch_access())):
         # scoping below attributes every euro to the right cohort
         item_batch_ids = {r[0] for r in db.query(DisbursementItem.batch_id).join(
             Business, DisbursementItem.business_id == Business.id).filter(
-            Business.program_id == pid).all()}
+            Business.cohort_id == pid).all()}
         if item_batch_ids:
             disb_q = disb_q.filter(or_(
                 DisbursementBatch.program_id.in_(program_ids),
@@ -128,7 +128,7 @@ def dashboard_program(request: Request, ctx=Depends(require_branch_access())):
         disb_q = disb_q.filter(func.strftime("%Y", DisbursementBatch.payment_date) == str(v))
     batches = disb_q.all()
 
-    programs_map = {p.id: p.name for p in db.query(Program).filter(Program.branch_id == branch_id).all()}
+    cohorts_map = {c.id: c.name for c in db.query(Cohort).filter(Cohort.branch_id == branch_id).all()}
     disb_by_program: dict[int, dict] = {}
 
     # the amounts a batch actually carries live on its included items --
@@ -157,15 +157,15 @@ def dashboard_program(request: Request, ctx=Depends(require_branch_access())):
         ).join(Business, DisbursementItem.business_id == Business.id).filter(
                 DisbursementItem.batch_id.in_([b.id for b in batches]),
                 DisbursementItem.is_included == True,   # noqa: E712
-                Business.program_id == int(program_filter),
+                Business.cohort_id == int(program_filter),
         ).group_by(DisbursementItem.batch_id).all()}
         _item_sums = {b.id: _scoped.get(b.id, (0.0, 0.0)) for b in batches}
 
     for b in batches:
         # when a cohort programme is selected, its Track II sibling batches
         # roll up under the same row — one bar, one story
-        pid = int(program_filter) if program_filter else b.program_id
-        pname = programs_map.get(pid, f"Programme {pid}")
+        pid = int(program_filter) if program_filter else b.cohort_id
+        pname = cohorts_map.get(pid, f"Cohort {pid}")
         if pid not in disb_by_program:
             disb_by_program[pid] = {
                 "program_id": pid,
@@ -213,7 +213,7 @@ def dashboard_program(request: Request, ctx=Depends(require_branch_access())):
             bucket["draft_jod"] = bucket.get("draft_jod", 0.0) + amt_jod
 
     if not params.get("program"):
-        for pid, pname in programs_map.items():
+        for pid, pname in cohorts_map.items():
             if pid not in disb_by_program:
                 disb_by_program[pid] = {
                     "program_id": pid,
@@ -385,7 +385,7 @@ def dashboard_businesses(request: Request, ctx=Depends(require_branch_access()))
     params = request.query_params
     biz_q = db.query(Business).filter(Business.branch_id == branch_id)
     if params.get("program"):
-        biz_q = biz_q.filter(Business.program_id == int(params["program"]))
+        biz_q = biz_q.filter(Business.cohort_id == int(params["program"]))
     if v := params.get("year"):
         # same selection-year semantics as the program dashboard: follow the
         # applicant link, fall back to the business's own creation year
@@ -464,7 +464,7 @@ def dashboard_drilldown(request: Request, ctx=Depends(require_branch_access())):
         biz_q = db.query(Business).filter(Business.branch_id == branch_id)
         if program_id:
             try:
-                biz_q = biz_q.filter(Business.program_id == int(program_id))
+                biz_q = biz_q.filter(Business.cohort_id == int(program_id))
             except ValueError:
                 pass
         if btype:
@@ -492,7 +492,7 @@ def dashboard_drilldown(request: Request, ctx=Depends(require_branch_access())):
     q = db.query(Applicant).filter(Applicant.branch_id == branch_id)
     if program_id:
         try:
-            q = q.filter(Applicant.program_id == int(program_id))
+            q = q.filter(Applicant.cohort_id == int(program_id))
         except ValueError:
             pass
 
@@ -560,7 +560,7 @@ def dashboard_funnel_drilldown(request: Request, ctx=Depends(require_branch_acce
         biz_q = db.query(Business).filter(Business.branch_id == branch_id)
         if program_id:
             try:
-                biz_q = biz_q.filter(Business.program_id == int(program_id))
+                biz_q = biz_q.filter(Business.cohort_id == int(program_id))
             except ValueError:
                 pass
         if stage == "graduated":
@@ -588,7 +588,7 @@ def dashboard_funnel_drilldown(request: Request, ctx=Depends(require_branch_acce
         q = db.query(Applicant).filter(Applicant.branch_id == branch_id)
         if program_id:
             try:
-                q = q.filter(Applicant.program_id == int(program_id))
+                q = q.filter(Applicant.cohort_id == int(program_id))
             except ValueError:
                 pass
         applicants = q.order_by(Applicant.application_date.desc()).all()

@@ -94,14 +94,9 @@ def my_courses(branch_id: int, ctx=Depends(require_perm("courses.view"))):
     db: Session = ctx["db"]
     user = ctx["user"]
     from ..models import Applicant
-    program_ids = [
-        r[0] for r in db.query(Applicant.program_id).filter_by(user_id=user.id).all()
-        if r[0]
-    ]
-    q = db.query(Course).filter(Course.branch_id == branch_id).filter(
-        (Course.program_id.is_(None)) |
-        (Course.program_id.in_(program_ids or [0]))
-    )
+    # courses live under the Training programme and are open to all founders
+    # of the branch (the archived-status filter still applies)
+    q = db.query(Course).filter(Course.branch_id == branch_id)
     q = _exclude_archived(db, q, None)
     rows = q.all()
     if rows and all(re.match(r"^\d+\.\s", c.name or "") for c in rows):

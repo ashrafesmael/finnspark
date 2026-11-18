@@ -21,6 +21,8 @@ def batch_ser(b: DisbursementBatch, db: Session, include_items: bool = True) -> 
         "id": b.id,
         "branch_id": b.branch_id,
         "program_id": b.program_id,
+        "cohort_id": b.cohort_id,
+        "cohort_name": (b.cohort.name if b.cohort else None),
         "program_name": b.program.name if b.program else None,
         "title": b.title,
         "payment_date": str(b.payment_date) if b.payment_date else None,
@@ -111,6 +113,11 @@ def disbursements_summary(
             q = q.filter(DisbursementBatch.program_id == int(program_id))
         except ValueError:
             pass
+    if cohort_id := request.query_params.get("cohort_id"):
+        try:
+            q = q.filter(DisbursementBatch.cohort_id == int(cohort_id))
+        except ValueError:
+            pass
     if status := request.query_params.get("status"):
         q = q.filter(DisbursementBatch.status == status)
     if currency := request.query_params.get("currency"):
@@ -199,6 +206,11 @@ def list_disbursements(
             q = q.filter(DisbursementBatch.program_id == int(program_id))
         except ValueError:
             pass
+    if cohort_id := request.query_params.get("cohort_id"):
+        try:
+            q = q.filter(DisbursementBatch.cohort_id == int(cohort_id))
+        except ValueError:
+            pass
 
     if status := request.query_params.get("status"):
         q = q.filter(DisbursementBatch.status == status)
@@ -228,6 +240,7 @@ class DisbursementItemIn(BaseModel):
 
 class DisbursementBatchCreateIn(BaseModel):
     program_id: int
+    cohort_id: int | None = None
     title: str | None = None
     payment_date: date
     currency: str = "EUR"
@@ -307,6 +320,7 @@ def create_disbursement_batch(
     batch = DisbursementBatch(
         branch_id=branch_id,
         program_id=data.program_id,
+        cohort_id=data.cohort_id,
         title=title,
         payment_date=data.payment_date,
         currency=currency,
@@ -354,7 +368,7 @@ def create_disbursement_batch(
         # Default: auto-populate all businesses in this cohort / program
         businesses = db.query(Business).filter(
             Business.branch_id == branch_id,
-            Business.program_id == data.program_id,
+            Business.cohort_id == data.cohort_id,
         ).order_by(Business.name).all()
 
         for biz in businesses:

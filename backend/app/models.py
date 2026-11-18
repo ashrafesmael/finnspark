@@ -286,6 +286,7 @@ class Applicant(Base):
     __tablename__ = "applicants"
     id = Column(Integer, primary_key=True)
     branch_id = Column(Integer, ForeignKey("branches.id"), nullable=False)
+    cohort_id = Column(Integer, ForeignKey("cohorts.id"), nullable=True)
     program_id = Column(Integer, ForeignKey("programs.id"), nullable=True)
     selection_stage_id = Column(Integer, ForeignKey("selection_stages.id"), nullable=True)
     status_id = Column(Integer, ForeignKey("applicant_statuses.id"))
@@ -351,13 +352,50 @@ class Program(Base):
     status = relationship("ProgramStatus")
 
 
+class Cohort(Base):
+    """An intake group of startups (Cohort 1, 2, 3 ...) — orthogonal to
+    Programmes, which are the support streams (Track I incubation, Track II
+    acceleration, Training). A cohort's startups may participate in several
+    programmes over their lifetime."""
+    __tablename__ = "cohorts"
+    id = Column(Integer, primary_key=True)
+    branch_id = Column(Integer, ForeignKey("branches.id"), nullable=False)
+    name = Column(String(250), nullable=False)
+    description = Column(Text, default="")
+    onboarded_date = Column(Date, nullable=True)
+    status_id = Column(Integer, ForeignKey("program_statuses.id"))
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    status = relationship("ProgramStatus")
+
+
+class ProgramEnrollment(Base):
+    """A business's participation in a programme — e.g. Track II participation
+    is granted through a selection process after Track I completion:
+    applied -> selected -> active -> completed (withdrawn possible)."""
+    __tablename__ = "program_enrollments"
+    id = Column(Integer, primary_key=True)
+    business_id = Column(Integer, ForeignKey("businesses.id"), nullable=False)
+    program_id = Column(Integer, ForeignKey("programs.id"), nullable=False)
+    status = Column(String(30), default="active")  # applied|selected|active|completed|withdrawn
+    notes = Column(Text, default="")
+    enrolled_by_id = Column(Integer, ForeignKey("users.id"), nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    business = relationship("Business")
+    program = relationship("Program")
+
+
 class Business(Base):
     __tablename__ = "businesses"
     id = Column(Integer, primary_key=True)
     branch_id = Column(Integer, ForeignKey("branches.id"), nullable=False)
+    cohort_id = Column(Integer, ForeignKey("cohorts.id"))
     program_id = Column(Integer, ForeignKey("programs.id"))
-    applicant_id = Column(Integer, ForeignKey("applicants.id"), nullable=True)
+    cohort = relationship("Cohort")
     name = Column(String(255))
+    logo = Column(String(500), nullable=True)
     # english display name for businesses registered under a non-latin name
     name_en = Column(String(255), nullable=True)
     logo = Column(String(500), nullable=True)
@@ -609,6 +647,7 @@ class DisbursementBatch(Base):
     id = Column(Integer, primary_key=True)
     branch_id = Column(Integer, ForeignKey("branches.id"), nullable=False)
     program_id = Column(Integer, ForeignKey("programs.id"), nullable=False)
+    cohort_id = Column(Integer, ForeignKey("cohorts.id"), nullable=True)
     title = Column(String(250), nullable=False)
     payment_date = Column(Date, nullable=False)
     currency = Column(String(10), default="EUR")  # Base currency (EUR)

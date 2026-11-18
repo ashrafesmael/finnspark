@@ -8,7 +8,7 @@ from ..models import (
     Applicant, ApplicantStatus, BusinessIndustry, BusinessType, CommitteeLevel, Country, CourseStatus,
     District, FieldType, FormStatus, Gender, InvestmentRound, InvestmentStage, InvestmentStatus,
     InvestmentTier, OrganizationStatus, ProgramStatus, Province, AnnouncementStatus, SelectionStage,
-    Program,
+    Program, Cohort,
 )
 from ..utils import serialize_ref
 
@@ -143,13 +143,13 @@ def organization_statuses(db: Session = Depends(get_db)):
 
 @router.get("/program-list/")
 def program_list(request: Request, db: Session = Depends(get_db), user=Depends(get_current_user)):
+    """The dashboard's programme filter is now the COHORT dimension (Cohort 1..N):
+    the funnel, tiles and distributions are intake-group concepts."""
     branch_id = request.query_params.get("branch_id")
-    q = db.query(Applicant.program_id).filter(Applicant.program_id.isnot(None))
+    q = db.query(Cohort)
     if branch_id:
-        q = q.filter(Applicant.branch_id == int(branch_id))
-    ids = sorted({r[0] for r in q.distinct()})
-    programs = db.query(Program).filter(Program.id.in_(ids)).all()
-    return [{"id": p.id, "name": p.name} for p in programs]
+        q = q.filter(Cohort.branch_id == int(branch_id))
+    return [{"id": c.id, "name": c.name} for c in q.order_by(Cohort.id).all()]
 
 
 @router.get("/applicants/application-years/{branch_id}/")

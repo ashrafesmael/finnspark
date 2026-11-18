@@ -29,7 +29,7 @@ def applicant_ser(a: Applicant, user_id: int | None = None) -> dict:
         "first_name": a.first_name,
         "last_name": a.last_name,
         "email": a.email,
-        "program_id": a.program_id,
+        "program_id": a.cohort_id,
         "program_name": get_cohort_display(a.program.name) if a.program else None,
         "selection_stage": serialize_ref(a.stage) if a.stage else None,
         "selection_stage_id": a.selection_stage_id,
@@ -80,7 +80,7 @@ def applicants_list(branch_id: int, request: Request, ctx=Depends(require_perm("
         q = q.join(ApplicantStatus, ApplicantStatus.id == Applicant.status_id).filter(
             ApplicantStatus.code_name == v)
     if v := params.get("program"):
-        q = q.filter(Applicant.program_id == int(v))
+        q = q.filter(Applicant.cohort_id == int(v))
     if v := params.get("country"):
         q = q.filter(Applicant.country_id == int(v))
     if v := params.get("province"):

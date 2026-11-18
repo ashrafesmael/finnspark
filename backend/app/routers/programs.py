@@ -3,15 +3,16 @@ from datetime import datetime
 from fastapi import APIRouter, Depends, HTTPException, Request
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
-from sqlalchemy import func
+from sqlalchemy import func, or_
 from sqlalchemy.orm import Session
 
 from ..database import get_db
 from ..deps import require_branch_access, require_perm
 from ..models import (
-    Applicant, Business, BusinessFounder, BusinessIndustry, BusinessType, Course,
+    Applicant, Business, BusinessFounder, BusinessIndustry, BusinessType, Cohort, Course,
     CourseStatus, InvestmentCase, InvestmentStage, InvestmentStatus, MentorConclusionQuestion,
-    MentorReviewQuestion, Mentorship, Program, ProgramType, ProgramStatus, QuestionAnswer,
+    MentorReviewQuestion, Mentorship, Program, ProgramEnrollment, ProgramType, ProgramStatus,
+    QuestionAnswer,
 )
 from ..utils import paginate, parse_page
 
@@ -94,7 +95,10 @@ def delete_program_type(branch_id: int, type_id: int, ctx=Depends(require_perm("
 # ------------------------------------------------------------------ programs
 
 def program_ser(p: Program, db: Session) -> dict:
-    businesses = db.query(func.count(Business.id)).filter(Business.program_id == p.id).scalar()
+    from ..models import ProgramEnrollment
+    enrolled = db.query(func.count(ProgramEnrollment.id)).filter(
+        ProgramEnrollment.program_id == p.id,
+        ProgramEnrollment.status.in_(("applied", "selected", "active", "completed"))).scalar()
     courses = db.query(func.count(Course.id)).filter(Course.program_id == p.id).scalar()
     return {
         "id": p.id, "branch": p.branch_id, "name": p.name, "description": p.description,
@@ -102,7 +106,7 @@ def program_ser(p: Program, db: Session) -> dict:
         "status": {"id": p.status_id, "name": p.status.name, "code_name": p.status.code_name} if p.status else None,
         "scoring_required": bool(p.scoring_required),
         "creation_date": str(p.creation_date or ""),
-        "businesses_count": businesses or 0,
+        "enrolled_count": enrolled or 0,
         "courses_count": courses or 0,
     }
 
@@ -249,7 +253,7 @@ def delete_program(branch_id: int, program_id: int, ctx=Depends(require_perm("pr
     p = db.get(Program, program_id)
     if not p or p.branch_id != branch_id:
         raise HTTPException(status_code=404, detail="Not found.")
-    used = db.query(Business).filter(Business.program_id == program_id).count()
+    used = db.query(Business).filter(Business.cohort_id == program_id).count()
     if used:
         raise HTTPException(status_code=400, detail="Program has enrolled businesses.")
     db.delete(p)
@@ -259,12 +263,107 @@ def delete_program(branch_id: int, program_id: int, ctx=Depends(require_perm("pr
 
 # ------------------------------------------------------------------ program businesses
 
+@router.get("/v2/cohorts/{branch_id}/{cohort_id}/businesses/")
+def cohort_businesses(branch_id: int, cohort_id: int, request: Request,
+                      ctx=Depends(require_perm("programs.view"))):
+    """Businesses of a cohort; optionally narrowed to those enrolled in a
+    programme (e.g. Track II participants for a loan disbursement batch)."""
+    db: Session = ctx["db"]
+    page, size = parse_page(request)
+    q = db.query(Business).filter(Business.branch_id == branch_id, Business.cohort_id == cohort_id)
+    enrolled_in = request.query_params.get("enrolled_in")
+    if enrolled_in:
+        q = q.filter(Business.id.in_(
+            db.query(ProgramEnrollment.business_id).filter(
+                ProgramEnrollment.program_id == int(enrolled_in),
+                ProgramEnrollment.status.in_(("selected", "active")))))
+    if s := request.query_params.get("business_name"):
+        q = q.filter(Business.name.ilike(f"%{s}%"))
+    q = q.order_by(Business.name.asc())
+    return paginate(q, page, size, lambda b: business_ser(b, db))
+
+
+@router.get("/v2/programs/{branch_id}/{program_id}/enrollments/")
+def program_enrollments_list(branch_id: int, program_id: int, request: Request,
+                             ctx=Depends(require_perm("programs.view"))):
+    """Participation records for a programme (who applied / was selected / is active)."""
+    db: Session = ctx["db"]
+    page, size = parse_page(request)
+    q = db.query(ProgramEnrollment).filter(
+        ProgramEnrollment.program_id == program_id).order_by(ProgramEnrollment.created_at.desc())
+    if s := request.query_params.get("status"):
+        q = q.filter(ProgramEnrollment.status == s)
+    return paginate(q, page, size, lambda e: {
+        "id": e.id, "business_id": e.business_id,
+        "business_name": e.business.name if e.business else "—",
+        "cohort_id": e.business.cohort_id if e.business else None,
+        "cohort_name": (e.business.cohort.name if e.business and e.business.cohort else None),
+        "status": e.status, "notes": e.notes or "",
+        "created_at": str(e.created_at or ""),
+    })
+
+
+class EnrollmentIn(BaseModel):
+    business_id: int
+    status: str = "active"
+    notes: str = ""
+
+
+@router.post("/v2/programs/{branch_id}/{program_id}/enrollments/")
+def add_program_enrollment(branch_id: int, program_id: int, data: EnrollmentIn,
+                           ctx=Depends(require_perm("programs.edit"))):
+    """Record a business's participation in a programme (e.g. a startup selected
+    for Track II after the selection process)."""
+    db: Session = ctx["db"]
+    user = ctx["user"]
+    if data.status not in ("applied", "selected", "active", "completed", "withdrawn"):
+        raise HTTPException(status_code=400, detail="Invalid enrollment status.")
+    biz = db.get(Business, data.business_id)
+    if not biz or biz.branch_id != branch_id:
+        raise HTTPException(status_code=404, detail="Business not found.")
+    exists = db.query(ProgramEnrollment).filter_by(
+        business_id=data.business_id, program_id=program_id).first()
+    if exists:
+        exists.status = data.status
+        exists.notes = data.notes or exists.notes
+        exists.updated_at = datetime.utcnow()
+        e = exists
+    else:
+        e = ProgramEnrollment(business_id=data.business_id, program_id=program_id,
+                              status=data.status, notes=data.notes or "",
+                              enrolled_by_id=user.id)
+        db.add(e)
+        db.flush()
+    db.commit()
+    return {"id": e.id, "business_id": e.business_id, "program_id": e.program_id,
+            "status": e.status, "business_name": biz.name}
+
+
+@router.get("/v2/cohorts/{branch_id}/")
+def list_cohorts(branch_id: int, request: Request, ctx=Depends(require_perm("programs.view"))):
+    db: Session = ctx["db"]
+    from ..models import Cohort, ProgramStatus
+    q = db.query(Cohort).filter(Cohort.branch_id == branch_id)
+    arch = db.query(ProgramStatus).filter(ProgramStatus.code_name == "archived").first()
+    if (request.query_params.get("status") or "active") != "all" and arch:
+        q = q.filter(or_(Cohort.status_id.is_(None), Cohort.status_id != arch.id))
+    rows = q.order_by(Cohort.id).all()
+    out = []
+    for c in rows:
+        n_biz = db.query(func.count(Business.id)).filter(Business.cohort_id == c.id).scalar()
+        out.append({"id": c.id, "branch": c.branch_id, "name": c.name,
+                    "description": c.description or "",
+                    "onboarded_date": str(c.onboarded_date or ""),
+                    "businesses_count": n_biz or 0})
+    return {"results": out, "count": len(out)}
+
+
 @router.get("/v2/programs/{branch_id}/{program_id}/businesses/")
 def program_businesses(branch_id: int, program_id: int, request: Request,
                        ctx=Depends(require_perm("programs.view"))):
     db: Session = ctx["db"]
     page, size = parse_page(request)
-    q = db.query(Business).filter(Business.branch_id == branch_id, Business.program_id == program_id)
+    q = db.query(Business).filter(Business.branch_id == branch_id, Business.cohort_id == program_id)
     if s := request.query_params.get("business_name"):
         q = q.filter(Business.name.ilike(f"%{s}%"))
     q = q.order_by(Business.created_at.desc())
@@ -518,7 +617,7 @@ def export_program_businesses(branch_id: int, program_id: int,
     ws.title = "Businesses"
     ws.append(["Business/Project", "Founders", "Course progress %", "Course score %",
                "Average evaluator score %", "Mentors", "Graduation"])
-    for b in db.query(Business).filter(Business.program_id == program_id).all():
+    for b in db.query(Business).filter(Business.cohort_id == program_id).all():
         ws.append([
             b.name,
             ", ".join(f"{f.first_name} {f.last_name}".strip() for f in b.founders),
