@@ -24,6 +24,7 @@ export default function Disbursements() {
   const [page, setPage] = useState(1)
   const [search, setSearch] = useState('')
   const [programFilter, setProgramFilter] = useState('')
+  const [cohortFilter, setCohortFilter] = useState('')
   const [statusFilter, setStatusFilter] = useState('')
   const [currencyFilter, setCurrencyFilter] = useState('')
   const pageSize = 10
@@ -36,6 +37,7 @@ export default function Disbursements() {
   const summaryQuery = new URLSearchParams()
   if (search) summaryQuery.append('search', search)
   if (programFilter) summaryQuery.append('program_id', programFilter)
+  if (cohortFilter) summaryQuery.append('cohort_id', cohortFilter)
   if (statusFilter) summaryQuery.append('status', statusFilter)
   if (currencyFilter) summaryQuery.append('currency', currencyFilter)
   const summaryQs = summaryQuery.toString()
@@ -54,6 +56,7 @@ export default function Disbursements() {
   })
   if (search) queryParams.append('search', search)
   if (programFilter) queryParams.append('program_id', programFilter)
+  if (cohortFilter) queryParams.append('cohort_id', cohortFilter)
   if (statusFilter) queryParams.append('status', statusFilter)
   if (currencyFilter) queryParams.append('currency', currencyFilter)
 
@@ -151,11 +154,21 @@ export default function Disbursements() {
               style={{ width: '220px' }}
             />
             <select
+              value={cohortFilter}
+              onChange={(e) => { setCohortFilter(e.target.value); setPage(1) }}
+              style={{ width: '160px' }}
+            >
+              <option value="">All Cohorts</option>
+              {(cohortsRes.data?.results || []).map((c) => (
+                <option key={c.id} value={c.id}>{c.name}</option>
+              ))}
+            </select>
+            <select
               value={programFilter}
               onChange={(e) => { setProgramFilter(e.target.value); setPage(1) }}
-              style={{ width: '220px' }}
+              style={{ width: '200px' }}
             >
-              <option value="">All Cohorts / Programmes</option>
+              <option value="">All Programmes (streams)</option>
               {programs.map((p) => (
                 <option key={p.id} value={p.id}>{p.name}</option>
               ))}
@@ -191,7 +204,7 @@ export default function Disbursements() {
         <StatTile
           label="Total Base Processed (EUR)"
           value={`€${(summary.totals_by_currency?.EUR || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
-          sub={`${summary.processed_batches || 0} processed batches${(search || programFilter || statusFilter || currencyFilter) ? ' (filtered)' : ' across all cohorts'}`}
+          sub={`${summary.processed_batches || 0} processed batches${(search || programFilter || cohortFilter || statusFilter || currencyFilter) ? ' (filtered)' : ' across all cohorts'}`}
         />
         <StatTile
           label="Total Equivalent Disbursed (JOD)"
