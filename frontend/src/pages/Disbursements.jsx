@@ -43,7 +43,9 @@ export default function Disbursements() {
   
   // Fetch programs for filter and creator
   const programsRes = useFetch(branch ? `/programs/${branch.id}/?page=1&page_size=100` : null)
+  const cohortsRes = useFetch(branch ? `/v2/cohorts/${branch.id}/` : null)
   const programs = programsRes.data?.results || []
+  const cohorts = cohortsRes.data?.results || []
 
   // Fetch batches list
   const queryParams = new URLSearchParams({
@@ -398,18 +400,20 @@ function CreateBatchModal({ branchId, programs, onClose, onCreated }) {
   const [title, setTitle] = useState('')
   const [notes, setNotes] = useState('')
   const [disbType, setDisbType] = useState('stipend')
+  const [cohortId, setCohortId] = useState('')
   const [loading, setLoading] = useState(false)
   const [startups, setStartups] = useState([])
   const [loadingStartups, setLoadingStartups] = useState(false)
 
   // Fetch businesses for selected program to preview
   useEffect(() => {
-    if (!programId) {
+    if (!programId || !cohortId) {
       setStartups([])
       return
     }
     setLoadingStartups(true)
-    api.get(`/v2/programs/${branchId}/${programId}/businesses/?page=1&page_size=100`)
+    const enrolledIn = ['loan', 'cofinancing_grant'].includes(disbType) ? `&enrolled_in=${programId}` : ''
+    api.get(`/v2/cohorts/${branchId}/${cohortId}/businesses/?page=1&page_size=100${enrolledIn}`)
       .then((res) => {
         const rows = res.data?.results || []
         setStartups(rows.map((b) => ({
@@ -479,8 +483,8 @@ function CreateBatchModal({ branchId, programs, onClose, onCreated }) {
 
   const handleCreate = async (e) => {
     e.preventDefault()
-    if (!programId) {
-      alert('Please select a Cohort / Programme.')
+    if (!programId || !cohortId) {
+      alert('Please select both a Programme and a Cohort.')
       return
     }
     setLoading(true)
@@ -504,6 +508,7 @@ function CreateBatchModal({ branchId, programs, onClose, onCreated }) {
 
       const payload = {
         program_id: Number(programId),
+        cohort_id: Number(cohortId),
         disbursement_type: disbType,
         title: title.trim() || undefined,
         payment_date: paymentDate,
@@ -529,7 +534,7 @@ function CreateBatchModal({ branchId, programs, onClose, onCreated }) {
       <form onSubmit={handleCreate}>
         <div className="grid-2 gap">
           <label className="stacked">
-            <b>Cohort / Programme *</b>
+            <b>Programme (support stream) *</b>
             <select
               value={programId}
               onChange={(e) => setProgramId(e.target.value)}
@@ -538,6 +543,20 @@ function CreateBatchModal({ branchId, programs, onClose, onCreated }) {
               <option value="">Select Programme</option>
               {programs.map((p) => (
                 <option key={p.id} value={p.id}>{p.name}</option>
+              ))}
+            </select>
+          </label>
+
+          <label className="stacked">
+            <b>Cohort (intake group) *</b>
+            <select
+              value={cohortId}
+              onChange={(e) => setCohortId(e.target.value)}
+              required
+            >
+              <option value="">Select Cohort</option>
+              {cohorts.map((c) => (
+                <option key={c.id} value={c.id}>{c.name}</option>
               ))}
             </select>
           </label>
