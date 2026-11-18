@@ -667,6 +667,8 @@ class DisbursementBatch(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
+    cohort = relationship("Cohort")
+
     branch = relationship("Branch")
     program = relationship("Program")
     created_by = relationship("User", foreign_keys=[created_by_id])
