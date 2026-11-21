@@ -436,6 +436,64 @@ def dashboard_businesses(request: Request, ctx=Depends(require_branch_access()))
 
     users_count = db.query(UserRole.user_id).filter(UserRole.branch_id == branch_id).distinct().count()
 
+    # per-business money story for the investment view: Track I grants paid,
+    # Track II loan disbursed, Track II co-financing grant paid, totals and
+    # the repayment % against the disbursed loan
+    from ..models import DisbursementItem as _DI, DisbursementBatch as _DB,         LoanRepayment as _LRp, RepaymentBatch as _RBp
+    _processed_rep = {b.id for b in db.query(_RBp.id).filter(
+        _RBp.branch_id == branch_id, _RBp.status == "processed").all()}
+    biz_money = {}
+    for biz_id, dtype, amt in db.query(
+            _DI.business_id, _DB.disbursement_type,
+            func.coalesce(func.sum(_DI.amount), 0.0)).join(
+            _DB, _DI.batch_id == _DB.id).filter(
+            _DI.is_included == True,   # noqa: E712
+            _DB.branch_id == branch_id,
+            _DB.status == "processed",
+            _DB.disbursement_type.isnot(None),
+            _DI.business_id.in_([c.business_id for c in approved_cases] or [0]),
+    ).group_by(_DI.business_id, _DB.disbursement_type).all():
+        m = biz_money.setdefault(biz_id, {"t1": 0.0, "loan": 0.0, "t2grant": 0.0})
+        if dtype == "loan":
+            m["loan"] += float(amt)
+        elif dtype == "cofinancing_grant":
+            m["t2grant"] += float(amt)
+        else:
+            m["t1"] += float(amt)
+    repaid = {}
+    for biz_id, amt in db.query(
+            _LRp.business_id, func.coalesce(func.sum(_LRp.amount), 0.0)).join(
+            Business, Business.id == _LRp.business_id).filter(
+            _LRp.branch_id == branch_id,
+            _LRp.status == "completed",
+            or_(_LRp.batch_id.is_(None), _LRp.batch_id.in_(_processed_rep)),
+            _LRp.business_id.in_([c.business_id for c in approved_cases] or [0]),
+    ).group_by(_LRp.business_id).all():
+        repaid[biz_id] = float(amt)
+
+    biz_money_rows = []
+    for c in approved_cases:
+        if not c.business_id:
+            continue
+        m = biz_money.get(c.business_id, {"t1": 0.0, "loan": 0.0, "t2grant": 0.0})
+        loan_disb = m["loan"]
+        repaid_eur = repaid.get(c.business_id, 0.0)
+        total_disb = round(m["t1"] + loan_disb + m["t2grant"], 2)
+        biz = db.get(Business, c.business_id)
+        founder = biz.founders[0] if biz and biz.founders else None
+        founder_name = (f"{founder.first_name} {founder.last_name}".strip() if founder
+                        else (c.ceo_name or ""))
+        biz_money_rows.append({
+            "company": c.company_name,
+            "entrepreneur": founder_name,
+            "t1_grants": round(m["t1"], 2),
+            "t2_loan": round(loan_disb, 2),
+            "t2_grant": round(m["t2grant"], 2),
+            "total_disbursed": total_disb,
+            "repaid_eur": round(repaid_eur, 2),
+            "repayment_pct": round(100.0 * repaid_eur / loan_disb, 1) if loan_disb > 0 else None,
+        })
+
     stage_dist = {}
     stage_ref = {s.id: s.name for s in db.query(InvestmentStage).filter_by(branch_id=branch_id)}
     for c in cases:
@@ -464,13 +522,10 @@ def dashboard_businesses(request: Request, ctx=Depends(require_branch_access()))
             "total_invested": round(total_invested, 2),
             "by_stage": [{"name": k, "count": v} for k, v in stage_dist.items()],
             "by_round": [{"name": k, "count": v} for k, v in round_dist.items()],
-            # the businesses behind the count: company, invested, co-financing
-            "businesses": [{
-                "company": c.company_name,
-                "invested": float(c.investment_amount or 0.0),
-                "co_financing": float(c.co_financing_amount or 0.0),
-                "status": (c.status.name if c.status else ""),
-            } for c in approved_cases],
+            # the businesses behind the count, with the full money story:
+            # Track I grants paid, Track II loan disbursed, Track II grant
+            # paid, total disbursed and the repayment % against the loan
+            "businesses": biz_money_rows,
         },
         "learning": {
             "courses": len(courses),

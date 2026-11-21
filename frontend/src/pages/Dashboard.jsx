@@ -352,18 +352,45 @@ export default function Dashboard() {
           {biz.investment.businesses?.length > 0 && (
             <div className="card chart-card" style={{ marginTop: 4 }}>
               <h3 style={{ marginBottom: 10 }}>The businesses behind these figures</h3>
-              <div className="row wrap" style={{ gap: 8 }}>
-                {biz.investment.businesses.map((b) => (
-                  <span key={b.company}
-                        className="pill neutral"
-                        title={`Invested ${b.invested?.toLocaleString()} · Co-financing ${b.co_financing?.toLocaleString()}${b.status ? ' · ' + b.status : ''}`}
-                        style={{ fontSize: '12px', padding: '4px 12px', background: 'var(--bg-secondary, rgba(23,73,80,0.08))' }}>
-                    {b.company}
-                  </span>
-                ))}
+              <div style={{ overflowX: 'auto' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+                  <thead>
+                    <tr>
+                      {['Startup', 'Entrepreneur', 'Track I grants', 'Track II loan', 'Track II grant', 'Total disbursed', 'Repayments', 'Repayment %']
+                        .map((h, i) => (
+                          <th key={h} style={{ textAlign: i >= 2 ? 'right' : 'left', padding: '6px 10px',
+                                               borderBottom: '2px solid var(--border)', fontSize: 11,
+                                               color: 'var(--muted)', textTransform: 'uppercase',
+                                               letterSpacing: 0.5 }}>{h}</th>
+                        ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {biz.investment.businesses.map((b) => (
+                      <tr key={b.company}>
+                        <td style={{ padding: '7px 10px', fontWeight: 600 }}>{b.company}</td>
+                        <td style={{ padding: '7px 10px' }}>{b.entrepreneur || '—'}</td>
+                        {[b.t1_grants, b.t2_loan, b.t2_grant, b.total_disbursed, b.repaid_eur].map((v, i) => (
+                          <td key={i} style={{ padding: '7px 10px', textAlign: 'right',
+                                               fontFamily: 'Roboto Mono, monospace', fontSize: 12.5 }}>
+                            {`€${Number(v || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+                          </td>
+                        ))}
+                        <td style={{ padding: '7px 10px', textAlign: 'right', fontWeight: 700,
+                                     color: b.repayment_pct == null ? 'var(--muted)'
+                                       : b.repayment_pct >= 50 ? '#52bc7e'
+                                       : b.repayment_pct >= 25 ? '#f0a13c' : '#d92d20' }}>
+                          {b.repayment_pct == null ? '—' : `${b.repayment_pct}%`}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
               <p className="muted xs" style={{ marginTop: 8 }}>
-                Hover a name for its invested amount and co-financing.
+                Track I grants, Track II loans and co-financing grants are amounts actually
+                disbursed through processed batches. Repayment % = repayments collected vs the
+                Track II loan disbursed.
               </p>
             </div>
           )}
