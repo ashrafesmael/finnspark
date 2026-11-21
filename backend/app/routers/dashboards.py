@@ -464,6 +464,13 @@ def dashboard_businesses(request: Request, ctx=Depends(require_branch_access()))
             "total_invested": round(total_invested, 2),
             "by_stage": [{"name": k, "count": v} for k, v in stage_dist.items()],
             "by_round": [{"name": k, "count": v} for k, v in round_dist.items()],
+            # the businesses behind the count: company, invested, co-financing
+            "businesses": [{
+                "company": c.company_name,
+                "invested": float(c.investment_amount or 0.0),
+                "co_financing": float(c.co_financing_amount or 0.0),
+                "status": (c.status.name if c.status else ""),
+            } for c in approved_cases],
         },
         "learning": {
             "courses": len(courses),

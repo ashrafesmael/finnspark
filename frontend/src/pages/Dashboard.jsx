@@ -349,6 +349,25 @@ export default function Dashboard() {
             <DistCard title="By round" items={biz.investment.by_round.map((x) => ({ name: x.name, value: x.count }))} />
           </div>
 
+          {biz.investment.businesses?.length > 0 && (
+            <div className="card chart-card" style={{ marginTop: 4 }}>
+              <h3 style={{ marginBottom: 10 }}>The businesses behind these figures</h3>
+              <div className="row wrap" style={{ gap: 8 }}>
+                {biz.investment.businesses.map((b) => (
+                  <span key={b.company}
+                        className="pill neutral"
+                        title={`Invested ${b.invested?.toLocaleString()} · Co-financing ${b.co_financing?.toLocaleString()}${b.status ? ' · ' + b.status : ''}`}
+                        style={{ fontSize: '12px', padding: '4px 12px', background: 'var(--bg-secondary, rgba(23,73,80,0.08))' }}>
+                    {b.company}
+                  </span>
+                ))}
+              </div>
+              <p className="muted xs" style={{ marginTop: 8 }}>
+                Hover a name for its invested amount and co-financing.
+              </p>
+            </div>
+          )}
+
           {cohortChart.length > 0 && (
             <div className="card chart-card" style={{ marginTop: 4 }}>
               <div className="row spread wrap gap">
