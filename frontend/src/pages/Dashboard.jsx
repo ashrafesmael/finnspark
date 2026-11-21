@@ -382,6 +382,29 @@ export default function Dashboard() {
                       </tr>
                     ))}
                   </tbody>
+                  <tfoot>
+                    <tr style={{ fontWeight: 800, borderTop: '2px solid var(--border)' }}>
+                      <td style={{ padding: '8px 10px' }}>Total ({biz.investment.businesses.length})</td>
+                      <td />
+                      {[0, 1, 2, 3, 4].map((col) => {
+                        const keys = ['t1_grants', 't2_loan', 't2_grant', 'total_disbursed', 'repaid_eur']
+                        const sum = biz.investment.businesses.reduce((a, b) => a + Number(b[keys[col]] || 0), 0)
+                        return (
+                          <td key={col} style={{ padding: '8px 10px', textAlign: 'right',
+                                                 fontFamily: 'Roboto Mono, monospace', fontSize: 12.5 }}>
+                            {`€${sum.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+                          </td>
+                        )
+                      })}
+                      <td style={{ padding: '8px 10px', textAlign: 'right' }}>
+                        {(() => {
+                          const loan = biz.investment.businesses.reduce((a, b) => a + Number(b.t2_loan || 0), 0)
+                          const rep = biz.investment.businesses.reduce((a, b) => a + Number(b.repaid_eur || 0), 0)
+                          return loan > 0 ? `${Math.round(100 * rep / loan)}%` : '—'
+                        })()}
+                      </td>
+                    </tr>
+                  </tfoot>
                 </table>
               </div>
               <p className="muted xs" style={{ marginTop: 8 }}>
