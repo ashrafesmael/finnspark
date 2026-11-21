@@ -410,7 +410,8 @@ export default function Dashboard() {
               <p className="muted xs" style={{ marginTop: 8 }}>
                 Track I grants, Track II loans and co-financing grants are amounts actually
                 disbursed through processed batches. Repayment % = repayments collected vs the
-                Track II loan disbursed.
+                Track II loan disbursed. JOD repayments are converted to EUR at each
+                payment's own recorded exchange rate (the JOD/EUR rate at the time of payment).
               </p>
             </div>
           )}
