@@ -164,6 +164,11 @@ export default function Dashboard() {
                     value={fE(s.loan_repayments?.collected_eur)}
                     sub={`${fJ(s.loan_repayments?.collected_jod)} JOD · ${s.loan_repayments?.count || 0} payments against Track II loans${(year || program) ? ' (filtered)' : ''}`}
                   />
+                  <StatTile
+                    label="Recovery Rate"
+                    value={`${s.loan_repayments?.recovery_pct ?? 0}%`}
+                    sub={`collected vs ${fE(s.loan_repayments?.loan_disbursed_eur)} Track II loans disbursed`}
+                  />
                 </div>
               </>
             )

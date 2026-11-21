@@ -276,10 +276,19 @@ def dashboard_program(request: Request, ctx=Depends(require_branch_access())):
         _biz_ids = {b.id for b in db.query(Business).filter(
             Business.cohort_id == int(program_filter)).all()}
         reps = [r for r in reps if r.business_id in _biz_ids]
+    # recovery rate: repayments collected vs Track II loans disbursed
+    # (by_track["loan_II"] = disbursed principal, Track II batches only)
+    loan_disbursed_eur = by_track["loan_II"]["eur"] if "loan_II" in by_track else 0.0
+    collected_total_eur = sum(float(r.amount or 0.0) for r in reps)
+    recovery_pct = round(100.0 * collected_total_eur / loan_disbursed_eur, 1) \
+        if loan_disbursed_eur > 0 else 0.0
+
     repayments_summary_data = {
-        "collected_eur": round(sum(float(r.amount or 0.0) for r in reps), 2),
+        "collected_eur": round(collected_total_eur, 2),
         "collected_jod": round(sum(float(r.amount_jod or 0.0) for r in reps), 3),
         "count": len(reps),
+        "loan_disbursed_eur": round(loan_disbursed_eur, 2),
+        "recovery_pct": recovery_pct,
     }
 
     disbursement_summary = {
