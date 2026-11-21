@@ -376,10 +376,7 @@ export default function Dashboard() {
                             {`€${Number(v || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
                           </td>
                         ))}
-                        <td style={{ padding: '7px 10px', textAlign: 'right', fontWeight: 700,
-                                     color: b.repayment_pct == null ? 'var(--muted)'
-                                       : b.repayment_pct >= 50 ? '#52bc7e'
-                                       : b.repayment_pct >= 25 ? '#f0a13c' : '#d92d20' }}>
+                        <td style={{ padding: '7px 10px', textAlign: 'right', fontWeight: 700 }}>
                           {b.repayment_pct == null ? '—' : `${b.repayment_pct}%`}
                         </td>
                       </tr>
