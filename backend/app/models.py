@@ -395,6 +395,7 @@ class Business(Base):
     cohort_id = Column(Integer, ForeignKey("cohorts.id"))
     program_id = Column(Integer, ForeignKey("programs.id"))
     cohort = relationship("Cohort")
+    applicant_id = Column(Integer, ForeignKey("applicants.id"))
     name = Column(String(255))
     logo = Column(String(500), nullable=True)
     # english display name for businesses registered under a non-latin name

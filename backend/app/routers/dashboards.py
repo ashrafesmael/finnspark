@@ -262,11 +262,32 @@ def dashboard_program(request: Request, ctx=Depends(require_branch_access())):
             by_track[key]["eur"] += eur
             by_track[key]["jod"] += jod
             by_track[key]["batches"] += 1
+    # loan repayments collected (Track II): completed instalments against
+    # processed repayment batches, respecting the same program/year scope
+    from ..models import LoanRepayment as _LR, RepaymentBatch as _RB
+    _processed_repay = {b.id for b in db.query(_RB.id).filter(
+        _RB.branch_id == branch_id, _RB.status == "processed").all()}
+    reps_q = db.query(_LR).filter(_LR.branch_id == branch_id).all()
+    reps = [r for r in reps_q if r.status == "completed"
+            and (r.batch_id is None or r.batch_id in _processed_repay)]
+    if v := params.get("year"):
+        reps = [r for r in reps if r.payment_date and str(r.payment_date)[:4] == str(v)]
+    if program_filter:
+        _biz_ids = {b.id for b in db.query(Business).filter(
+            Business.cohort_id == int(program_filter)).all()}
+        reps = [r for r in reps if r.business_id in _biz_ids]
+    repayments_summary_data = {
+        "collected_eur": round(sum(float(r.amount or 0.0) for r in reps), 2),
+        "collected_jod": round(sum(float(r.amount_jod or 0.0) for r in reps), 3),
+        "count": len(reps),
+    }
+
     disbursement_summary = {
         "processed_eur": round(processed_eur, 2),
         "disbursed_jod": round(processed_jod, 3),
         "draft_batches": draft_batches,
         "by_track": by_track,
+        "loan_repayments": repayments_summary_data,
     }
 
     return {

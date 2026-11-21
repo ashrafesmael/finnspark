@@ -158,6 +158,13 @@ export default function Dashboard() {
                     sub={`${fJ(s.by_track?.grant_II?.jod)} JOD · co-financing halves, not repayable`}
                   />
                 </div>
+                <div className="grid-3 tiles-row" style={{ marginTop: 12 }}>
+                  <StatTile
+                    label="Loan Repayments Collected"
+                    value={fE(s.loan_repayments?.collected_eur)}
+                    sub={`${fJ(s.loan_repayments?.collected_jod)} JOD · ${s.loan_repayments?.count || 0} payments against Track II loans${(year || program) ? ' (filtered)' : ''}`}
+                  />
+                </div>
               </>
             )
           })()}
