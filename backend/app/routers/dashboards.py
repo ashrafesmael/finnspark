@@ -425,8 +425,11 @@ def dashboard_businesses(request: Request, ctx=Depends(require_branch_access()))
                           func.coalesce(Applicant.application_date,
                                         Business.created_at)) == str(v))
     businesses = biz_q.all()
+    # scope everything downstream (cases, money story) to the filtered businesses
+    biz_ids = {b.id for b in businesses}
 
-    cases = db.query(InvestmentCase).filter(InvestmentCase.branch_id == branch_id).all()
+    cases = [c for c in db.query(InvestmentCase).filter(
+        InvestmentCase.branch_id == branch_id).all() if c.business_id in biz_ids]
     approved_status = db.query(InvestmentStatus).filter_by(code_name="approved").first()
     approved_cases = [c for c in cases if approved_status and c.status_id == approved_status.id]
 
