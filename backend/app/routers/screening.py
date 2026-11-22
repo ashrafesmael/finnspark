@@ -7,6 +7,7 @@ analysis, and the result (risk level, flags, report URL) is stored here against
 the business.
 """
 import logging
+import re
 from datetime import datetime
 
 import httpx
@@ -68,6 +69,7 @@ def _screen_one(db: Session, business: Business, subject_type: str, name: str,
         rec.flags = data.get("flags") or []
         rec.report_url = data.get("report_url")
         rec.payload = data.get("analysis") or {}
+        rec.pdf_base64 = data.get("report_pdf_base64")
         rec.status = "completed"
         rec.screened_at = datetime.utcnow()
     except Exception as e:
@@ -122,6 +124,23 @@ def screen_now(branch_id: int, business_id: int, data: ScreenNowIn | None = None
     }
 
 
+@router.get("/screening/{branch_id}/{business_id}/report/{record_id}/")
+def screening_report_pdf(branch_id: int, business_id: int, record_id: int,
+                         ctx=Depends(require_branch_access())):
+    """The stored finnverify PDF report for one screening record."""
+    from fastapi import Request as _Req
+    from fastapi.responses import Response
+    r = db.get(ScreeningRecord, record_id)
+    if not r or r.branch_id != branch_id or r.business_id != business_id or not r.pdf_base64:
+        raise HTTPException(status_code=404, detail="PDF report not found.")
+    import base64
+    pdf = base64.b64decode(r.pdf_base64)
+    safe = re.sub(r"[^A-Za-z0-9._-]", "_", r.subject_name) or "screening"
+    return Response(
+        content=pdf, media_type="application/pdf",
+        headers={"Content-Disposition": f'inline; filename="screening_{safe}_{record_id}.pdf"'})
+
+
 @router.get("/screening/{branch_id}/{business_id}/")
 def screening_history(branch_id: int, business_id: int, ctx=Depends(require_branch_access())):
     db: Session = ctx["db"]
@@ -146,6 +165,7 @@ def _screening_ser(r: ScreeningRecord) -> dict:
         "analysis_id": r.analysis_id, "risk_level": r.risk_level,
         "risk_score": r.risk_score, "flags": r.flags or [],
         "status": r.status, "report_url": r.report_url,
+        "has_pdf": bool(r.pdf_base64),
         "payload": r.payload or {},
         "screened_at": r.screened_at.isoformat() if r.screened_at else None,
     }

@@ -404,6 +404,7 @@ class ScreeningRecord(Base):
     status = Column(String(20), default="queued")       # queued | completed | failed
     report_url = Column(String(500), nullable=True)
     payload = Column(JSON, default=dict)   # full finnverify analysis (inline report)
+    pdf_base64 = Column(Text, nullable=True)  # branded PDF report from finnverify
     screened_at = Column(DateTime, nullable=True)
     created_by_id = Column(Integer, ForeignKey("users.id"), nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)

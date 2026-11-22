@@ -228,8 +228,27 @@ export default function ProgramDetail() {
                     <span className="xs muted">
                       {r2.screened_at ? `Screened ${r2.screened_at.slice(0, 16).replace('T', ' ')}` : ''}
                     </span>
-                    {r2.report_url && <a href={r2.report_url} target="_blank" rel="noreferrer" className="sm">
-                      Full report in finnverify ↗</a>}
+                    <span className="row gap">
+                      {r2.has_pdf && (
+                        <button type="button" className="btn ghost sm"
+                                onClick={async () => {
+                                  try {
+                                    const res = await api.get(
+                                      `/screening/${branch.id}/${screeningResult.business_id}/report/${r2.id}/`,
+                                      { responseType: 'blob' })
+                                    const url = URL.createObjectURL(new Blob([res.data], { type: 'application/pdf' }))
+                                    window.open(url, '_blank')
+                                    setTimeout(() => URL.revokeObjectURL(url), 60000)
+                                  } catch (e) {
+                                    alert('Failed to open PDF report')
+                                  }
+                                }}>
+                          📄 View PDF report
+                        </button>
+                      )}
+                      {r2.report_url && <a href={r2.report_url} target="_blank" rel="noreferrer" className="sm">
+                        Full report in finnverify ↗</a>}
+                    </span>
                   </div>
                 </div>
               )
