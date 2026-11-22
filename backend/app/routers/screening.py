@@ -19,7 +19,7 @@ from sqlalchemy.orm import Session
 from ..config import config
 from ..database import get_db
 from ..deps import require_branch_access
-from ..models import Business, BusinessFounder, ScreeningRecord
+from ..models import Business, BusinessFounder, Document, ScreeningRecord
 
 logger = logging.getLogger(__name__)
 router = APIRouter(tags=["screening"])
