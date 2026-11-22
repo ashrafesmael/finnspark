@@ -108,16 +108,16 @@ export default function ProgramDetail() {
                 </button>
               ) },
               { header: 'AML Screening', render: (r) => (
-                <span className="row gap" style={{ alignItems: 'center' }}>
+                <div className="stack" style={{ gap: 6, minWidth: 130 }}>
                   {screeningBadge(r)}
                   {can('disbursements.view') && (
                     <button className="btn ghost sm" disabled={screeningBusy[r.id]}
                             onClick={() => runScreening(r, false)}
                             title="Screen the entrepreneur(s) via finnverify (sanctions, PEP, adverse media)">
-                      {screeningBusy[r.id] ? '⏳ Screening…' : '🛡 Screen entrepreneur'}
+                      {screeningBusy[r.id] ? '⏳ …' : '🛡 Screen'}
                     </button>
                   )}
-                </span>
+                </div>
               ) },
               { header: '', render: (r) => (
                 <span className="row gap">
