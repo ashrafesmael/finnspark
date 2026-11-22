@@ -161,6 +161,62 @@ def screening_report_pdf(branch_id: int, business_id: int, record_id: int,
         headers={"Content-Disposition": f'inline; filename="screening_{safe}_{record_id}.pdf"'})
 
 
+def _render_pages(record: ScreeningRecord) -> list:
+    """Render the stored PDF report to per-page PNGs with poppler (pdftoppm).
+
+    The browser's PDF plugin is unreliable inside iframes/embeds (a disabled
+    plugin renders a dead frame), so pages are rasterised server-side and
+    served as images - the same approach DevX uses. Pages are cached on disk,
+    keyed by the report hash so a re-screen never serves a stale render.
+    """
+    import base64 as _b64
+    import hashlib
+    import subprocess
+    import tempfile
+    from pathlib import Path
+
+    pdf = _b64.b64decode(record.pdf_base64)
+    digest = hashlib.sha256(pdf).hexdigest()[:12]
+    cache_dir = Path(config.MEDIA_DIR) / ".pages" / f"{record.id}-{digest}"
+    pngs = sorted(cache_dir.glob("page-*.png"))
+    if pngs:
+        return pngs
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix="fscreen-") as tmp:
+        pdf_path = Path(tmp) / "report.pdf"
+        pdf_path.write_bytes(pdf)
+        subprocess.run(
+            ["pdftoppm", "-png", "-r", "110", str(pdf_path), str(cache_dir / "page")],
+            check=True, timeout=60,
+        )
+    return sorted(cache_dir.glob("page-*.png"))
+
+
+@router.get("/screening/{branch_id}/{business_id}/report/{record_id}/pages/")
+def screening_report_page_count(branch_id: int, business_id: int, record_id: int,
+                                ctx=Depends(require_branch_access())):
+    db: Session = ctx["db"]
+    r = db.get(ScreeningRecord, record_id)
+    if not r or r.branch_id != branch_id or r.business_id != business_id or not r.pdf_base64:
+        raise HTTPException(status_code=404, detail="PDF report not found.")
+    return {"pages": len(_render_pages(r))}
+
+
+@router.get("/screening/{branch_id}/{business_id}/report/{record_id}/pages/{page}/")
+def screening_report_page(branch_id: int, business_id: int, record_id: int, page: int,
+                          ctx=Depends(require_branch_access())):
+    db: Session = ctx["db"]
+    r = db.get(ScreeningRecord, record_id)
+    if not r or r.branch_id != branch_id or r.business_id != business_id or not r.pdf_base64:
+        raise HTTPException(status_code=404, detail="PDF report not found.")
+    pages = _render_pages(r)
+    if page < 1 or page > len(pages):
+        raise HTTPException(status_code=404, detail="Page out of range.")
+    from fastapi.responses import Response
+    return Response(content=pages[page - 1].read_bytes(), media_type="image/png",
+                    headers={"Cache-Control": "private, max-age=86400"})
+
+
 @router.get("/screening/{branch_id}/{business_id}/")
 def screening_history(branch_id: int, business_id: int, ctx=Depends(require_branch_access())):
     db: Session = ctx["db"]

@@ -20,7 +20,7 @@ export default function ProgramDetail() {
   const [investBiz, setInvestBiz] = useState(null)
   const [screeningBusy, setScreeningBusy] = useState({})
   const [screeningResult, setScreeningResult] = useState(null)
-  const [pdfViewer, setPdfViewer] = useState(null)   // {url, name}
+  const [pdfViewer, setPdfViewer] = useState(null)   // {urls, name}
   const [docsBiz, setDocsBiz] = useState(null)
   const pageSize = 12
 
@@ -165,12 +165,12 @@ export default function ProgramDetail() {
 
       {pdfViewer && (
         <Modal title={pdfViewer.name}
-               onClose={() => { URL.revokeObjectURL(pdfViewer.url); setPdfViewer(null) }} wide>
-          <object data={pdfViewer.url} type="application/pdf"
-                  style={{ width: '100%', height: '74vh', borderRadius: 8 }}>
-            <iframe src={pdfViewer.url} title={pdfViewer.name}
-                    style={{ width: '100%', height: '74vh', border: '1px solid var(--border)' }} />
-          </object>
+               onClose={() => { pdfViewer.urls.forEach((u) => URL.revokeObjectURL(u)); setPdfViewer(null) }} wide>
+          {pdfViewer.urls.map((u, i) => (
+            <img key={i} src={u} alt={`Page ${i + 1}`}
+                 style={{ width: '100%', display: 'block', marginBottom: 8,
+                          border: '1px solid var(--border)', borderRadius: 8 }} />
+          ))}
         </Modal>
       )}
 
@@ -268,13 +268,18 @@ export default function ProgramDetail() {
                         <button type="button" className="btn ghost sm"
                                 onClick={async () => {
                                   try {
-                                    const res = await api.get(
-                                      `/screening/${branch.id}/${screeningResult.business_id}/report/${r2.id}/`,
-                                      { responseType: 'blob' })
-                                    const url = URL.createObjectURL(new Blob([res.data], { type: 'application/pdf' }))
-                                    setPdfViewer({ url, name: `Screening report — ${r2.subject_name}` })
+                                    const meta = await api.get(
+                                      `/screening/${branch.id}/${screeningResult.business_id}/report/${r2.id}/pages/`)
+                                    const urls = await Promise.all(
+                                      Array.from({ length: meta.data.pages }, (_, i) => i + 1).map(async (n) => {
+                                        const img = await api.get(
+                                          `/screening/${branch.id}/${screeningResult.business_id}/report/${r2.id}/pages/${n}/`,
+                                          { responseType: 'blob' })
+                                        return URL.createObjectURL(img.data)
+                                      }))
+                                    setPdfViewer({ urls, name: `Screening report — ${r2.subject_name}` })
                                   } catch (e) {
-                                    alert('Failed to open PDF report')
+                                    alert('Failed to open report')
                                   }
                                 }}>
                           📄 View PDF report
