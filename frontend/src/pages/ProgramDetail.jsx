@@ -20,6 +20,7 @@ export default function ProgramDetail() {
   const [investBiz, setInvestBiz] = useState(null)
   const [screeningBusy, setScreeningBusy] = useState({})
   const [screeningResult, setScreeningResult] = useState(null)
+  const [pdfViewer, setPdfViewer] = useState(null)   // {url, name}
   const [docsBiz, setDocsBiz] = useState(null)
   const pageSize = 12
 
@@ -162,6 +163,14 @@ export default function ProgramDetail() {
                            onClose={() => setDocsBiz(null)} />
       )}
 
+      {pdfViewer && (
+        <Modal title={pdfViewer.name}
+               onClose={() => { URL.revokeObjectURL(pdfViewer.url); setPdfViewer(null) }} wide>
+          <iframe src={pdfViewer.url} title={pdfViewer.name}
+                  style={{ width: '100%', height: '74vh', border: '1px solid var(--border)', borderRadius: 8 }} />
+        </Modal>
+      )}
+
       {screeningResult && (
         <Modal title={`AML screening — ${screeningResult.business_id ? '' : ''}results`}
                onClose={() => setScreeningResult(null)}>
@@ -194,17 +203,27 @@ export default function ProgramDetail() {
 
                   {cats.length > 0 && (
                     <div className="grid-2 gap" style={{ marginTop: 10 }}>
-                      {cats.map(([label, v]) => (
-                        <div key={label}>
-                          <div className="row spread" style={{ fontSize: 11.5 }}>
-                            <span className="muted">{label}</span><b>{v}</b>
+                      {cats.map(([label, v]) => {
+                        const fatf = label === 'Jurisdiction'
+                          ? p.positive_findings?.fatf_check : null
+                        return (
+                          <div key={label}>
+                            <div className="row spread" style={{ fontSize: 11.5 }}>
+                              <span className="muted">{label}</span><b>{v}</b>
+                            </div>
+                            <div style={{ height: 6, background: 'rgba(23,73,80,0.12)', borderRadius: 4, overflow: 'hidden' }}>
+                              <div style={{ width: `${Math.min(100, Number(v))}%`, height: '100%',
+                                            background: Number(v) >= 50 ? '#d92d20' : Number(v) >= 25 ? '#f0a13c' : '#52bc7e' }} />
+                            </div>
+                            {fatf && (
+                              <div className="xs muted" style={{ marginTop: 2 }}>
+                                {fatf.country || '—'} — {fatf.is_high_risk || fatf.is_grey_list
+                                  ? (fatf.reason || 'FATF-listed') : 'not on FATF lists'}
+                              </div>
+                            )}
                           </div>
-                          <div style={{ height: 6, background: 'rgba(23,73,80,0.12)', borderRadius: 4, overflow: 'hidden' }}>
-                            <div style={{ width: `${Math.min(100, Number(v))}%`, height: '100%',
-                                          background: Number(v) >= 50 ? '#d92d20' : Number(v) >= 25 ? '#f0a13c' : '#52bc7e' }} />
-                          </div>
-                        </div>
-                      ))}
+                        )
+                      })}
                     </div>
                   )}
 
@@ -250,8 +269,7 @@ export default function ProgramDetail() {
                                       `/screening/${branch.id}/${screeningResult.business_id}/report/${r2.id}/`,
                                       { responseType: 'blob' })
                                     const url = URL.createObjectURL(new Blob([res.data], { type: 'application/pdf' }))
-                                    window.open(url, '_blank')
-                                    setTimeout(() => URL.revokeObjectURL(url), 60000)
+                                    setPdfViewer({ url, name: `Screening report — ${r2.subject_name}` })
                                   } catch (e) {
                                     alert('Failed to open PDF report')
                                   }
