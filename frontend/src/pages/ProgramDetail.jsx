@@ -156,34 +156,84 @@ export default function ProgramDetail() {
             highest risk: <b style={{ color: riskColor(screeningResult.summary.highest_risk) }}>
               {screeningResult.summary.highest_risk || '—'}</b>
           </p>
-          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
-            <thead>
-              <tr>
-                {['Subject', 'Type', 'Risk', 'Flags', 'Report'].map((h) => (
-                  <th key={h} style={{ textAlign: 'left', padding: '5px 8px', fontSize: 11,
-                                       color: 'var(--muted)', textTransform: 'uppercase' }}>{h}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {(screeningResult.results || []).map((r2) => (
-                <tr key={r2.id}>
-                  <td style={{ padding: '6px 8px', fontWeight: 600 }}>{r2.subject_name}</td>
-                  <td style={{ padding: '6px 8px' }}>{r2.subject_type}</td>
-                  <td style={{ padding: '6px 8px', fontWeight: 700, color: riskColor(r2.risk_level) }}>
-                    {r2.risk_level || r2.status}
-                  </td>
-                  <td style={{ padding: '6px 8px' }} className="sm muted">
-                    {(r2.flags || []).slice(0, 2).join('; ') || '—'}
-                  </td>
-                  <td style={{ padding: '6px 8px' }}>
-                    {r2.report_url && <a href={r2.report_url} target="_blank" rel="noreferrer"
-                                         className="sm">Open report ↗</a>}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div className="stack" style={{ gap: 14 }}>
+            {(screeningResult.results || []).map((r2) => {
+              const p = r2.payload || {}
+              const cats = [
+                ['Sanctions', p.sanctions_risk], ['PEP', p.pep_risk],
+                ['Adverse media', p.adverse_media_risk], ['Jurisdiction', p.jurisdiction_risk],
+              ].filter(([, v]) => v != null)
+              return (
+                <div key={r2.id} className="card" style={{ padding: 14 }}>
+                  <div className="row spread" style={{ alignItems: 'center' }}>
+                    <div>
+                      <b>{r2.subject_name}</b>
+                      <span className="sm muted" style={{ marginLeft: 8 }}>
+                        {r2.subject_type === 'business' ? 'Startup' : 'Founder'}
+                      </span>
+                    </div>
+                    <span style={{ fontWeight: 800, color: riskColor(r2.risk_level) }}>
+                      {r2.risk_level || r2.status}
+                      {p.risk_score != null && <span className="sm muted" style={{ fontWeight: 400 }}> · score {p.risk_score}</span>}
+                    </span>
+                  </div>
+
+                  {cats.length > 0 && (
+                    <div className="grid-2 gap" style={{ marginTop: 10 }}>
+                      {cats.map(([label, v]) => (
+                        <div key={label}>
+                          <div className="row spread" style={{ fontSize: 11.5 }}>
+                            <span className="muted">{label}</span><b>{v}</b>
+                          </div>
+                          <div style={{ height: 6, background: 'rgba(23,73,80,0.12)', borderRadius: 4, overflow: 'hidden' }}>
+                            <div style={{ width: `${Math.min(100, Number(v))}%`, height: '100%',
+                                          background: Number(v) >= 50 ? '#d92d20' : Number(v) >= 25 ? '#f0a13c' : '#52bc7e' }} />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {(r2.flags || []).length > 0 && (
+                    <div style={{ marginTop: 10 }}>
+                      <b className="sm">Risk flags</b>
+                      <ul style={{ margin: '4px 0 0 18px', fontSize: 12.5 }}>
+                        {(r2.flags || []).map((fl, i) => <li key={i}>{fl}</li>)}
+                      </ul>
+                    </div>
+                  )}
+
+                  {(p.recommendations || []).length > 0 && (
+                    <div style={{ marginTop: 10 }}>
+                      <b className="sm">Recommendations</b>
+                      <ul style={{ margin: '4px 0 0 18px', fontSize: 12.5 }}>
+                        {(p.recommendations || []).map((rc, i) => <li key={i}>{rc}</li>)}
+                      </ul>
+                    </div>
+                  )}
+
+                  {p.adverse_media_findings && (p.adverse_media_findings.total_mentions || 0) > 0 && (
+                    <div style={{ marginTop: 10 }}>
+                      <b className="sm">Adverse media</b>
+                      <span className="sm muted" style={{ marginLeft: 8 }}>
+                        {p.adverse_media_findings.total_mentions} mentions
+                        {(p.adverse_media_findings.risk_keywords_found || []).length > 0 &&
+                          ` · keywords: ${(p.adverse_media_findings.risk_keywords_found || []).join(', ')}`}
+                      </span>
+                    </div>
+                  )}
+
+                  <div className="row spread" style={{ marginTop: 10 }}>
+                    <span className="xs muted">
+                      {r2.screened_at ? `Screened ${r2.screened_at.slice(0, 16).replace('T', ' ')}` : ''}
+                    </span>
+                    {r2.report_url && <a href={r2.report_url} target="_blank" rel="noreferrer" className="sm">
+                      Full report in finnverify ↗</a>}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
         </Modal>
       )}
     </div>

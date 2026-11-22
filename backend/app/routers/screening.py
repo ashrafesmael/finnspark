@@ -65,6 +65,7 @@ def _screen_one(db: Session, business: Business, subject_type: str, name: str,
         rec.risk_score = data.get("risk_score")
         rec.flags = data.get("flags") or []
         rec.report_url = data.get("report_url")
+        rec.payload = data.get("analysis") or {}
         rec.status = "completed"
         rec.screened_at = datetime.utcnow()
     except Exception as e:
@@ -142,5 +143,6 @@ def _screening_ser(r: ScreeningRecord) -> dict:
         "analysis_id": r.analysis_id, "risk_level": r.risk_level,
         "risk_score": r.risk_score, "flags": r.flags or [],
         "status": r.status, "report_url": r.report_url,
+        "payload": r.payload or {},
         "screened_at": r.screened_at.isoformat() if r.screened_at else None,
     }

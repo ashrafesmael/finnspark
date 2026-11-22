@@ -403,6 +403,7 @@ class ScreeningRecord(Base):
     flags = Column(JSON, default=list)
     status = Column(String(20), default="queued")       # queued | completed | failed
     report_url = Column(String(500), nullable=True)
+    payload = Column(JSON, default=dict)   # full finnverify analysis (inline report)
     screened_at = Column(DateTime, nullable=True)
     created_by_id = Column(Integer, ForeignKey("users.id"), nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
