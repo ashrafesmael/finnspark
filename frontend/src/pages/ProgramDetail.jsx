@@ -12,12 +12,43 @@ const TABS = ['Businesses/Projects', 'Business files', 'Courses progress',
 export default function ProgramDetail() {
   const { id } = useParams()
   const navigate = useNavigate()
-  const { branch } = useAuth()
+  const { branch, can } = useAuth()
   const [tab, setTab] = useState(0)
   const [page, setPage] = useState(1)
   const [search, setSearch] = useState('')
   const [investBiz, setInvestBiz] = useState(null)
+  const [screeningBusy, setScreeningBusy] = useState({})
+  const [screeningResult, setScreeningResult] = useState(null)
   const pageSize = 12
+
+  const runScreening = async (biz) => {
+    setScreeningBusy((prev) => ({ ...prev, [biz.id]: true }))
+    try {
+      const res = await api.post(`/screening/${branch.id}/${biz.id}/screen-now/`, {})
+      setScreeningResult(res.data)
+      list.reload()
+    } catch (err) {
+      alert(err.response?.data?.detail || 'Screening failed')
+    } finally {
+      setScreeningBusy((prev) => ({ ...prev, [biz.id]: false }))
+    }
+  }
+
+  const riskColor = (lvl) => ({ LOW: '#52bc7e', MEDIUM: '#f0a13c', HIGH: '#e07020', CRITICAL: '#d92d20' }[lvl] || 'var(--muted)')
+  const screeningBadge = (r) => {
+    const sc = r.screening
+    if (!sc?.screened) return <span className="sm muted">—</span>
+    return (
+      <span className="pill" title={sc.subjects?.map((s2) => `${s2.subject_name}: ${s2.risk_level || s2.status}`).join('\n')}
+            style={{ fontSize: 11, padding: '2px 8px',
+                     background: sc.highest_risk === 'LOW' ? 'rgba(82,188,126,0.15)'
+                       : sc.highest_risk === 'CRITICAL' || sc.highest_risk === 'HIGH' ? 'rgba(217,45,32,0.12)'
+                       : 'rgba(240,163,82,0.15)',
+                     color: riskColor(sc.highest_risk) }}>
+        {sc.highest_risk || '…'}
+      </span>
+    )
+  }
 
   const detail = useFetch(branch ? `/programs/${branch.id}/${id}/` : null)
   const list = useFetch(branch
@@ -67,6 +98,18 @@ export default function ProgramDetail() {
               { header: 'Mentors', render: (r) =>
                   (r.mentors || []).map((m) => m.name).join(', ') || '—' },
               { header: 'Graduation', render: (r) => r.graduation_status },
+              { header: 'AML Screening', render: (r) => (
+                <span className="row gap" style={{ alignItems: 'center' }}>
+                  {screeningBadge(r)}
+                  {can('disbursements.view') && (
+                    <button className="btn ghost sm" disabled={screeningBusy[r.id]}
+                            onClick={() => runScreening(r)}
+                            title="Screen the business and its founders via finnverify (sanctions, PEP, adverse media)">
+                      {screeningBusy[r.id] ? '⏳ Screening…' : '🛡 Screen now'}
+                    </button>
+                  )}
+                </span>
+              ) },
               { header: '', render: (r) => (
                 <span className="row gap">
                   <button className="btn ghost sm" onClick={async () => {
@@ -102,6 +145,45 @@ export default function ProgramDetail() {
           <MentorPicker businessId={investBiz.id} branchId={branch.id}
                         current={(investBiz.mentors || []).map((m) => m.id)}
                         onDone={() => { setInvestBiz(null); list.reload() }} />
+        </Modal>
+      )}
+
+      {screeningResult && (
+        <Modal title={`AML screening — ${screeningResult.business_id ? '' : ''}results`}
+               onClose={() => setScreeningResult(null)}>
+          <p className="sm muted" style={{ marginBottom: 10 }}>
+            {screeningResult.summary.completed} completed · {screeningResult.summary.failed} failed ·
+            highest risk: <b style={{ color: riskColor(screeningResult.summary.highest_risk) }}>
+              {screeningResult.summary.highest_risk || '—'}</b>
+          </p>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+            <thead>
+              <tr>
+                {['Subject', 'Type', 'Risk', 'Flags', 'Report'].map((h) => (
+                  <th key={h} style={{ textAlign: 'left', padding: '5px 8px', fontSize: 11,
+                                       color: 'var(--muted)', textTransform: 'uppercase' }}>{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {(screeningResult.results || []).map((r2) => (
+                <tr key={r2.id}>
+                  <td style={{ padding: '6px 8px', fontWeight: 600 }}>{r2.subject_name}</td>
+                  <td style={{ padding: '6px 8px' }}>{r2.subject_type}</td>
+                  <td style={{ padding: '6px 8px', fontWeight: 700, color: riskColor(r2.risk_level) }}>
+                    {r2.risk_level || r2.status}
+                  </td>
+                  <td style={{ padding: '6px 8px' }} className="sm muted">
+                    {(r2.flags || []).slice(0, 2).join('; ') || '—'}
+                  </td>
+                  <td style={{ padding: '6px 8px' }}>
+                    {r2.report_url && <a href={r2.report_url} target="_blank" rel="noreferrer"
+                                         className="sm">Open report ↗</a>}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </Modal>
       )}
     </div>

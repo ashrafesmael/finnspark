@@ -18,11 +18,33 @@ from ..utils import paginate, parse_page
 
 
 def business_ser(b: Business, db: Session) -> dict:
+    # AML screening summary (latest records via finnverify), for the
+    # businesses table's screening column
+    from ..models import ScreeningRecord
+    latest = {}
+    for r in db.query(ScreeningRecord).filter(
+            ScreeningRecord.business_id == b.id).order_by(
+            ScreeningRecord.created_at.desc()).limit(30):
+        if r.subject_type not in latest:
+            latest[r.subject_type] = r
+    screening = {
+        "subjects": [{"subject_type": r.subject_type, "subject_name": r.subject_name,
+                      "risk_level": r.risk_level, "status": r.status,
+                      "report_url": r.report_url} for r in latest.values()],
+    }
+    levels = [r.risk_level for r in latest.values() if r.risk_level]
+    screening["highest_risk"] = max(levels, key=lambda l: {"LOW": 1, "MEDIUM": 2, "HIGH": 3,
+        "CRITICAL": 4}.get(l, 0)) if levels else None
+    screening["screened"] = bool(latest)
+
     return {
         "id": b.id,
         "name": b.name,
         "program_id": b.program_id,
         "program_name": b.program.name if b.program else None,
+        "cohort_id": b.cohort_id,
+        "cohort_name": (b.cohort.name if b.cohort else None),
+        "screening": screening,
         "logo": b.logo,
         "type": {"id": b.type_id} if b.type_id else None,
         "type_name": db.get(BusinessType, b.type_id).name if b.type_id else None,

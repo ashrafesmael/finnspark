@@ -388,6 +388,28 @@ class ProgramEnrollment(Base):
     program = relationship("Program")
 
 
+class ScreeningRecord(Base):
+    """AML screening of a startup or one of its founders, run through finnverify
+    (the finnpact AML screening platform). One row per screened subject."""
+    __tablename__ = "screening_records"
+    id = Column(Integer, primary_key=True)
+    branch_id = Column(Integer, ForeignKey("branches.id"), nullable=False)
+    business_id = Column(Integer, ForeignKey("businesses.id"), nullable=False)
+    subject_type = Column(String(20), nullable=False)   # business | founder
+    subject_name = Column(String(255), nullable=False)
+    analysis_id = Column(String(80), nullable=True)     # finnverify analysis id
+    risk_level = Column(String(20), nullable=True)      # LOW | MEDIUM | HIGH | CRITICAL
+    risk_score = Column(Float, nullable=True)
+    flags = Column(JSON, default=list)
+    status = Column(String(20), default="queued")       # queued | completed | failed
+    report_url = Column(String(500), nullable=True)
+    screened_at = Column(DateTime, nullable=True)
+    created_by_id = Column(Integer, ForeignKey("users.id"), nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    business = relationship("Business")
+
+
 class Business(Base):
     __tablename__ = "businesses"
     id = Column(Integer, primary_key=True)

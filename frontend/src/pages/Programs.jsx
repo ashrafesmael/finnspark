@@ -14,6 +14,7 @@ export default function Programs() {
   const pageSize = 10
 
   const { data: types } = useFetch(branch ? `/program-types/${branch.id}/` : null)
+  const cohortsRes = useFetch(branch ? `/v2/cohorts/${branch.id}/` : null)
   const list = useFetch(branch ? `/programs/${branch.id}/?page=${page}&page_size=${pageSize}&search=${search}&status=${statusF}` : null)
 
   const toggleArchive = async (r) => {
@@ -42,7 +43,20 @@ export default function Programs() {
       </div>
 
       <div className="toolbar row spread">
-        <h3>Programmes</h3>
+        <h3>Cohorts (intake groups)</h3>
+      </div>
+      <div className="type-cards">
+        {(cohortsRes?.results || []).map((c) => (
+          <Link key={c.id} to={`/programs-courses/${c.id}`} className="card type-card"
+                style={{ textDecoration: 'none' }}>
+            <b>{c.name}</b>
+            <span className="muted">{c.businesses_count} startups · onboarded {c.onboarded_date || '—'}</span>
+          </Link>
+        ))}
+      </div>
+
+      <div className="toolbar row spread">
+        <h3>Programmes (support streams)</h3>
         <div className="row gap">
           <input placeholder="Search…" value={search}
                  onChange={(e) => { setSearch(e.target.value); setPage(1) }} />

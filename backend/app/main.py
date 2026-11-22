@@ -12,7 +12,7 @@ from .config import config
 from .database import Base, engine
 from .routers import (
     auth, collaboration, courses, dashboards, disbursements, forms, investment, library, programs, references,
-    repayments, reports, selection, tenancy,
+    repayments, reports, screening, selection, tenancy,
 )
 
 logging.basicConfig(
@@ -55,7 +55,8 @@ for auth_prefix in ("/auth", "/api/auth"):
     app.include_router(auth.router, prefix=auth_prefix)
 for router in (references.router, tenancy.router, forms.router, selection.router,
                programs.router, courses.router, library.router, investment.router,
-               collaboration.router, dashboards.router, disbursements.router, repayments.router):
+               collaboration.router, dashboards.router, disbursements.router,
+               repayments.router, screening.router):
     for prefix in API_PREFIXES:
         app.include_router(router, prefix=prefix)
 

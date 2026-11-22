@@ -25,6 +25,10 @@ class Config:
     DEFAULT_LANGUAGE = os.getenv("DEFAULT_LANGUAGE", "en")
     SUPPORTED_LANGUAGES = ["en", "ar", "ru", "fr", "pt"]
 
+    # finnverify AML screening integration (server-to-server, localhost)
+    FINNVERIFY_API_URL = os.getenv("FINNVERIFY_API_URL", "http://127.0.0.1:8000").rstrip("/")
+    FINNVERIFY_API_KEY = os.getenv("FINNVERIFY_API_KEY", "").strip()
+
     # Microsoft Graph API (preferred when configured — matches finnverify mechanism)
     MS_GRAPH_TENANT_ID = os.getenv("MS_GRAPH_TENANT_ID", "").strip()
     MS_GRAPH_CLIENT_ID = os.getenv("MS_GRAPH_CLIENT_ID", "").strip()
