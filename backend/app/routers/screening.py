@@ -25,6 +25,8 @@ router = APIRouter(tags=["screening"])
 
 class ScreenNowIn(BaseModel):
     include_founders: bool = True
+    include_business: bool = False   # the entrepreneur is the screening subject;
+                                     # the startup organization is optional
     country: str | None = None
 
 
@@ -93,12 +95,13 @@ def screen_now(branch_id: int, business_id: int, data: ScreenNowIn | None = None
         raise HTTPException(status_code=404, detail="Business not found.")
 
     records = []
-
-    # the business itself (an organization)
     country = data.country
-    records.append(_screen_one(db, business, "business", business.name, country, user.id))
 
-    # each founder (an individual) — natural person screening
+    # the startup organization — optional (off by default)
+    if data.include_business:
+        records.append(_screen_one(db, business, "business", business.name, country, user.id))
+
+    # the entrepreneur(s) — natural person screening (default)
     if data.include_founders:
         for f in (business.founders or []):
             name = f"{f.first_name or ''} {f.last_name or ''}".strip()

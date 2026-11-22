@@ -21,10 +21,11 @@ export default function ProgramDetail() {
   const [screeningResult, setScreeningResult] = useState(null)
   const pageSize = 12
 
-  const runScreening = async (biz) => {
+  const runScreening = async (biz, includeBusiness = false) => {
     setScreeningBusy((prev) => ({ ...prev, [biz.id]: true }))
     try {
-      const res = await api.post(`/screening/${branch.id}/${biz.id}/screen-now/`, {})
+      const res = await api.post(`/screening/${branch.id}/${biz.id}/screen-now/`,
+                                 { include_founders: true, include_business: includeBusiness })
       setScreeningResult(res.data)
       list.reload()
     } catch (err) {
@@ -103,9 +104,9 @@ export default function ProgramDetail() {
                   {screeningBadge(r)}
                   {can('disbursements.view') && (
                     <button className="btn ghost sm" disabled={screeningBusy[r.id]}
-                            onClick={() => runScreening(r)}
-                            title="Screen the business and its founders via finnverify (sanctions, PEP, adverse media)">
-                      {screeningBusy[r.id] ? '⏳ Screening…' : '🛡 Screen now'}
+                            onClick={() => runScreening(r, false)}
+                            title="Screen the entrepreneur(s) via finnverify (sanctions, PEP, adverse media)">
+                      {screeningBusy[r.id] ? '⏳ Screening…' : '🛡 Screen entrepreneur'}
                     </button>
                   )}
                 </span>
