@@ -4,6 +4,7 @@ import { Download, TrendingUp } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import { useFetch } from '../hooks/useFetch'
 import { DataTable, Pager, Modal } from '../components/ui'
+import BusinessDocsModal from './BusinessDocsModal'
 import api, { setAccessToken, getAccessToken } from '../api'
 
 const TABS = ['Businesses/Projects', 'Business files', 'Courses progress',
@@ -19,6 +20,7 @@ export default function ProgramDetail() {
   const [investBiz, setInvestBiz] = useState(null)
   const [screeningBusy, setScreeningBusy] = useState({})
   const [screeningResult, setScreeningResult] = useState(null)
+  const [docsBiz, setDocsBiz] = useState(null)
   const pageSize = 12
 
   const runScreening = async (biz, includeBusiness = false) => {
@@ -99,6 +101,12 @@ export default function ProgramDetail() {
               { header: 'Mentors', render: (r) =>
                   (r.mentors || []).map((m) => m.name).join(', ') || '—' },
               { header: 'Graduation', render: (r) => r.graduation_status },
+              { header: 'KYC / Docs', render: (r) => (
+                <button className="btn ghost sm" onClick={() => setDocsBiz(r)}
+                        title="Upload and view documents for this startup (e.g. KYC IDs)">
+                  📎 Docs
+                </button>
+              ) },
               { header: 'AML Screening', render: (r) => (
                 <span className="row gap" style={{ alignItems: 'center' }}>
                   {screeningBadge(r)}
@@ -147,6 +155,11 @@ export default function ProgramDetail() {
                         current={(investBiz.mentors || []).map((m) => m.id)}
                         onDone={() => { setInvestBiz(null); list.reload() }} />
         </Modal>
+      )}
+
+      {docsBiz && (
+        <BusinessDocsModal branchId={branch.id} business={docsBiz}
+                           onClose={() => setDocsBiz(null)} />
       )}
 
       {screeningResult && (
