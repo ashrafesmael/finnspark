@@ -33,9 +33,13 @@ def business_ser(b: Business, db: Session) -> dict:
                       "report_url": r.report_url} for r in latest.values()],
     }
     levels = [r.risk_level for r in latest.values() if r.risk_level]
-    screening["highest_risk"] = max(levels, key=lambda l: {"LOW": 1, "MEDIUM": 2, "HIGH": 3,
-        "CRITICAL": 4}.get(l, 0)) if levels else None
-    screening["screened"] = bool(latest)
+    # the status pill reflects the FOUNDER (entrepreneur) screening only —
+    # the organization screening result stays visible per-subject in the tooltip
+    founder = latest.get("founder")
+    screening["highest_risk"] = founder.risk_level if founder else (
+        max(levels, key=lambda l: {"LOW": 1, "MEDIUM": 2, "HIGH": 3,
+        "CRITICAL": 4}.get(l, 0)) if levels else None)
+    screening["screened"] = bool(founder)
 
     return {
         "id": b.id,
