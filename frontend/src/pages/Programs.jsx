@@ -46,7 +46,7 @@ export default function Programs() {
         <h3>Cohorts (intake groups)</h3>
       </div>
       <div className="type-cards">
-        {(cohortsRes?.results || []).map((c) => (
+        {(cohortsRes?.data?.results || []).map((c) => (
           <Link key={c.id} to={`/programs-courses/${c.id}`} className="card type-card"
                 style={{ textDecoration: 'none' }}>
             <b>{c.name}</b>

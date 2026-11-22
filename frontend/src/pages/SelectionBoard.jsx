@@ -106,7 +106,7 @@ export default function SelectionBoard() {
                       onClick={() => { setCohort(''); setPage(1) }}>
                 All Cohorts
               </button>
-              {(cohortsRes?.results || []).map((c) => (
+              {(cohortsRes?.data?.results || []).map((c) => (
                 <button key={c.id} className={`tab ${String(cohort) === String(c.id) ? 'active' : ''}`}
                         onClick={() => { setCohort(String(c.id)); setPage(1) }}>{c.name}</button>
               ))}
@@ -120,7 +120,7 @@ export default function SelectionBoard() {
                onChange={(e) => { setSearch(e.target.value); setPage(1) }} />
         <select id="filter-cohort" value={cohort} onChange={(e) => { setCohort(e.target.value); setPage(1) }}>
           <option value="">All Cohorts</option>
-          {(cohortsRes?.results || []).map((c) => (
+          {(cohortsRes?.data?.results || []).map((c) => (
             <option key={c.id} value={c.id}>{c.name}</option>
           ))}
         </select>
