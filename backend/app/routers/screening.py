@@ -128,7 +128,7 @@ def screen_now(branch_id: int, business_id: int, data: ScreenNowIn | None = None
 def screening_report_pdf(branch_id: int, business_id: int, record_id: int,
                          ctx=Depends(require_branch_access())):
     """The stored finnverify PDF report for one screening record."""
-    from fastapi import Request as _Req
+    db: Session = ctx["db"]
     from fastapi.responses import Response
     r = db.get(ScreeningRecord, record_id)
     if not r or r.branch_id != branch_id or r.business_id != business_id or not r.pdf_base64:
