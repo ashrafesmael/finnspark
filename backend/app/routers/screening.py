@@ -7,6 +7,7 @@ analysis, and the result (risk level, flags, report URL) is stored here against
 the business.
 """
 import logging
+import os
 import re
 from datetime import datetime
 
@@ -32,7 +33,8 @@ class ScreenNowIn(BaseModel):
 
 
 def _screen_one(db: Session, business: Business, subject_type: str, name: str,
-                country: str | None, user_id: int | None) -> ScreeningRecord:
+                country: str | None, user_id: int | None,
+                doc_path: str | None = None, doc_name: str | None = None) -> ScreeningRecord:
     """Screen one subject via finnverify and store the result."""
     rec = ScreeningRecord(
         branch_id=business.branch_id, business_id=business.id,
@@ -52,6 +54,11 @@ def _screen_one(db: Session, business: Business, subject_type: str, name: str,
         payload["country"] = country
     if subject_type == "individual" and country:
         payload["nationality"] = country
+    if doc_path and os.path.exists(doc_path):
+        import base64
+        with open(doc_path, "rb") as fh:
+            payload["document_b64"] = base64.b64encode(fh.read()).decode()
+        payload["document_filename"] = doc_name or os.path.basename(doc_path)
 
     try:
         r = httpx.post(
@@ -103,12 +110,25 @@ def screen_now(branch_id: int, business_id: int, data: ScreenNowIn | None = None
     if data.include_business:
         records.append(_screen_one(db, business, "business", business.name, country, user.id))
 
-    # the entrepreneur(s) — natural person screening (default)
+    # the entrepreneur(s) — natural person screening (default). Any KYC identity
+    # documents uploaded for the business are sent along for OCR + extraction,
+    # which enriches finnverify's screening (DOB, nationality, ...).
     if data.include_founders:
+        kyc_docs = db.query(Document).filter(
+            Document.business_id == business.id,
+            Document.branch_id == branch_id,
+        ).order_by(Document.created_at.desc()).all()
+        kyc_docs = [d for d in kyc_docs
+                    if (d.mime or "").startswith(("image/", "application/pdf"))]
         for f in (business.founders or []):
             name = f"{f.first_name or ''} {f.last_name or ''}".strip()
-            if name:
-                records.append(_screen_one(db, business, "founder", name, country, user.id))
+            if not name:
+                continue
+            doc = kyc_docs.pop(0) if kyc_docs else None   # one doc per founder, newest first
+            records.append(_screen_one(
+                db, business, "founder", name, country, user.id,
+                doc_path=os.path.join(config.MEDIA_DIR, doc.file_path) if doc else None,
+                doc_name=doc.name if doc else None))
 
     db.commit()
     db.refresh(business)
