@@ -166,8 +166,11 @@ export default function ProgramDetail() {
       {pdfViewer && (
         <Modal title={pdfViewer.name}
                onClose={() => { URL.revokeObjectURL(pdfViewer.url); setPdfViewer(null) }} wide>
-          <iframe src={pdfViewer.url} title={pdfViewer.name}
-                  style={{ width: '100%', height: '74vh', border: '1px solid var(--border)', borderRadius: 8 }} />
+          <object data={pdfViewer.url} type="application/pdf"
+                  style={{ width: '100%', height: '74vh', borderRadius: 8 }}>
+            <iframe src={pdfViewer.url} title={pdfViewer.name}
+                    style={{ width: '100%', height: '74vh', border: '1px solid var(--border)' }} />
+          </object>
         </Modal>
       )}
 
